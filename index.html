@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anastasia Lisovyk — Senior AI &amp; No-Code Developer</title>
+  <meta name="description" content="Senior AI & No-Code Developer. Building complex products on Bubble, WeWeb, Webflow and Xano using AI tools.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" aria-label="Anastasia Lisovyk — home">A<span>.</span>Lisovyk</a>
+    <div class="nav-right">
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="#edge"       data-i18n="nav_edge">Expertise</a></li>
+        <li><a href="#experience" data-i18n="nav_exp">Experience</a></li>
+        <li><a href="#portfolio"  data-i18n="nav_port">Portfolio</a></li>
+        <li><a href="#stack"      data-i18n="nav_stack">Stack</a></li>
+        <li><a href="#contact"    data-i18n="nav_contact">Contact</a></li>
+      </ul>
+      <div class="lang-switcher" role="group" aria-label="Language">
+        <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+        <button class="lang-btn" data-lang="uk" aria-pressed="false">UK</button>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero" aria-label="Introduction">
+  <div class="hero-bg-grid" aria-hidden="true"></div>
+  <div class="hero-glow" id="hero-glow" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag" data-i18n="hero_available">Available for projects</div>
+      <h1 class="hero-name">
+        Anastasia<br>
+        <span class="accent">Lisovyk</span>
+      </h1>
+      <p class="hero-title" data-i18n="hero_title">Low-Code &amp; AI Developer &mdash; I know the code behind it</p>
+      <p class="hero-desc" data-i18n="hero_desc">Building complex products on Bubble, WeWeb, Webflow and Xano using AI tools. 7,000+ hours of development, 26 delivered projects.</p>
+      <div class="hero-ctas">
+        <a href="uploads/20231113_9579065_NoCodeFullstackDevel_Lisovyk_A_CV.pdf" download class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 16l-6-6h4V4h4v6h4l-6 6zM4 20h16v-2H4v2z"/></svg>
+          <span data-i18n="hero_cv">Download CV</span>
+        </a>
+        <a href="#contact" class="btn-outline">
+          <span data-i18n="hero_call">Book a Call</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3l14 9-14 9V3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-right" aria-hidden="true">
+      <div class="globe-wrap">
+        <canvas id="globe-canvas"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BIO ═══ -->
+<section id="bio">
+  <div class="container">
+    <div class="bio-grid">
+      <div class="reveal">
+        <p class="section-label" data-i18n="bio_label">My Story</p>
+        <h2 class="section-title" data-i18n="bio_title">Finance. Sales. Code.<br><span class="accent">On purpose.</span></h2>
+      </div>
+      <div class="reveal rd1">
+        <p class="bio-text" data-i18n="bio_p1">I started in finance and lead generation — which gave me something most developers don't have: a deep understanding of how businesses make money. I transitioned into no-code development, joined WeLoveNocode, and became a Senior Developer working with top agencies across Europe and the US.</p>
+        <p class="bio-text" data-i18n="bio_p2">Today I combine AI tooling with no-code/low-code tools and real code to build products that perform. I'm certified in Claude API development, Cursor AI workflow, and Modern Frontend with AI — skills that put me 12 months ahead of the average no-code market.</p>
+        <ul class="cert-list" role="list">
+          <li class="cert-item">
+            <span class="cert-name">Claude API Development</span>
+            <span class="cert-tag" data-i18n="cert_label">Certified</span>
+          </li>
+          <li class="cert-item">
+            <span class="cert-name">Cursor AI Workflow</span>
+            <span class="cert-tag" data-i18n="cert_label">Certified</span>
+          </li>
+          <li class="cert-item">
+            <span class="cert-name">Modern Frontend + AI</span>
+            <span class="cert-tag" data-i18n="cert_label">Certified</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EXPERT EDGE ═══ -->
+<section id="edge">
+  <div class="container">
+    <header class="section-header">
+      <p class="section-label reveal" data-i18n="edge_label">Why me</p>
+      <h2 class="section-title reveal rd1" data-i18n="edge_title">The Expert Edge</h2>
+      <p class="section-desc reveal rd2" data-i18n="edge_desc">Not just building — understanding the product from within. Finance education, AI-native approach, and full-stack thinking combined.</p>
+    </header>
+    <div class="edge-grid">
+      <article class="edge-card reveal">
+        <div class="edge-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+            <polyline points="16 7 22 7 22 13"/>
+          </svg>
+        </div>
+        <h3 data-i18n="edge1_h">Finance &amp; Business Logic</h3>
+        <p data-i18n="edge1_p">Finance education at Jagiellonian University lets me think in business metrics. I understand complex logic and build products that truly solve real business problems — not just implement features.</p>
+      </article>
+      <article class="edge-card reveal rd1">
+        <div class="edge-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="7" y="7" width="10" height="10" rx="1"/>
+            <path d="M7 9H5M7 12H4M7 15H5M17 9h2M17 12h3M17 15h2M9 7V5M12 7V4M15 7V5M9 17v2M12 17v3M15 17v2"/>
+          </svg>
+        </div>
+        <h3 data-i18n="edge2_h">AI-Native Developer</h3>
+        <p data-i18n="edge2_p">I use Cursor and Claude daily to accelerate development and ensure clean code quality. Certificates confirm it: AI is not a trend for me — it's a core tool. I ship faster without sacrificing quality.</p>
+      </article>
+      <article class="edge-card reveal rd2">
+        <div class="edge-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+            <polyline points="2 12 12 17 22 12"/>
+            <polyline points="2 17 12 22 22 17"/>
+          </svg>
+        </div>
+        <h3 data-i18n="edge3_h">Full-Stack Thinking</h3>
+        <p data-i18n="edge3_p">Knowledge of JavaScript and TypeScript lets me go beyond standard no-code limits. Where others stop — I find a solution. I think about the whole system: backend, frontend, APIs, and data flow.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EXPERIENCE ═══ -->
+<section id="experience">
+  <div class="container">
+    <header class="section-header">
+      <p class="section-label reveal" data-i18n="exp_label">Career</p>
+      <h2 class="section-title reveal rd1" data-i18n="exp_title">Experience</h2>
+    </header>
+    <ol class="timeline" role="list">
+      <li class="tl-item">
+        <div class="tl-dot" aria-hidden="true"></div>
+        <time class="tl-period">Dec 2023 — Feb 2026</time>
+        <h3 class="tl-role" data-i18n="tl0_role">R&amp;D / No-Code Developer</h3>
+        <p class="tl-company">ICEO LTD.</p>
+        <p class="tl-desc" data-i18n="tl0_desc">Worked on early-stage startup projects at a startup studio, focusing on feasibility validation of ideas and products from both technical and product perspectives. Built interactive prototypes, iterated based on feedback, validated assumptions through MVPs. Post-studio: developed landing pages and translated business ideas into functional no-code solutions using Bubble, Webflow and n8n.</p>
+        <ul class="tl-tags" role="list">
+          <li class="tag hi">Bubble</li><li class="tag">Webflow</li><li class="tag">n8n</li><li class="tag">MVP / Prototyping</li><li class="tag">R&amp;D</li>
+        </ul>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot" aria-hidden="true"></div>
+        <time class="tl-period">Feb 2023 — Nov 2023</time>
+        <h3 class="tl-role" data-i18n="tl1_role">Bubble.io Developer</h3>
+        <p class="tl-company">Asumma Homes</p>
+        <p class="tl-desc" data-i18n="tl1_desc">Custom application development for a real estate platform. Optimised performance and responsiveness, managed complex databases, designed UI, automated workflows, integrated third-party services, built analytics and reporting, provided technical support and training.</p>
+        <ul class="tl-tags" role="list">
+          <li class="tag hi">Bubble.io</li><li class="tag">Real Estate</li><li class="tag">API Integration</li><li class="tag">Analytics</li>
+        </ul>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot" aria-hidden="true"></div>
+        <time class="tl-period">Feb 2022 — Feb 2023</time>
+        <h3 class="tl-role" data-i18n="tl2_role">Freelance No-Code Developer</h3>
+        <p class="tl-company">Upwork</p>
+        <p class="tl-desc" data-i18n="tl2_desc">Developed high-quality products using no-code tools for international clients. Delivered 20+ projects across SaaS, EdTech, marketplaces and automation. Built reputation as a reliable senior-level expert on the Upwork platform.</p>
+        <ul class="tl-tags" role="list">
+          <li class="tag hi">Bubble.io</li><li class="tag">WeWeb</li><li class="tag">Xano</li><li class="tag">Airtable</li><li class="tag">Webflow</li>
+        </ul>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot" aria-hidden="true"></div>
+        <time class="tl-period">Apr 2021 — Jul 2022</time>
+        <h3 class="tl-role" data-i18n="tl3_role">Senior No-Code Developer</h3>
+        <p class="tl-company">WeLoveNocode INC.</p>
+        <p class="tl-desc" data-i18n="tl3_desc">Built responsive, modular, robust and secure user-facing web applications. Optimised application performance, collaborated with designers and developers on innovative web products, maintained and updated existing apps.</p>
+        <ul class="tl-tags" role="list">
+          <li class="tag hi">Bubble.io</li><li class="tag">WeWeb</li><li class="tag">Team Lead</li>
+        </ul>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot" aria-hidden="true"></div>
+        <time class="tl-period">Jun 2020 — Dec 2022</time>
+        <h3 class="tl-role" data-i18n="tl4_role">Lead Generator</h3>
+        <p class="tl-company">KeenEthics</p>
+        <p class="tl-desc" data-i18n="tl4_desc">Qualified and validated Marketing Qualified Leads through direct correspondence and initial meetings. Presented the team to prospects, organised communication between clients and the development team, managed the full sales funnel through to contract signing and handoff to the delivery department. Collected preliminary client requirements and prepared documentation for BAs.</p>
+        <ul class="tl-tags" role="list">
+          <li class="tag">Lead Generation</li><li class="tag">B2B Sales</li><li class="tag">Client Management</li><li class="tag">Pre-sales</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ═══ PORTFOLIO ═══ -->
+<section id="portfolio">
+  <div class="container">
+    <header class="section-header">
+      <p class="section-label reveal" data-i18n="port_label">Work</p>
+      <h2 class="section-title reveal rd1" data-i18n="port_title">Featured Projects</h2>
+      <p class="section-desc reveal rd2" data-i18n="port_desc">Selected cases from 26 delivered projects — from MVPs to enterprise-level systems.</p>
+    </header>
+
+    <div class="featured-grid">
+      <article class="featured-card wide reveal">
+        <div class="card-thumb">
+          <img src="images/proj-realestate.svg" alt="Asumma Homes property management platform screenshot" loading="lazy">
+        </div>
+        <div class="card-body">
+          <ul class="card-tags" role="list">
+            <li class="tag hi">Bubble.io</li><li class="tag">Real Estate</li><li class="tag">API Integration</li><li class="tag">Analytics Dashboard</li><li class="tag">Workflow Automation</li>
+          </ul>
+          <h3 data-i18n="p1_title">Asumma Homes — Property Management Platform</h3>
+          <p data-i18n="p1_desc">Full property management system: custom application development, database architecture, UI design, workflow automation, and third-party service integrations. Built to support the complete property lifecycle from listing to sale.</p>
+        </div>
+      </article>
+
+      <article class="featured-card reveal rd1">
+        <div class="card-thumb">
+          <img src="images/proj-lms.svg" alt="Learning Management System screenshot" loading="lazy">
+        </div>
+        <div class="card-body">
+          <ul class="card-tags" role="list">
+            <li class="tag hi">WeWeb</li><li class="tag">Xano</li><li class="tag">EdTech</li>
+          </ul>
+          <h3 data-i18n="p2_title">Learning Management System</h3>
+          <p data-i18n="p2_desc">Full-stack no-code platform for online education. Xano backend, WeWeb frontend, complex role-based access and student progress tracking.</p>
+        </div>
+      </article>
+
+      <article class="featured-card reveal rd2">
+        <div class="card-thumb">
+          <img src="images/proj-automation.svg" alt="AI-Powered Automation Suite screenshot" loading="lazy">
+        </div>
+        <div class="card-body">
+          <ul class="card-tags" role="list">
+            <li class="tag hi">Make</li><li class="tag">Airtable</li><li class="tag">OpenAI API</li><li class="tag">B2B</li>
+          </ul>
+          <h3 data-i18n="p3_title">AI-Powered Automation Suite</h3>
+          <p data-i18n="p3_desc">Business process automation with OpenAI API. Content generation, data processing and smart routing through Make. Reduced manual work by 80%.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="reveal">
+      <p class="section-label mini-label" data-i18n="all_proj">All 26 projects</p>
+      <ul class="projects-mini" role="list">
+        <li class="project-chip"><span class="chip-num">01</span><span class="chip-name">CRM System</span><span class="chip-tags">Bubble · Airtable</span></li>
+        <li class="project-chip"><span class="chip-num">02</span><span class="chip-name">Marketplace App</span><span class="chip-tags">Bubble · Stripe</span></li>
+        <li class="project-chip"><span class="chip-num">03</span><span class="chip-name">Booking Platform</span><span class="chip-tags">WeWeb · Xano</span></li>
+        <li class="project-chip"><span class="chip-num">04</span><span class="chip-name">Analytics Dashboard</span><span class="chip-tags">Bubble · JS</span></li>
+        <li class="project-chip"><span class="chip-num">05</span><span class="chip-name">SaaS MVP</span><span class="chip-tags">Bubble · Make</span></li>
+        <li class="project-chip"><span class="chip-num">06</span><span class="chip-name">Lead Gen Tool</span><span class="chip-tags">Webflow · Zapier</span></li>
+        <li class="project-chip"><span class="chip-num">07</span><span class="chip-name">Community Platform</span><span class="chip-tags">Bubble · API</span></li>
+        <li class="project-chip"><span class="chip-num">08</span><span class="chip-name">E-Commerce</span><span class="chip-tags">Webflow · Stripe</span></li>
+        <li class="project-chip"><span class="chip-num">09</span><span class="chip-name">Workflow Automation</span><span class="chip-tags">Make · OpenAI</span></li>
+        <li class="project-chip"><span class="chip-num">10</span><span class="chip-name">Mobile Web App</span><span class="chip-tags">WeWeb · Xano</span></li>
+        <li class="project-chip"><span class="chip-num">11</span><span class="chip-name">Data Portal</span><span class="chip-tags">Bubble · Airtable</span></li>
+        <li class="project-chip"><span class="chip-num">12</span><span class="chip-name">HR Platform</span><span class="chip-tags">Bubble · Make</span></li>
+        <li class="project-chip"><span class="chip-num">13</span><span class="chip-name">Event Platform</span><span class="chip-tags">WeWeb · Xano</span></li>
+        <li class="project-chip"><span class="chip-num">14</span><span class="chip-name">Fintech Dashboard</span><span class="chip-tags">Bubble · API</span></li>
+        <li class="project-chip"><span class="chip-num">+12</span><span class="chip-name" data-i18n="more_proj">more on request</span><span class="chip-tags">Upwork · Various</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STACK ═══ -->
+<section id="stack">
+  <div class="container">
+    <header class="section-header">
+      <p class="section-label reveal" data-i18n="stack_label">Tools</p>
+      <h2 class="section-title reveal rd1" data-i18n="stack_title">Stack &amp; Toolset</h2>
+    </header>
+    <div class="stack-groups">
+      <div class="stack-group reveal">
+        <h4>No-Code</h4>
+        <ul role="list">
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>Bubble.io<span class="level">Expert</span></li>
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>WeWeb</li>
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>Xano</li>
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>Webflow</li>
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>FlutterFlow</li>
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>Airtable</li>
+        </ul>
+      </div>
+      <div class="stack-group reveal rd1">
+        <h4>Code</h4>
+        <ul role="list">
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>JavaScript</li>
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>TypeScript</li>
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>HTML / CSS</li>
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>REST API</li>
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>Figma</li>
+        </ul>
+      </div>
+      <div class="stack-group reveal rd2">
+        <h4>AI Tools</h4>
+        <ul role="list">
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>Claude</li>
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>Cursor</li>
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>OpenAI API</li>
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>Midjourney</li>
+        </ul>
+      </div>
+      <div class="stack-group reveal rd3">
+        <h4>Workflow</h4>
+        <ul role="list">
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>Make (Integromat)</li>
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>n8n</li>
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>Zapier</li>
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>Notion</li>
+          <li class="stack-item"><span class="stack-dot" aria-hidden="true"></span>Linear</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STATS ═══ -->
+<section id="stats" aria-label="Key numbers">
+  <div class="container">
+    <dl class="stats-grid">
+      <div class="stat-item reveal">
+        <dt class="stat-label" data-i18n="stat1">Projects Delivered</dt>
+        <dd class="stat-num" data-count="26">26</dd>
+      </div>
+      <div class="stat-item reveal rd1">
+        <dt class="stat-label" data-i18n="stat2">Hours of Development</dt>
+        <dd class="stat-num" data-count="7000">7000+</dd>
+      </div>
+      <div class="stat-item reveal rd2">
+        <dt class="stat-label" data-i18n="stat3">Years in Industry</dt>
+        <dd class="stat-num" data-count="4">4</dd>
+      </div>
+      <div class="stat-item reveal rd3">
+        <dt class="stat-label" data-i18n="stat4">% Client Satisfaction</dt>
+        <dd class="stat-num" data-count="100">100%</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section id="testimonials">
+  <div class="container">
+    <header class="section-header">
+      <p class="section-label reveal" data-i18n="test_label">Social Proof</p>
+      <h2 class="section-title reveal rd1" data-i18n="test_title">Client Reviews</h2>
+    </header>
+  </div>
+  <div class="testimonials-carousel" aria-label="Client reviews carousel">
+    <div class="carousel-track">
+      <!-- 5 cards -->
+      <article class="testimonial-card">
+        <div class="t-stars" aria-label="5 stars">★★★★★</div>
+        <p class="t-text">"Anastasia delivered exceptional work on our Bubble.io project. Her attention to detail, deep understanding of no-code architecture, and proactive communication made the entire process smooth."</p>
+        <div class="t-author">
+          <div class="t-avatar" aria-hidden="true">JM</div>
+          <div>
+            <p class="t-name">James M.</p>
+            <p class="t-title">Founder, SaaS Startup · Upwork</p>
+          </div>
+        </div>
+      </article>
+      <article class="testimonial-card">
+        <div class="t-stars" aria-label="5 stars">★★★★★</div>
+        <p class="t-text">"One of the best no-code developers I've worked with. She understood our complex requirements from day one and built a scalable, maintainable system. Highly recommend!"</p>
+        <div class="t-author">
+          <div class="t-avatar" aria-hidden="true">SR</div>
+          <div>
+            <p class="t-name">Sarah R.</p>
+            <p class="t-title">CTO, EdTech Platform · Upwork</p>
+          </div>
+        </div>
+      </article>
+      <article class="testimonial-card">
+        <div class="t-stars" aria-label="5 stars">★★★★★</div>
+        <p class="t-text">"Anastasia brought both technical expertise and business thinking to our project. Her finance background made a real difference — she asked the right questions and built exactly what we needed."</p>
+        <div class="t-author">
+          <div class="t-avatar" aria-hidden="true">MK</div>
+          <div>
+            <p class="t-name">Michael K.</p>
+            <p class="t-title">CEO, PropTech · Direct</p>
+          </div>
+        </div>
+      </article>
+      <article class="testimonial-card">
+        <div class="t-stars" aria-label="5 stars">★★★★★</div>
+        <p class="t-text">"Working with Anastasia was a pleasure from start to finish. She translated our complex automation needs into a clean Make + Airtable system and cut our manual work by over 80%. Outstanding delivery."</p>
+        <div class="t-author">
+          <div class="t-avatar" aria-hidden="true">LP</div>
+          <div>
+            <p class="t-name">Laura P.</p>
+            <p class="t-title">Operations Lead, B2B SaaS · Upwork</p>
+          </div>
+        </div>
+      </article>
+      <article class="testimonial-card">
+        <div class="t-stars" aria-label="5 stars">★★★★★</div>
+        <p class="t-text">"Rare combination of product thinking and technical skill. Anastasia rebuilt our WeWeb + Xano platform from scratch — on time, on budget, and with zero bugs at launch. Would hire again immediately."</p>
+        <div class="t-author">
+          <div class="t-avatar" aria-hidden="true">TN</div>
+          <div>
+            <p class="t-name">Tom N.</p>
+            <p class="t-title">Co-founder, EdTech Startup · Direct</p>
+          </div>
+        </div>
+      </article>
+      <!-- duplicate set for seamless loop -->
+      <article class="testimonial-card" aria-hidden="true">
+        <div class="t-stars" aria-label="5 stars">★★★★★</div>
+        <p class="t-text">"Anastasia delivered exceptional work on our Bubble.io project. Her attention to detail, deep understanding of no-code architecture, and proactive communication made the entire process smooth."</p>
+        <div class="t-author">
+          <div class="t-avatar" aria-hidden="true">JM</div>
+          <div>
+            <p class="t-name">James M.</p>
+            <p class="t-title">Founder, SaaS Startup · Upwork</p>
+          </div>
+        </div>
+      </article>
+      <article class="testimonial-card" aria-hidden="true">
+        <div class="t-stars" aria-label="5 stars">★★★★★</div>
+        <p class="t-text">"One of the best no-code developers I've worked with. She understood our complex requirements from day one and built a scalable, maintainable system. Highly recommend!"</p>
+        <div class="t-author">
+          <div class="t-avatar" aria-hidden="true">SR</div>
+          <div>
+            <p class="t-name">Sarah R.</p>
+            <p class="t-title">CTO, EdTech Platform · Upwork</p>
+          </div>
+        </div>
+      </article>
+      <article class="testimonial-card" aria-hidden="true">
+        <div class="t-stars" aria-label="5 stars">★★★★★</div>
+        <p class="t-text">"Anastasia brought both technical expertise and business thinking to our project. Her finance background made a real difference — she asked the right questions and built exactly what we needed."</p>
+        <div class="t-author">
+          <div class="t-avatar" aria-hidden="true">MK</div>
+          <div>
+            <p class="t-name">Michael K.</p>
+            <p class="t-title">CEO, PropTech · Direct</p>
+          </div>
+        </div>
+      </article>
+      <article class="testimonial-card" aria-hidden="true">
+        <div class="t-stars" aria-label="5 stars">★★★★★</div>
+        <p class="t-text">"Working with Anastasia was a pleasure from start to finish. She translated our complex automation needs into a clean Make + Airtable system and cut our manual work by over 80%. Outstanding delivery."</p>
+        <div class="t-author">
+          <div class="t-avatar" aria-hidden="true">LP</div>
+          <div>
+            <p class="t-name">Laura P.</p>
+            <p class="t-title">Operations Lead, B2B SaaS · Upwork</p>
+          </div>
+        </div>
+      </article>
+      <article class="testimonial-card" aria-hidden="true">
+        <div class="t-stars" aria-label="5 stars">★★★★★</div>
+        <p class="t-text">"Rare combination of product thinking and technical skill. Anastasia rebuilt our WeWeb + Xano platform from scratch — on time, on budget, and with zero bugs at launch. Would hire again immediately."</p>
+        <div class="t-author">
+          <div class="t-avatar" aria-hidden="true">TN</div>
+          <div>
+            <p class="t-name">Tom N.</p>
+            <p class="t-title">Co-founder, EdTech Startup · Direct</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-header">
+      <p class="section-label reveal" data-i18n="contact_label">Let's talk</p>
+      <h2 class="section-title reveal rd1" data-i18n="contact_title">Ready to build<br><span class="accent">something great?</span></h2>
+      <p class="section-desc reveal rd2" data-i18n="contact_desc">Looking for a Senior developer for a project or your team? Let's talk.</p>
+    </div>
+    <div class="contact-links reveal rd3">
+      <a href="mailto:a.lisovyk.v@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Email
+      </a>
+      <a href="https://linkedin.com/in/anastasia-lisovyk" target="_blank" rel="noopener noreferrer" class="contact-link">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://t.me/anastasia_lisovyk" target="_blank" rel="noopener noreferrer" class="contact-link">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        Telegram
+      </a>
+      <a href="https://www.upwork.com/freelancers/anastasial" target="_blank" rel="noopener noreferrer" class="contact-link">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.546-1.405 0-2.543-1.14-2.543-2.546V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"/></svg>
+        Upwork
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <span>&copy; 2025 Anastasia Lisovyk. Senior AI &amp; No-Code Developer.</span>
+    <span class="footer-location">Kraków, Poland 🦊</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
