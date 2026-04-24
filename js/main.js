@@ -271,27 +271,53 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
 
   /* ── PROJECT DATA ─────────────────────────────── */
   const MARKERS = [
-    { name: 'USA',       lat: 39.5,  lng:  -98.4,
-      projects: [{ name: 'SaaS & CRM Platforms',  type: 'Web Apps',    stack: 'Bubble · Xano'    },
-                 { name: 'Marketplace App',         type: 'Web App',     stack: 'Bubble · Stripe'  }] },
-    { name: 'UK',        lat: 54.0,  lng:   -2.5,
-      projects: [{ name: 'Asumma Homes',            type: 'PropTech',    stack: 'Bubble.io'        }] },
-    { name: 'Germany',   lat: 51.2,  lng:   10.5,
-      projects: [{ name: 'B2B Platform',            type: 'Web App',     stack: 'WeWeb · Xano'    }] },
-    { name: 'France',    lat: 46.2,  lng:    2.2,
-      projects: [{ name: 'SaaS Application',        type: 'Web App',     stack: 'Bubble · API'    }] },
-    { name: 'Poland',    lat: 51.9,  lng:   19.1,
-      projects: [{ name: 'MVP & R&D Builds',        type: 'Prototypes',  stack: 'Bubble · n8n'    }] },
-    { name: 'Finland',   lat: 61.9,  lng:   25.7,
-      projects: [{ name: 'Learning Management System', type: 'EdTech',   stack: 'WeWeb · Xano'   }] },
-    { name: 'Singapore', lat:  1.35, lng:  103.8,
-      projects: [{ name: 'E-Commerce Platform',     type: 'Marketplace', stack: 'Bubble · Stripe' }] },
-    { name: 'Portugal',  lat: 39.4,  lng:   -8.2,
-      projects: [{ name: 'Landing Pages + Flows',   type: 'Web + Auto',  stack: 'Webflow · Make'  }] },
-    { name: 'Australia', lat: -25.3, lng:  133.8,
-      projects: [{ name: 'Web Portal',              type: 'Web App',     stack: 'Bubble · Xano'   }] },
-    { name: 'Africa',    lat:   7.0, lng:   12.0,
-      projects: [{ name: 'Digital Products',        type: 'Web Apps',    stack: 'Bubble · Webflow' }] },
+    { name: 'USA',       lat: 39.5,  lng: -98.4,
+      projects: [
+        { name: 'E-Bike & Scooter Marketplace',  type: 'MobilityTech',    stack: 'Bubble.io · PWA'          },
+        { name: 'Fintech Banking Platform',       type: 'Fintech',         stack: 'Bubble.io'                },
+        { name: 'HR Platforms & Job Board',       type: 'HR Tech',         stack: 'Bubble.io · WeWeb · Xano' },
+        { name: 'Real Estate Rental App',         type: 'PropTech',        stack: 'Bubble.io · Stripe'       },
+        { name: 'Dating & Travel Apps',           type: 'Social / Travel', stack: 'Bubble.io'                },
+        { name: 'LMS & Training Platforms',       type: 'EdTech',          stack: 'WeWeb · Xano'             },
+        { name: 'AI Virtual Assistant',           type: 'AI / Automation', stack: 'Bubble.io · OpenAI'       },
+      ] },
+    { name: 'UK',        lat: 54.0,  lng:  -2.5,
+      projects: [
+        { name: 'LMS Platform',                  type: 'EdTech',          stack: 'Airtable · WeWeb'         },
+        { name: 'AI Storyboarding Tool',          type: 'EdTech / SaaS',   stack: 'Bubble.io · JS · PWA'     },
+      ] },
+    { name: 'Germany',   lat: 51.2,  lng:  10.5,
+      projects: [
+        { name: 'HR Management System',           type: 'HR Tech',         stack: 'Bubble.io · PWA'          },
+      ] },
+    { name: 'Poland',    lat: 51.9,  lng:  19.1,
+      projects: [
+        { name: 'MVP & R&D Builds',               type: 'Prototypes',      stack: 'Bubble · n8n'             },
+      ] },
+    { name: 'Finland',   lat: 61.9,  lng:  25.7,
+      projects: [
+        { name: 'Sustainable Construction CRM',   type: 'PropTech',        stack: 'Bubble.io · PWA'          },
+      ] },
+    { name: 'Greece',    lat: 39.1,  lng:  21.8,
+      projects: [
+        { name: 'Food & Hospitality Platform',    type: 'HoReCa / FoodTech', stack: 'Bubble.io'              },
+      ] },
+    { name: 'Ukraine',   lat: 49.0,  lng:  31.5,
+      projects: [
+        { name: 'Travel & Lifestyle Platform',    type: 'Social / Travel', stack: 'Bubble.io · ClickSend'    },
+      ] },
+    { name: 'Singapore', lat:  1.35, lng: 103.8,
+      projects: [
+        { name: 'Fitness & Mental Health App',    type: 'Sport / FitTech', stack: 'Bubble.io · Stripe · AWS' },
+      ] },
+    { name: 'Australia', lat: -25.3, lng: 133.8,
+      projects: [
+        { name: 'Web App Marketplace',            type: 'EdTech',          stack: 'Bubble.io'                },
+      ] },
+    { name: 'Africa',    lat:   7.0, lng:  12.0,
+      projects: [
+        { name: 'LMS Platform',                   type: 'EdTech',          stack: 'WeWeb · PostgreSQL'       },
+      ] },
   ];
 
   /* ── COUNTRY OUTLINES ─────────────────────────── */
@@ -310,11 +336,6 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
       [54.5,8.5],[54.5,11],[54,14],[52.5,14.8],[50.5,15],[49,13],[47.5,12.7],
       [47.5,10.5],[47.7,7.6],[49,6],[50,6],[51.5,6],[52.5,7],[53.5,7.2],[54.5,8.5]
     ],
-    France: [
-      [51,2.5],[50,4],[49,7.5],[47,7.5],[46,6.8],[44,7.5],[43.5,6],[43,3],
-      [42.4,3],[42.5,1],[43.2,-1.8],[46,-1.5],[48,-5],[48.7,-4.5],[49,-1],
-      [49.5,1.3],[51,1.5],[51,2.5]
-    ],
     Poland: [
       [54.7,14.5],[54.8,18.5],[54.5,23],[52.2,23.6],[50.5,23.5],[49.2,22.5],
       [49.1,19],[49.5,18.6],[50,15],[51,14.8],[53,14.2],[54.7,14.5]
@@ -323,12 +344,17 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
       [70,21],[70,28.5],[69,28],[68.5,30],[66,30],[63,31],[60.5,27.5],[60,23.5],
       [60.5,22],[62,21.5],[64,22.5],[67,22.5],[69,21],[70,21]
     ],
+    Greece: [
+      [41.7,26],[41,25],[41.5,22.5],[40.5,21],[39.5,20.5],[38.5,21],[37,21],
+      [36.5,22.5],[37,23],[38.5,24],[39.5,24.5],[40.5,25.5],[41.5,26.5],[41.7,26]
+    ],
+    Ukraine: [
+      [52.4,22],[51.9,23.6],[50.4,24],[50.4,26],[51.3,28],[52,29.5],[52,31],
+      [51.3,34],[50,35],[49,40],[46.6,40],[45.2,37.5],[45.4,35],[46,31.5],
+      [45.7,29],[46.2,27.5],[45.4,23],[46.8,22.2],[49,22.5],[52.4,22]
+    ],
     Singapore: [
       [1.46,103.62],[1.46,104.02],[1.22,104.02],[1.22,103.62],[1.46,103.62]
-    ],
-    Portugal: [
-      [42,-9],[42,-7],[41,-7],[40.5,-7.2],[39.5,-7.5],[38.5,-7],[37.5,-7.5],
-      [37,-9],[38,-9.5],[39,-9.5],[40,-9],[41,-8.6],[42,-9]
     ],
     Australia: [
       [-14,129],[-12,136],[-12,141],[-17,146],[-20,148],[-24,152],[-28,153],
@@ -348,11 +374,11 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
     { latMin: 25,  latMax: 49,  lngMin:-125, lngMax: -67 }, // USA
     { latMin: 50,  latMax: 59,  lngMin:  -8, lngMax:   2 }, // UK
     { latMin: 47,  latMax: 55,  lngMin:   6, lngMax:  15 }, // Germany
-    { latMin: 42,  latMax: 51,  lngMin:  -5, lngMax:   8 }, // France
     { latMin: 49,  latMax: 55,  lngMin:  14, lngMax:  24 }, // Poland
     { latMin: 60,  latMax: 70,  lngMin:  20, lngMax:  32 }, // Finland
+    { latMin: 35,  latMax: 42,  lngMin:  20, lngMax:  27 }, // Greece
+    { latMin: 44,  latMax: 53,  lngMin:  22, lngMax:  40 }, // Ukraine
     { latMin:  1,  latMax:  2,  lngMin: 103, lngMax: 106 }, // Singapore
-    { latMin: 37,  latMax: 42,  lngMin: -10, lngMax:  -6 }, // Portugal
     { latMin:-38,  latMax:-14,  lngMin: 113, lngMax: 154 }, // Australia
     { latMin:-35,  latMax: 37,  lngMin: -18, lngMax:  52 }, // Africa
   ];
