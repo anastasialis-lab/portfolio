@@ -12,7 +12,7 @@ const i18n = {
     nav_stack: 'Stack', nav_contact: 'Contact',
     hero_available: 'Available for projects',
     hero_title: 'Low-Code &amp; AI Developer &mdash; I know the code behind it',
-    hero_desc: 'Building complex products on Bubble, WeWeb, Webflow and Xano using AI tools. 7,000+ hours of development, 26 delivered projects.',
+    hero_desc: 'Building complex products on Bubble, WeWeb, Webflow and Xano using AI tools. 7,000+ hours of development, 30+ delivered projects.',
     hero_cv: 'Download CV', hero_call: 'Book a Call',
     badge_projects: 'Projects',
     cert_label: 'Certified',
@@ -40,18 +40,27 @@ const i18n = {
     tl4_role: 'Lead Generator',
     tl4_desc: 'Qualified and validated Marketing Qualified Leads through direct correspondence and initial meetings. Presented the team to prospects, organised communication between clients and the development team, managed the full sales funnel through to contract signing and handoff to the delivery department. Collected preliminary client requirements and prepared documentation for BAs.',
     port_label: 'Work', port_title: 'Featured Projects',
-    port_desc: 'Selected cases from 26 delivered projects — from MVPs to enterprise-level systems.',
+    port_desc: 'Selected cases from 30+ delivered projects — from MVPs to enterprise-level systems.',
     p1_title: 'Asumma Homes — Property Management Platform',
     p1_desc: 'Full property management system: custom application development, database architecture, UI design, workflow automation, and third-party service integrations. Built to support the complete property lifecycle from listing to sale.',
     p2_title: 'Learning Management System',
     p2_desc: 'Full-stack no-code platform for online education. Xano backend, WeWeb frontend, complex role-based access and student progress tracking.',
     p3_title: 'AI-Powered Automation Suite',
     p3_desc: 'Business process automation with OpenAI API. Content generation, data processing and smart routing through Make. Reduced manual work by 80%.',
-    all_proj: 'All 26 projects', more_proj: 'more on request',
+    p4_title: 'SaaS CRM Platform',
+    p4_desc: 'Full-featured CRM with subscription billing, pipeline management, automated follow-ups, and role-based access. Built on Bubble.io with Stripe and Make integrations for end-to-end automation.',
+    p5_title: 'AI Content Generation Pipeline',
+    p5_desc: 'Multi-model AI pipeline for automated content creation, SEO optimisation and publishing. Integrated Claude API and OpenAI via n8n, reducing content production time by 70%.',
+    all_proj: 'All 30+ projects', more_proj: 'more on request',
     stack_label: 'Tools', stack_title: 'Stack &amp; Toolset',
     stat1: 'Projects Delivered', stat2: 'Hours of Development',
-    stat3: 'Years in Industry', stat4: '% Client Satisfaction',
+    stat3: 'Years in Industry', stat4: 'Countries Served',
     test_label: 'Social Proof', test_title: 'Client Reviews',
+    t1_text: '"Anastasia delivered exceptional work on our Bubble.io project. Her attention to detail, deep understanding of no-code architecture, and proactive communication made the entire process smooth."',
+    t2_text: '"One of the best no-code developers I\'ve worked with. She understood our complex requirements from day one and built a scalable, maintainable system. Highly recommend!"',
+    t3_text: '"Anastasia brought both technical expertise and business thinking to our project. Her finance background made a real difference — she asked the right questions and built exactly what we needed."',
+    t4_text: '"Working with Anastasia was a pleasure from start to finish. She translated our complex automation needs into a clean Make + Airtable system and cut our manual work by over 80%. Outstanding delivery."',
+    t5_text: '"Rare combination of product thinking and technical skill. Anastasia rebuilt our WeWeb + Xano platform from scratch — on time, on budget, and with zero bugs at launch. Would hire again immediately."',
     contact_label: "Let's talk",
     contact_title: 'Ready to build<br><span class="accent">something great?</span>',
     contact_desc: 'Looking for a Senior developer for a project or your team? Let\'s talk.',
@@ -61,7 +70,7 @@ const i18n = {
     nav_stack: 'Стек', nav_contact: 'Контакт',
     hero_available: 'Відкрита до проєктів',
     hero_title: 'Low-Code &amp; AI розробниця &mdash; я знаю код за ним',
-    hero_desc: 'Будую складні продукти на Bubble, WeWeb та Xano з використанням AI-інструментів. 7000+ годин розробки, 26 реалізованих проєктів.',
+    hero_desc: 'Будую складні продукти на Bubble, WeWeb та Xano з використанням AI-інструментів. 7000+ годин розробки, 30+ реалізованих проєктів.',
     hero_cv: 'Завантажити CV', hero_call: 'Забронювати дзвінок',
     badge_projects: 'Проєктів',
     cert_label: 'Сертифіковано',
@@ -89,18 +98,27 @@ const i18n = {
     tl4_role: 'Lead Generator',
     tl4_desc: 'Валідація Marketing Qualified Leads через пряму переписку та початкові зустрічі. Презентація команди потенційним клієнтам, організація комунікації між клієнтами та командою розробки, управління повною воронкою продажів до підписання контракту. Збір попередніх вимог клієнтів та підготовка документації для BA.',
     port_label: 'Роботи', port_title: 'Вибрані проєкти',
-    port_desc: 'Відібрані кейси з 26 реалізованих проєктів — від MVP до enterprise-рівня.',
+    port_desc: 'Відібрані кейси з 30+ реалізованих проєктів — від MVP до enterprise-рівня.',
     p1_title: 'Asumma Homes — Платформа управління нерухомістю',
     p1_desc: 'Повноцінна система управління нерухомістю: кастомна розробка, архітектура БД, UI дизайн, автоматизація workflow та інтеграція сторонніх сервісів. Побудована для підтримки повного циклу нерухомості від лістингу до продажу.',
     p2_title: 'Система управління навчанням',
     p2_desc: 'Full-stack no-code платформа для онлайн-навчання. Xano backend, WeWeb frontend, складна рольова модель доступу та відстеження прогресу студентів.',
     p3_title: 'AI-автоматизація бізнес-процесів',
     p3_desc: 'Автоматизація бізнес-процесів через OpenAI API. Генерація контенту, обробка даних та розумна маршрутизація через Make. Зниження ручної роботи на 80%.',
-    all_proj: 'Всі 26 проєктів', more_proj: 'більше за запитом',
+    p4_title: 'SaaS CRM Платформа',
+    p4_desc: 'Повнофункціональна CRM з підписковою оплатою, управлінням пайплайном, автоматичними нагадуваннями та рольовим доступом. Реалізована на Bubble.io з інтеграціями Stripe та Make.',
+    p5_title: 'AI-конвеєр генерації контенту',
+    p5_desc: 'Мультимодельний AI-конвеєр для автоматичного створення контенту, SEO-оптимізації та публікації. Інтеграція Claude API та OpenAI через n8n, скорочення часу виробництва контенту на 70%.',
+    all_proj: 'Всі 30+ проєктів', more_proj: 'більше за запитом',
     stack_label: 'Інструменти', stack_title: 'Стек та інструментарій',
     stat1: 'Реалізованих проєктів', stat2: 'Годин розробки',
-    stat3: 'Роки в індустрії', stat4: '% Задоволеність клієнтів',
+    stat3: 'Роки в індустрії', stat4: 'Країн клієнтів',
     test_label: 'Відгуки', test_title: 'Відгуки клієнтів',
+    t1_text: '«Анастасія виконала виняткову роботу над нашим проєктом на Bubble.io. Її увага до деталей, глибоке розуміння no-code архітектури та проактивна комунікація зробили весь процес плавним.»',
+    t2_text: '«Один із найкращих no-code розробників, з якими я працювала. Вона зрозуміла наші складні вимоги з першого дня і побудувала масштабовану, підтримувану систему. Дуже рекомендую!»',
+    t3_text: '«Анастасія принесла в наш проєкт і технічну експертизу, і бізнес-мислення. Її фінансове підґрунтя справді зробило різницю — вона ставила правильні запитання і побудувала саме те, що нам потрібно.»',
+    t4_text: '«Робота з Анастасією була задоволенням від початку до кінця. Вона перетворила наші складні потреби в автоматизації на чисту систему Make + Airtable і скоротила ручну роботу більш ніж на 80%. Видатний результат.»',
+    t5_text: '«Рідкісне поєднання продуктового мислення і технічних навичок. Анастасія відбудувала нашу платформу WeWeb + Xano з нуля — вчасно, в бюджеті та без жодного багу на запуску. Наймала б знову негайно.»',
     contact_label: 'Зв\'яжіться',
     contact_title: 'Готові будувати<br><span class="accent">щось велике?</span>',
     contact_desc: 'Шукаєте Senior розробника на проєкт або в команду? Давайте поспілкуємось.',
@@ -220,7 +238,7 @@ const counterObserver = new IntersectionObserver(entries => {
     if (!entry.isIntersecting) return;
     const el = entry.target;
     const n  = parseInt(el.dataset.count, 10);
-    const suffix = n === 7000 ? '+' : n === 100 ? '%' : '';
+    const suffix = n === 7000 || n === 30 ? '+' : '';
     animateCounter(el, n, suffix);
     counterObserver.unobserve(el);
   });
@@ -861,3 +879,28 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
    (labels with .reveal get .visible from revealObserver)
 ════════════════════════════════════════════ */
 /* handled purely via CSS .section-label.visible::after */
+
+/* ════════════════════════════════════════════
+   ACTIVE NAV LINK — highlight current section
+════════════════════════════════════════════ */
+(function initActiveNav() {
+  const sections = document.querySelectorAll('section[id]');
+  const links    = document.querySelectorAll('.nav-links a[href^="#"]');
+
+  const setActive = id => {
+    links.forEach(a => {
+      a.classList.toggle('nav-active', a.getAttribute('href') === `#${id}`);
+    });
+  };
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, {
+    rootMargin: '-56px 0px -45% 0px',
+    threshold: 0
+  });
+
+  sections.forEach(s => obs.observe(s));
+})();
