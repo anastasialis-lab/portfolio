@@ -178,6 +178,11 @@ section { padding: 64px 0; }
 .nav-links a.nav-active { color: var(--fox); }
 
 /* Mobile dropdown */
+@keyframes menuSlideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .nav-links.mobile-open {
   display: flex;
   flex-direction: column;
@@ -190,6 +195,7 @@ section { padding: 64px 0; }
   padding: 16px var(--px) 24px;
   gap: 0;
   z-index: 190;
+  animation: menuSlideDown 0.22s var(--ease-out) both;
 }
 .nav-links.mobile-open li { border-bottom: 1px solid var(--border); }
 .nav-links.mobile-open a {
