@@ -158,29 +158,32 @@ applyLang(currentLang);
 const hamburger = document.getElementById('hamburger');
 const navLinks  = document.getElementById('nav-links');
 
+function closeMenu() {
+  navLinks.classList.remove('mobile-open');
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+
 hamburger.addEventListener('click', () => {
   const isOpen = navLinks.classList.toggle('mobile-open');
   hamburger.classList.toggle('open', isOpen);
   hamburger.setAttribute('aria-expanded', String(isOpen));
+  document.body.style.overflow = isOpen ? 'hidden' : '';
 });
 
 /* Close menu when a nav link is clicked */
-navLinks.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => {
-    navLinks.classList.remove('mobile-open');
-    hamburger.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-  });
-});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
 /* Close menu when clicking outside */
 document.addEventListener('click', e => {
-  if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
-    navLinks.classList.remove('mobile-open');
-    hamburger.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-  }
+  if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) closeMenu();
 });
+
+/* Close menu when resizing to desktop */
+window.addEventListener('resize', () => {
+  if (window.innerWidth >= 960) closeMenu();
+}, { passive: true });
 
 /* ════════════════════════════════════════════
    NAV SCROLL EFFECT
