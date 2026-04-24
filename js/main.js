@@ -270,7 +270,9 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
   const MARKERS = [
     { name: 'USA',       lat: 39.5,  lng:  -98.4,
       projects: [{ name: 'SaaS & CRM Platforms',  type: 'Web Apps',    stack: 'Bubble · Xano'    },
-                 { name: 'Marketplace App',         type: 'Web App',     stack: 'Bubble · Stripe'  }] },
+                 { name: 'Marketplace App',         type: 'Web App',     stack: 'Bubble · Stripe'  },
+                 { name: 'E-Commerce Platform',     type: 'Marketplace', stack: 'Bubble · CRM' },
+                 { name: 'Digital Products',        type: 'Web Apps',    stack: 'Bubble · Webflow · WeWeb' }] },
     { name: 'UK',        lat: 54.0,  lng:   -2.5,
       projects: [{ name: 'Asumma Homes',            type: 'PropTech',    stack: 'Bubble.io'        }] },
     { name: 'Germany',   lat: 51.2,  lng:   10.5,
@@ -280,15 +282,16 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
     { name: 'Poland',    lat: 51.9,  lng:   19.1,
       projects: [{ name: 'MVP & R&D Builds',        type: 'Prototypes',  stack: 'Bubble · n8n'    }] },
     { name: 'Finland',   lat: 61.9,  lng:   25.7,
-      projects: [{ name: 'Learning Management System', type: 'EdTech',   stack: 'WeWeb · Xano'   }] },
+       projects: [{ name: 'Asumma Homes',            type: 'PropTech',    stack: 'Bubble.io'        }]},
     { name: 'Singapore', lat:  1.35, lng:  103.8,
-      projects: [{ name: 'E-Commerce Platform',     type: 'Marketplace', stack: 'Bubble · Stripe' }] },
+      projects: [{ name: 'Fitness App',     type: 'Mobile App', stack: 'Bubble · Stripe' }] },
     { name: 'Portugal',  lat: 39.4,  lng:   -8.2,
       projects: [{ name: 'Landing Pages + Flows',   type: 'Web + Auto',  stack: 'Webflow · Make'  }] },
     { name: 'Australia', lat: -25.3, lng:  133.8,
       projects: [{ name: 'Web Portal',              type: 'Web App',     stack: 'Bubble · Xano'   }] },
     { name: 'Africa',    lat:   7.0, lng:   12.0,
-      projects: [{ name: 'Digital Products',        type: 'Web Apps',    stack: 'Bubble · Webflow' }] },
+      projects: [{ name: 'Learning Management System', type: 'EdTech',   stack: 'WeWeb · Xano'   }]
+    },
   ];
 
   /* ── COUNTRY OUTLINES ─────────────────────────── */
