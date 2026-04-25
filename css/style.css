@@ -1039,7 +1039,7 @@ footer {
 
   .stack-groups { grid-template-columns: repeat(4, 1fr); }
 
-  .stats-grid { grid-template-columns: repeat(4, 1fr); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
   #stats { padding: 80px 0; }
 
   .testimonials-grid { grid-template-columns: 1fr 1fr; }
