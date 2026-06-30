@@ -382,7 +382,7 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
     W = canvas.width  = canvas.offsetWidth;
     H = canvas.height = canvas.offsetHeight;
     cx = W / 2; cy = H / 2;
-    R  = Math.min(W, H) * 0.42;
+    R  = Math.min(W, H) * 0.38;
   }
   function toXYZ(lat, lng) {
     const φ = lat * Math.PI / 180, λ = lng * Math.PI / 180;
@@ -540,16 +540,16 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
   function draw() {
     ctx.clearRect(0,0,W,H);
 
-    /* atmosphere */
-    const atmo = ctx.createRadialGradient(cx,cy,R*0.88,cx,cy,R*1.24);
-    atmo.addColorStop(0,'rgba(130,195,255,0.22)');
-    atmo.addColorStop(0.5,'rgba(90,160,230,0.09)');
+    /* atmosphere — soft blue halo (kept inside canvas to avoid clipping) */
+    const atmo = ctx.createRadialGradient(cx,cy,R*0.92,cx,cy,R*1.18);
+    atmo.addColorStop(0,'rgba(120,195,255,0.28)');
+    atmo.addColorStop(0.5,'rgba(90,170,240,0.10)');
     atmo.addColorStop(1,'transparent');
-    ctx.fillStyle=atmo; ctx.beginPath(); ctx.arc(cx,cy,R*1.24,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle=atmo; ctx.beginPath(); ctx.arc(cx,cy,R*1.18,0,Math.PI*2); ctx.fill();
 
-    /* sphere base — light blue ocean with a lit highlight */
+    /* sphere base — vivid blue ocean with a lit highlight */
     const g = ctx.createRadialGradient(cx-R*0.32,cy-R*0.32,R*0.04,cx,cy,R);
-    g.addColorStop(0,'#eaf6ff'); g.addColorStop(0.5,'#abd6f5'); g.addColorStop(1,'#4d8fcd');
+    g.addColorStop(0,'#e3f3ff'); g.addColorStop(0.5,'#7ec4f5'); g.addColorStop(1,'#2f7fc8');
     ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
 
     ctx.save(); ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.clip();
@@ -573,7 +573,7 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
     /* land masses — soft green continents */
     ctx.shadowColor='rgba(40,90,50,0.4)'; ctx.shadowBlur=3;
     for (const name in OUTLINES) {
-      drawOutline(OUTLINES[name],'rgba(96,158,98,0.9)','rgba(118,176,108,0.6)',1.1);
+      drawOutline(OUTLINES[name],'rgba(110,205,115,0.95)','rgba(96,195,108,0.78)',1.1);
     }
     ctx.shadowBlur=0;
 
