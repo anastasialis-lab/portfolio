@@ -364,8 +364,8 @@ section { padding: 64px 0; }
   min-height: 100vh;
   overflow: hidden;
   display: flex;
-  align-items: flex-start;
-  padding: 0;          /* override generic section padding; hero-inner owns spacing */
+  align-items: center;     /* vertically centre the hero content */
+  padding: 0;              /* override generic section padding */
 }
 
 #neural-canvas {
@@ -1305,8 +1305,8 @@ footer {
   .hero-inner {
     grid-template-columns: 2fr 3fr;
     gap: 40px;
-    padding: 60px var(--px) 40px;
-    align-items: start;
+    padding: 70px var(--px) 50px;
+    align-items: center;
   }
   .hero-right {
     display: block;
