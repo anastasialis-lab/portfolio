@@ -1582,3 +1582,69 @@ body::before {
   height: 100%;
   object-fit: cover;
 }
+
+/* ═══════════════════════════════════════════════
+   REFERENCE-INSPIRED POLISH
+   Clean, "light & airy" hover language ported onto
+   the dark theme — depth scrims, accent titles,
+   softer interactive pills.
+════════════════════════════════════════════════ */
+
+/* Subtle scrim on project thumbnails for depth + legibility,
+   matching the darker-top look of the reference cards. */
+.card-thumb { position: relative; }
+.card-thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    oklch(0.10 0.012 260 / 0.28) 0%,
+    transparent 32%,
+    transparent 70%,
+    oklch(0.10 0.012 260 / 0.45) 100%
+  );
+  opacity: 0.55;
+  transition: opacity 0.4s var(--ease-out);
+  pointer-events: none;
+}
+.featured-card:hover .card-thumb::after { opacity: 0.2; }
+
+/* Project + edge titles warm to the accent colour on hover —
+   a clear, honest "this is interactive" signal. */
+.featured-card:hover .card-body h3,
+.edge-card:hover h3 {
+  color: var(--fox);
+}
+.card-body h3,
+.edge-card h3 {
+  transition: color 0.3s var(--ease-out);
+}
+
+/* Expert Edge icons: accent ring + gentle lift, echoing the
+   tidy icon tiles in the reference. */
+.edge-icon {
+  border: 1px solid oklch(0.72 0.18 45 / 0.22);
+  transition: background 0.3s var(--ease-out),
+              border-color 0.3s var(--ease-out),
+              transform 0.3s var(--ease-out);
+}
+.edge-card:hover .edge-icon {
+  background: oklch(0.72 0.18 45 / 0.18);
+  border-color: var(--fox);
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* Tech tags feel tactile: a touch of accent on hover. */
+.card-tags .tag,
+.tl-tags .tag {
+  transition: color 0.25s var(--ease-out),
+              border-color 0.25s var(--ease-out),
+              background 0.25s var(--ease-out);
+}
+.card-tags .tag:hover,
+.tl-tags .tag:hover {
+  color: var(--fox);
+  border-color: oklch(0.72 0.18 45 / 0.55);
+  background: var(--fox-dim);
+}
