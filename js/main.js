@@ -10,12 +10,12 @@ const i18n = {
   en: {
     nav_edge: 'Expertise', nav_exp: 'Experience', nav_port: 'Portfolio',
     nav_stack: 'Stack', nav_contact: 'Contact',
-    hero_available: 'Available for projects',
+    hero_available: 'Open to new opportunities',
     hero_title: 'AI-Powered Product Developer',
-    hero_desc: 'Building complex products on Bubble, WeWeb, Webflow and Xano using AI tools. 7,000+ hours of development, 30+ delivered projects.',
+    hero_desc: 'Building complex digital products on Bubble, WeWeb, Webflow and Xano using AI tools. 7,000+ hours of development and 30+ delivered projects for clients worldwide.',
     hero_cv: 'Download CV', hero_call: "Let's Talk",
     hstat_projects: 'Projects delivered', hstat_hours: 'Hours of development', hstat_years: 'Years in industry',
-    globe_hint: 'Click a country to explore its projects',
+    globe_hint_t: 'Explore projects by location', globe_hint_s: 'Click on a country to see selected work',
     badge_projects: 'Projects',
     cert_label: 'Certified',
     bio_badge: 'Years building',
@@ -71,12 +71,12 @@ const i18n = {
   uk: {
     nav_edge: 'Експертиза', nav_exp: 'Досвід', nav_port: 'Портфоліо',
     nav_stack: 'Стек', nav_contact: 'Контакт',
-    hero_available: 'Відкрита до проєктів',
+    hero_available: 'Відкрита до нових можливостей',
     hero_title: 'AI-Powered Product Developer',
-    hero_desc: 'Будую складні продукти на Bubble, WeWeb та Xano з використанням AI-інструментів. 7000+ годин розробки, 30+ реалізованих проєктів.',
+    hero_desc: 'Будую складні цифрові продукти на Bubble, WeWeb, Webflow та Xano з використанням AI-інструментів. 7000+ годин розробки та 30+ реалізованих проєктів для клієнтів по всьому світу.',
     hero_cv: 'Завантажити CV', hero_call: 'Поговоримо',
     hstat_projects: 'Реалізованих проєктів', hstat_hours: 'Годин розробки', hstat_years: 'Років у сфері',
-    globe_hint: 'Натисни на країну, щоб побачити проєкти',
+    globe_hint_t: 'Дослідіть проєкти за локацією', globe_hint_s: 'Натисніть на країну, щоб побачити роботи',
     badge_projects: 'Проєктів',
     cert_label: 'Сертифіковано',
     bio_badge: 'Років практики',
@@ -436,7 +436,7 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
   }
 
   function drawGraticule() {
-    ctx.strokeStyle = 'rgba(255,255,255,0.20)'; ctx.lineWidth = 0.5;
+    ctx.strokeStyle = 'rgba(140,140,140,0.07)'; ctx.lineWidth = 0.5;
     for (let lng = -180; lng < 180; lng += 30) {
       ctx.beginPath(); let mv = false;
       for (let lat = -85; lat <= 85; lat += 3) {
@@ -542,180 +542,60 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
     return nearest;
   }
 
-  /* ── MAIN DRAW ────────────────────────────────── */
+  /* ── MAIN DRAW — minimal grey dotted sphere ───── */
   function draw() {
     ctx.clearRect(0,0,W,H);
 
-    /* atmosphere — soft blue halo (kept inside canvas to avoid clipping) */
-    const atmo = ctx.createRadialGradient(cx,cy,R*0.92,cx,cy,R*1.18);
-    atmo.addColorStop(0,'rgba(120,195,255,0.28)');
-    atmo.addColorStop(0.5,'rgba(90,170,240,0.10)');
-    atmo.addColorStop(1,'transparent');
-    ctx.fillStyle=atmo; ctx.beginPath(); ctx.arc(cx,cy,R*1.18,0,Math.PI*2); ctx.fill();
-
-    /* sphere base — vivid blue ocean with a lit highlight */
-    const g = ctx.createRadialGradient(cx-R*0.32,cy-R*0.32,R*0.04,cx,cy,R);
-    g.addColorStop(0,'#e3f3ff'); g.addColorStop(0.5,'#7ec4f5'); g.addColorStop(1,'#2f7fc8');
-    ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
-
-    ctx.save(); ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.clip();
-
+    // faint great-circle wireframe
     drawGraticule();
 
-    /* dot grid: grey inactive / orange active */
-    for (let lat=-78; lat<=78; lat+=8) {
-      for (let lng=-180; lng<180; lng+=8) {
+    // dotted sphere: tiny grey dots, depth-faded, front hemisphere only
+    for (let lat = -82; lat <= 82; lat += 4) {
+      const r = Math.cos(lat*Math.PI/180);
+      const step = Math.max(4, 4 / Math.max(r, 0.12));
+      for (let lng = -180; lng < 180; lng += step) {
         const xyz = rotY(toXYZ(lat,lng), rot);
-        if (xyz[2]<0) continue;
+        if (xyz[2] < 0.02) continue;
         const {sx,sy,z} = proj(xyz);
-        const active = inRegion(lat,lng);
-        ctx.fillStyle = active
-          ? `rgba(190,230,255,${(0.16+z*0.34).toFixed(2)})`
-          : `rgba(255,255,255,${(0.05+z*0.10).toFixed(2)})`;
-        ctx.beginPath(); ctx.arc(sx,sy,active?0.85+z*0.9:0.55+z*0.45,0,Math.PI*2); ctx.fill();
+        const op = 0.10 + z*0.32;
+        ctx.fillStyle = `rgba(118,118,118,${op.toFixed(2)})`;
+        ctx.beginPath(); ctx.arc(sx, sy, 0.8 + z*0.7, 0, Math.PI*2); ctx.fill();
       }
     }
 
-    /* land masses — soft green continents */
-    ctx.shadowColor='rgba(40,90,50,0.4)'; ctx.shadowBlur=3;
-    for (const name in OUTLINES) {
-      drawOutline(OUTLINES[name],'rgba(110,205,115,0.95)','rgba(96,195,108,0.78)',1.1);
-    }
-    ctx.shadowBlur=0;
-
-    ctx.restore();
-
-    /* rim glow — soft blue atmosphere edge */
-    ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2);
-    ctx.strokeStyle='rgba(150,200,245,0.45)'; ctx.lineWidth=1.3; ctx.stroke();
-
-    drawArcs();
-    drawPackets();
-
-    /* markers */
-    const now = Date.now();
-    MARKERS.forEach((m,i) => {
-      const xyz = rotY(toXYZ(m.lat,m.lng), rot);
-      if (xyz[2]<0.05) return;
-      const {sx,sy,z} = proj(xyz);
-      const alpha = Math.min(1,(z-0.05)*4);
-      const pulse = (Math.sin(now/900+i*1.4)+1)/2;
-      const isHov = hovered===m;
-
-      /* pulse ring */
-      ctx.beginPath(); ctx.arc(sx,sy,(isHov?8:5)+pulse*12,0,Math.PI*2);
-      ctx.strokeStyle=`rgba(232,118,26,${(0.45*alpha*(1-pulse*0.7)).toFixed(2)})`;
-      ctx.lineWidth=isHov?1.5:1; ctx.stroke();
-
-      /* halo */
-      const hr = isHov?18:12;
-      const halo = ctx.createRadialGradient(sx,sy,0,sx,sy,hr);
-      halo.addColorStop(0,`rgba(232,118,26,${(0.55*alpha).toFixed(2)})`);
-      halo.addColorStop(1,'transparent');
-      ctx.fillStyle=halo; ctx.beginPath(); ctx.arc(sx,sy,hr,0,Math.PI*2); ctx.fill();
-
-      /* core dot */
-      ctx.shadowColor='#ffb060'; ctx.shadowBlur=10;
-      ctx.beginPath(); ctx.arc(sx,sy,isHov?5:3.5,0,Math.PI*2);
-      ctx.fillStyle=`rgba(255,${isHov?'225':'210'},160,${alpha.toFixed(2)})`; ctx.fill();
-      ctx.shadowBlur=0;
-
-      /* label */
-      if (alpha>0.45) {
-        const right=sx>cx, lx=sx+(right?14:-14);
-        const fs=Math.max(10,Math.round(R*0.065));
-        ctx.save(); ctx.globalAlpha=alpha;
-        ctx.beginPath(); ctx.moveTo(sx+(right?5:-5),sy); ctx.lineTo(lx+(right?-2:2),sy);
-        ctx.strokeStyle=`rgba(232,118,26,${isHov?0.8:0.5})`; ctx.lineWidth=0.9; ctx.stroke();
-        ctx.font=`700 ${fs}px "Space Grotesk",system-ui,sans-serif`;
-        ctx.fillStyle=isHov?'#b85410':'#1d3a55';
-        ctx.textAlign=right?'left':'right';
-        ctx.shadowColor='rgba(255,255,255,0.85)'; ctx.shadowBlur=4;
-        ctx.fillText(m.name,lx,sy+4); ctx.shadowBlur=0; ctx.restore();
-      }
-    });
+    // soft outer ring
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2);
+    ctx.strokeStyle = 'rgba(150,150,150,0.10)'; ctx.lineWidth = 1; ctx.stroke();
   }
 
-  /* ── INTERACTION ──────────────────────────────── */
+  /* ── INTERACTION — drag to spin, auto-resume ──── */
   function setupInteraction() {
     canvas.style.cursor='grab';
-
-    /* lock a marker's projects open on click; pause spin while pinned */
-    function pinMarker(m, ex, ey) {
-      pinned=true; hovered=m; rotVel=0; autoRot=false;
-      showTooltip(m, ex, ey);
-      canvas.classList.add('has-pin');
-    }
-    function unpin() {
-      if (!pinned) return;
-      pinned=false; autoRot=true; hideTooltip();
-      canvas.classList.remove('has-pin');
-    }
+    let lastTX=0;
 
     canvas.addEventListener('mousedown', e => {
-      isDragging=true; lastDragX=e.clientX; downX=e.clientX; downY=e.clientY;
-      rotVel=0; autoRot=false; canvas.style.cursor='grabbing'; e.preventDefault();
+      isDragging=true; lastDragX=e.clientX; rotVel=0; autoRot=false;
+      canvas.style.cursor='grabbing'; e.preventDefault();
+    });
+    window.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      const dx=e.clientX-lastDragX; rotVel=dx*0.005; rot+=rotVel; lastDragX=e.clientX;
+    });
+    window.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging=false; autoRot=true; canvas.style.cursor='grab';
     });
 
-    canvas.addEventListener('mousemove', e => {
-      if (isDragging) {
-        const dx=e.clientX-lastDragX;
-        if (Math.abs(dx)>0) { rotVel=dx*0.005; rot+=rotVel; lastDragX=e.clientX; unpin(); }
-      } else if (!pinned) {
-        const m=getMarkerAt(e.clientX,e.clientY);
-        if (m&&m!==hovered) { canvas.style.cursor='pointer'; hovered=m; showTooltip(m,e.clientX,e.clientY); }
-        else if (!m&&hovered) { canvas.style.cursor='grab'; hideTooltip(); }
-      } else {
-        canvas.style.cursor = getMarkerAt(e.clientX,e.clientY) ? 'pointer' : 'grab';
-      }
-    });
-
-    canvas.addEventListener('mouseup', e => {
-      isDragging=false; canvas.style.cursor='grab';
-      const moved = Math.hypot(e.clientX-downX, e.clientY-downY);
-      if (moved < 6) {                      // treat as a click, not a drag
-        const m = getMarkerAt(e.clientX, e.clientY);
-        if (m) { pinMarker(m, e.clientX, e.clientY); return; }
-        unpin();
-      }
-      autoRot = !pinned;
-    });
-    canvas.addEventListener('mouseleave',()=>{ isDragging=false; if(!pinned){ autoRot=true; hideTooltip(); } });
-
-    /* dismiss a pinned card when clicking anywhere else on the page */
-    document.addEventListener('mousedown', e => { if (!canvas.contains(e.target)) unpin(); });
-
-    /* touch */
-    let lastTX=0, downTX=0, downTY=0;
-    canvas.addEventListener('touchstart',e=>{
-      isDragging=true; lastTX=e.touches[0].clientX;
-      downTX=e.touches[0].clientX; downTY=e.touches[0].clientY;
-      rotVel=0; autoRot=false; e.preventDefault();
-    },{passive:false});
-    canvas.addEventListener('touchmove', e=>{ if(!isDragging)return; const dx=e.touches[0].clientX-lastTX; rotVel=dx*0.005; rot+=rotVel; lastTX=e.touches[0].clientX; unpin(); e.preventDefault(); },{passive:false});
-    canvas.addEventListener('touchend',  e=>{
-      isDragging=false;
-      const t=e.changedTouches[0];
-      const moved=Math.hypot(t.clientX-downTX, t.clientY-downTY);
-      if (moved<8) {
-        const m=getMarkerAt(t.clientX,t.clientY);
-        if (m) { pinMarker(m, t.clientX, t.clientY); return; }
-        unpin();
-      }
-      autoRot = !pinned;
-    });
+    canvas.addEventListener('touchstart',e=>{ isDragging=true; lastTX=e.touches[0].clientX; rotVel=0; autoRot=false; e.preventDefault(); },{passive:false});
+    canvas.addEventListener('touchmove', e=>{ if(!isDragging)return; const dx=e.touches[0].clientX-lastTX; rotVel=dx*0.005; rot+=rotVel; lastTX=e.touches[0].clientX; e.preventDefault(); },{passive:false});
+    window.addEventListener('touchend', ()=>{ isDragging=false; autoRot=true; });
   }
 
   /* ── ANIMATION LOOP ───────────────────────────── */
-  let packetTimer = 0;
   function tick() {
     if (!isDragging) {
       if (Math.abs(rotVel)>0.0003) { rot+=rotVel; rotVel*=0.94; }
-      else if (autoRot)             { rot+=0.003; }
-    }
-    if (--packetTimer<=0) {
-      if (packets.length<6) spawnPacket();
-      packetTimer=25+Math.floor(Math.random()*40);
+      else if (autoRot)             { rot+=0.0022; }
     }
     draw();
     animId=requestAnimationFrame(tick);
@@ -729,18 +609,84 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
 })();
 
 /* ════════════════════════════════════════════
-   AURORA BLOBS — inject into hero
+   GLOBE COUNTRY PILLS + GLASS PROJECT CARD
 ════════════════════════════════════════════ */
-(function createAurora() {
-  const hero = document.getElementById('hero');
-  if (!hero) return;
-  const c = document.createElement('div');
-  c.className = 'aurora-container';
-  c.innerHTML =
-    '<div class="aurora-blob aurora-blob-1"></div>' +
-    '<div class="aurora-blob aurora-blob-2"></div>' +
-    '<div class="aurora-blob aurora-blob-3"></div>';
-  hero.insertBefore(c, hero.firstChild);
+(function initGeoPills() {
+  const stage = document.querySelector('.globe-stage');
+  const card  = document.getElementById('geo-card');
+  if (!stage || !card) return;
+
+  const DATA = {
+    uk: { name: 'United Kingdom', projects: [
+      { title: 'EdTech Platform',     meta: 'Management System · Airtable · WeWeb' },
+      { title: 'AI Content Generator', meta: 'SaaS · Bubble.io · Stripe · restAPI' } ] },
+    de: { name: 'Germany', projects: [
+      { title: 'B2B SaaS Platform',   meta: 'Web App · WeWeb · Xano' } ] },
+    fr: { name: 'France', projects: [
+      { title: 'Marketplace Platform', meta: 'Bubble.io · Stripe · Make' } ] },
+    pt: { name: 'Portugal', projects: [
+      { title: 'Crypto Brand & Landing', meta: 'Webflow · CMS · 3D' } ] },
+    sg: { name: 'Singapore', projects: [
+      { title: 'Fintech Dashboard',   meta: 'WeWeb · Xano · REST API' } ] },
+    za: { name: 'South Africa', projects: [
+      { title: 'Learning Management System', meta: 'EdTech · WeWeb · Xano' } ] },
+  };
+
+  const pills   = [...stage.querySelectorAll('.geo-pill')];
+  const elCountry = card.querySelector('.geo-card-country');
+  const elList    = card.querySelector('.geo-card-list');
+  const elClose   = card.querySelector('.geo-card-close');
+  let activeKey = null, hideTimer = null;
+
+  function render(key) {
+    const d = DATA[key]; if (!d) return;
+    elCountry.textContent = d.name;
+    elList.innerHTML = d.projects.map(p =>
+      `<div class="geo-proj">
+         <div class="geo-proj-title">${p.title}</div>
+         <div class="geo-proj-meta">${p.meta}</div>
+       </div>`).join('');
+  }
+  function openCard(key, pill) {
+    clearTimeout(hideTimer);
+    activeKey = key;
+    render(key);
+    // anchor the card just inside the stage, near the active pill's vertical band
+    const sb = stage.getBoundingClientRect();
+    const pb = pill.getBoundingClientRect();
+    let top = pb.top - sb.top + pb.height/2 - 70;
+    top = Math.max(12, Math.min(top, sb.height - card.offsetHeight - 12 || top));
+    card.style.top = top + 'px';
+    card.hidden = false;
+    requestAnimationFrame(() => card.classList.add('show'));
+    pills.forEach(p => p.classList.toggle('active', p.dataset.country === key));
+    stage.classList.add('has-card');
+  }
+  function closeCard() {
+    card.classList.remove('show');
+    activeKey = null;
+    pills.forEach(p => p.classList.remove('active'));
+    stage.classList.remove('has-card');
+    hideTimer = setTimeout(() => { card.hidden = true; }, 220);
+  }
+
+  pills.forEach(pill => {
+    const key = pill.dataset.country;
+    pill.addEventListener('mouseenter', () => openCard(key, pill));
+    pill.addEventListener('focus',      () => openCard(key, pill));
+    pill.addEventListener('click', e => {
+      e.preventDefault();
+      activeKey === key ? closeCard() : openCard(key, pill);
+    });
+    pill.addEventListener('mouseleave', () => {
+      hideTimer = setTimeout(() => { if (!card.matches(':hover')) closeCard(); }, 160);
+    });
+  });
+
+  card.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+  card.addEventListener('mouseleave', closeCard);
+  elClose.addEventListener('click', closeCard);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCard(); });
 })();
 
 /* ════════════════════════════════════════════
