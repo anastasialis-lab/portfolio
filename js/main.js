@@ -360,7 +360,7 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
 
   /* ── STATE ────────────────────────────────────── */
   let W, H, R, cx, cy;
-  let rot = 0.3;        // start showing Atlantic / Europe
+  let rot = -1.35;      // centre longitude = rot + 90° → ~12°E (Europe)
   let rotVel = 0;
   let autoRot = true;
   let isDragging = false;
@@ -428,7 +428,7 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
   }
 
   function drawGraticule() {
-    ctx.strokeStyle = 'rgba(160,120,80,0.12)'; ctx.lineWidth = 0.5;
+    ctx.strokeStyle = 'rgba(235,185,135,0.09)'; ctx.lineWidth = 0.5;
     for (let lng = -180; lng < 180; lng += 30) {
       ctx.beginPath(); let mv = false;
       for (let lat = -85; lat <= 85; lat += 3) {
@@ -540,14 +540,14 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
 
     /* atmosphere */
     const atmo = ctx.createRadialGradient(cx,cy,R*0.88,cx,cy,R*1.24);
-    atmo.addColorStop(0,'rgba(232,118,26,0.08)');
-    atmo.addColorStop(0.5,'rgba(20,80,160,0.05)');
+    atmo.addColorStop(0,'rgba(232,118,26,0.12)');
+    atmo.addColorStop(0.5,'rgba(200,140,70,0.06)');
     atmo.addColorStop(1,'transparent');
     ctx.fillStyle=atmo; ctx.beginPath(); ctx.arc(cx,cy,R*1.24,0,Math.PI*2); ctx.fill();
 
-    /* sphere base — warm sand / cream */
+    /* sphere base — warm dark espresso (premium on cream bg) */
     const g = ctx.createRadialGradient(cx-R*0.3,cy-R*0.3,R*0.04,cx,cy,R);
-    g.addColorStop(0,'#f5ede0'); g.addColorStop(0.55,'#e8d9c4'); g.addColorStop(1,'#d4c3a8');
+    g.addColorStop(0,'#3a2d22'); g.addColorStop(0.55,'#241a12'); g.addColorStop(1,'#140d08');
     ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
 
     ctx.save(); ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.clip();
@@ -562,8 +562,8 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
         const {sx,sy,z} = proj(xyz);
         const active = inRegion(lat,lng);
         ctx.fillStyle = active
-          ? `rgba(200,90,20,${(0.25+z*0.45).toFixed(2)})`
-          : `rgba(160,130,100,${(0.10+z*0.18).toFixed(2)})`;
+          ? `rgba(232,118,26,${(0.25+z*0.45).toFixed(2)})`
+          : `rgba(225,195,160,${(0.05+z*0.10).toFixed(2)})`;
         ctx.beginPath(); ctx.arc(sx,sy,active?0.85+z*0.9:0.55+z*0.45,0,Math.PI*2); ctx.fill();
       }
     }
@@ -620,9 +620,9 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
         ctx.beginPath(); ctx.moveTo(sx+(right?5:-5),sy); ctx.lineTo(lx+(right?-2:2),sy);
         ctx.strokeStyle=`rgba(232,118,26,${isHov?0.8:0.5})`; ctx.lineWidth=0.9; ctx.stroke();
         ctx.font=`700 ${fs}px Syne,system-ui,sans-serif`;
-        ctx.fillStyle=isHov?'#b34a00':'#5a3a1a';
+        ctx.fillStyle=isHov?'#ffd080':'#f2e7d6';
         ctx.textAlign=right?'left':'right';
-        ctx.shadowColor='rgba(255,240,220,0.8)'; ctx.shadowBlur=4;
+        ctx.shadowColor='rgba(0,0,0,0.7)'; ctx.shadowBlur=4;
         ctx.fillText(m.name,lx,sy+4); ctx.shadowBlur=0; ctx.restore();
       }
     });
@@ -648,14 +648,14 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
       }
     });
 
-    canvas.addEventListener('mouseup',   ()=>{ isDragging=false; canvas.style.cursor='grab'; });
-    canvas.addEventListener('mouseleave',()=>{ isDragging=false; hideTooltip(); });
+    canvas.addEventListener('mouseup',   ()=>{ isDragging=false; autoRot=true; canvas.style.cursor='grab'; });
+    canvas.addEventListener('mouseleave',()=>{ isDragging=false; autoRot=true; hideTooltip(); });
 
     /* touch */
     let lastTX=0;
     canvas.addEventListener('touchstart',e=>{ isDragging=true; lastTX=e.touches[0].clientX; rotVel=0; autoRot=false; e.preventDefault(); },{passive:false});
     canvas.addEventListener('touchmove', e=>{ if(!isDragging)return; const dx=e.touches[0].clientX-lastTX; rotVel=dx*0.005; rot+=rotVel; lastTX=e.touches[0].clientX; e.preventDefault(); },{passive:false});
-    canvas.addEventListener('touchend',  ()=>{ isDragging=false; });
+    canvas.addEventListener('touchend',  ()=>{ isDragging=false; autoRot=true; });
   }
 
   /* ── ANIMATION LOOP ───────────────────────────── */
