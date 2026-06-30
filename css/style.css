@@ -325,7 +325,7 @@ section { padding: 64px 0; }
   min-height: 100vh;
   overflow: hidden;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
 #neural-canvas {
@@ -1244,7 +1244,7 @@ footer {
   .hero-inner {
     grid-template-columns: 2fr 3fr;
     gap: 40px;
-    padding: 160px var(--px) 110px;
+    padding: 118px var(--px) 70px;
     align-items: center;
   }
   .hero-right {
