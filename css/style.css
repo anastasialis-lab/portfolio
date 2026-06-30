@@ -2,17 +2,20 @@
    VARIABLES & RESET
 ════════════════════════════════════════════════ */
 :root {
-  --bg:      oklch(0.10 0.012 260);
-  --bg2:     oklch(0.13 0.012 260);
-  --bg3:     oklch(0.16 0.012 260);
-  --border:  oklch(0.22 0.01  260);
-  --text:    oklch(0.95 0.008  80);
-  --muted:   oklch(0.55 0.01  260);
-  --muted2:  oklch(0.62 0.01  260);
-  --muted3:  oklch(0.73 0.01  260);
-  --fox:     oklch(0.72 0.18   45);
-  --fox-dim: oklch(0.72 0.18 45 / 0.1);
-  --fox-glow:oklch(0.72 0.18 45 / 0.4);
+  /* Light, warm cream + orange palette */
+  --bg:      oklch(0.965 0.010 75);   /* warm cream — base */
+  --bg2:     oklch(0.985 0.006 80);   /* near-white — alt sections */
+  --bg3:     oklch(1 0 0);            /* white — cards */
+  --border:  oklch(0.89 0.014 75);
+  --text:    oklch(0.23 0.018 60);    /* near-black warm */
+  --muted:   oklch(0.50 0.014 60);
+  --muted2:  oklch(0.44 0.014 60);
+  --muted3:  oklch(0.36 0.014 60);
+  --fox:     oklch(0.63 0.19   42);
+  --fox-dim: oklch(0.63 0.19 42 / 0.10);
+  --fox-glow:oklch(0.63 0.19 42 / 0.35);
+  /* text that sits on a solid --fox (orange) fill */
+  --on-fox:  oklch(0.99 0.01 80);
 
   --max-w: 1440px;
   --px:    20px;   /* base horizontal padding */
@@ -127,7 +130,7 @@ section { padding: 64px 0; }
   transition: background 0.4s, backdrop-filter 0.4s;
 }
 #navbar.scrolled {
-  background: oklch(0.1 0.012 260 / 0.92);
+  background: oklch(0.97 0.010 75 / 0.82);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
@@ -183,7 +186,7 @@ section { padding: 64px 0; }
   flex-direction: column;
   position: fixed;
   top: 57px; left: 0; right: 0;
-  background: oklch(0.1 0.012 260 / 0.97);
+  background: oklch(0.98 0.008 78 / 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
@@ -223,7 +226,7 @@ section { padding: 64px 0; }
 }
 .lang-btn.active {
   background: var(--fox);
-  color: oklch(0.1 0.01 45);
+  color: var(--on-fox);
 }
 
 /* Hamburger button */
@@ -268,7 +271,7 @@ section { padding: 64px 0; }
   gap: 10px;
   padding: 13px 24px;
   background: var(--fox);
-  color: oklch(0.1 0.01 45);
+  color: var(--on-fox);
   border: none;
   border-radius: var(--radius-sm);
   font-family: var(--font-head);
@@ -532,7 +535,7 @@ section { padding: 64px 0; }
 .bio-text {
   font-size: 16px;
   line-height: 1.85;
-  color: oklch(0.75 0.01 260);
+  color: var(--muted2);
   margin-bottom: 20px;
 }
 
@@ -675,7 +678,7 @@ section { padding: 64px 0; }
 }
 .tl-desc {
   font-size: 14px;
-  color: oklch(0.6 0.01 260);
+  color: var(--muted);
   line-height: 1.7;
 }
 .tl-tags {
@@ -834,7 +837,9 @@ section { padding: 64px 0; }
    STATS — mobile first
 ════════════════════════════════════════════════ */
 #stats {
-  background: var(--fox);
+  background: oklch(0.955 0.038 62);   /* soft peach highlight band */
+  border-top: 1px solid oklch(0.63 0.19 42 / 0.18);
+  border-bottom: 1px solid oklch(0.63 0.19 42 / 0.18);
   padding: 64px 0;
 }
 
@@ -888,7 +893,7 @@ section { padding: 64px 0; }
 .t-text {
   font-size: 14px;
   line-height: 1.75;
-  color: oklch(0.78 0.01 260);
+  color: var(--muted2);
   margin-bottom: 20px;
   font-style: italic;
 }
@@ -1156,14 +1161,14 @@ body::before {
 }
 .aurora-blob-1 {
   width: min(60vw, 720px); height: min(60vw, 720px);
-  background: radial-gradient(circle, oklch(0.72 0.18 45 / 0.2) 0%, transparent 70%);
+  background: radial-gradient(circle, oklch(0.78 0.16 50 / 0.28) 0%, transparent 70%);
   filter: blur(100px);
   top: -20%; left: -8%;
   animation-duration: 22s;
 }
 .aurora-blob-2 {
   width: min(45vw, 580px); height: min(45vw, 580px);
-  background: radial-gradient(circle, oklch(0.72 0.18 195 / 0.14) 0%, transparent 70%);
+  background: radial-gradient(circle, oklch(0.85 0.10 70 / 0.30) 0%, transparent 70%);
   filter: blur(90px);
   bottom: -15%; right: 2%;
   animation-duration: 28s;
@@ -1172,7 +1177,7 @@ body::before {
 }
 .aurora-blob-3 {
   width: min(38vw, 480px); height: min(38vw, 480px);
-  background: radial-gradient(circle, oklch(0.58 0.16 280 / 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, oklch(0.80 0.14 38 / 0.18) 0%, transparent 70%);
   filter: blur(80px);
   top: 35%; left: 45%;
   animation-duration: 35s;
@@ -1344,9 +1349,9 @@ body::before {
    NAV — improved glassmorphism
 ════════════════════════════════════════════════ */
 #navbar.scrolled {
-  background: oklch(0.09 0.012 260 / 0.78) !important;
-  box-shadow: 0 1px 48px oklch(0.05 0.01 260 / 0.7),
-              inset 0 -1px 0 oklch(0.72 0.18 45 / 0.08);
+  background: oklch(0.98 0.008 78 / 0.78) !important;
+  box-shadow: 0 1px 30px oklch(0.5 0.02 60 / 0.12),
+              inset 0 -1px 0 oklch(0.63 0.19 42 / 0.10);
 }
 
 /* ═══════════════════════════════════════════════
@@ -1443,7 +1448,7 @@ body::before {
 ════════════════════════════════════════════════ */
 .globe-tooltip {
   position: absolute;
-  background: rgba(6,13,26,0.96);
+  background: rgba(255,252,248,0.97);
   border: 1px solid rgba(232,118,26,0.4);
   border-radius: 10px;
   padding: 12px 14px;
@@ -1455,7 +1460,7 @@ body::before {
   transition: opacity 0.18s ease, transform 0.18s ease;
   z-index: 20;
   backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.55), 0 0 18px rgba(232,118,26,0.1);
+  box-shadow: 0 8px 32px rgba(80,60,40,0.18), 0 0 18px rgba(232,118,26,0.12);
 }
 .globe-tooltip.visible {
   opacity: 1;
@@ -1480,12 +1485,12 @@ body::before {
 .gt-proj-name {
   font-size: 12px;
   font-weight: 600;
-  color: #e6ecff;
+  color: var(--text);
   margin-bottom: 2px;
 }
 .gt-proj-meta {
   font-size: 11px;
-  color: rgba(170,185,220,0.65);
+  color: var(--muted);
 }
 
 /* ═══════════════════════════════════════════════
@@ -1567,7 +1572,7 @@ body::before {
 
 .carousel-track .testimonial-card:hover {
   transform: translateY(-5px) !important;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.35), 0 0 24px rgba(232,118,26,0.12);
+  box-shadow: 0 16px 40px oklch(0.55 0.04 50 / 0.16), 0 0 24px rgba(232,118,26,0.12);
   border-color: var(--fox);
 }
 
@@ -1645,6 +1650,36 @@ body::before {
 .card-tags .tag:hover,
 .tl-tags .tag:hover {
   color: var(--fox);
-  border-color: oklch(0.72 0.18 45 / 0.55);
+  border-color: oklch(0.63 0.19 42 / 0.55);
   background: var(--fox-dim);
+}
+
+/* ═══════════════════════════════════════════════
+   LIGHT-THEME CARD ELEVATION
+   White cards need a soft resting shadow to lift off
+   the cream background (the airy reference look).
+════════════════════════════════════════════════ */
+.edge-card,
+.featured-card,
+.testimonial-card,
+.project-chip {
+  box-shadow: 0 1px 2px oklch(0.55 0.02 60 / 0.04),
+              0 8px 24px oklch(0.55 0.04 50 / 0.06);
+}
+.contact-link { box-shadow: 0 1px 2px oklch(0.55 0.02 60 / 0.04); }
+
+/* Warm, soft hover shadows (override the dark-theme orange glows). */
+.featured-card:hover    { box-shadow: 0 18px 44px oklch(0.63 0.19 42 / 0.18); }
+.edge-card:hover        { box-shadow: 0 14px 36px oklch(0.63 0.19 42 / 0.15); }
+.testimonial-card:hover { box-shadow: 0 12px 30px oklch(0.63 0.19 42 / 0.13); }
+
+/* Lighter image scrim — screenshots stay bright on white cards. */
+.card-thumb::after {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 75%,
+    oklch(0.25 0.02 60 / 0.18) 100%
+  );
+  opacity: 0.6;
 }
