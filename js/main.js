@@ -11,9 +11,11 @@ const i18n = {
     nav_edge: 'Expertise', nav_exp: 'Experience', nav_port: 'Portfolio',
     nav_stack: 'Stack', nav_contact: 'Contact',
     hero_available: 'Available for projects',
-    hero_title: 'Low-Code &amp; AI Developer &mdash; I know the code behind it',
+    hero_title: 'AI-Powered Product Developer',
     hero_desc: 'Building complex products on Bubble, WeWeb, Webflow and Xano using AI tools. 7,000+ hours of development, 30+ delivered projects.',
     hero_cv: 'Download CV', hero_call: "Let's Talk",
+    hstat_projects: 'Projects delivered', hstat_hours: 'Hours of development', hstat_years: 'Years in industry',
+    globe_hint: 'Click a country to explore its projects',
     badge_projects: 'Projects',
     cert_label: 'Certified',
     bio_badge: 'Years building',
@@ -70,9 +72,11 @@ const i18n = {
     nav_edge: 'Експертиза', nav_exp: 'Досвід', nav_port: 'Портфоліо',
     nav_stack: 'Стек', nav_contact: 'Контакт',
     hero_available: 'Відкрита до проєктів',
-    hero_title: 'Low-Code &amp; AI розробниця &mdash; я знаю код за ним',
+    hero_title: 'AI-Powered Product Developer',
     hero_desc: 'Будую складні продукти на Bubble, WeWeb та Xano з використанням AI-інструментів. 7000+ годин розробки, 30+ реалізованих проєктів.',
     hero_cv: 'Завантажити CV', hero_call: 'Поговоримо',
+    hstat_projects: 'Реалізованих проєктів', hstat_hours: 'Годин розробки', hstat_years: 'Років у сфері',
+    globe_hint: 'Натисни на країну, щоб побачити проєкти',
     badge_projects: 'Проєктів',
     cert_label: 'Сертифіковано',
     bio_badge: 'Років практики',
@@ -366,6 +370,8 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
   let rotVel = 0;
   let autoRot = true;
   let isDragging = false;
+  let pinned = false;       // a marker tooltip is locked open by a click/tap
+  let downX = 0, downY = 0; // pointer-down position, to tell click from drag
   let lastDragX = 0;
   let animId;
   const packets = [];
@@ -634,30 +640,70 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
   function setupInteraction() {
     canvas.style.cursor='grab';
 
+    /* lock a marker's projects open on click; pause spin while pinned */
+    function pinMarker(m, ex, ey) {
+      pinned=true; hovered=m; rotVel=0; autoRot=false;
+      showTooltip(m, ex, ey);
+      canvas.classList.add('has-pin');
+    }
+    function unpin() {
+      if (!pinned) return;
+      pinned=false; autoRot=true; hideTooltip();
+      canvas.classList.remove('has-pin');
+    }
+
     canvas.addEventListener('mousedown', e => {
-      isDragging=true; lastDragX=e.clientX; rotVel=0; autoRot=false;
-      canvas.style.cursor='grabbing'; e.preventDefault();
+      isDragging=true; lastDragX=e.clientX; downX=e.clientX; downY=e.clientY;
+      rotVel=0; autoRot=false; canvas.style.cursor='grabbing'; e.preventDefault();
     });
 
     canvas.addEventListener('mousemove', e => {
       if (isDragging) {
-        const dx=e.clientX-lastDragX; rotVel=dx*0.005; rot+=rotVel; lastDragX=e.clientX;
-        hideTooltip();
-      } else {
+        const dx=e.clientX-lastDragX;
+        if (Math.abs(dx)>0) { rotVel=dx*0.005; rot+=rotVel; lastDragX=e.clientX; unpin(); }
+      } else if (!pinned) {
         const m=getMarkerAt(e.clientX,e.clientY);
         if (m&&m!==hovered) { canvas.style.cursor='pointer'; hovered=m; showTooltip(m,e.clientX,e.clientY); }
         else if (!m&&hovered) { canvas.style.cursor='grab'; hideTooltip(); }
+      } else {
+        canvas.style.cursor = getMarkerAt(e.clientX,e.clientY) ? 'pointer' : 'grab';
       }
     });
 
-    canvas.addEventListener('mouseup',   ()=>{ isDragging=false; autoRot=true; canvas.style.cursor='grab'; });
-    canvas.addEventListener('mouseleave',()=>{ isDragging=false; autoRot=true; hideTooltip(); });
+    canvas.addEventListener('mouseup', e => {
+      isDragging=false; canvas.style.cursor='grab';
+      const moved = Math.hypot(e.clientX-downX, e.clientY-downY);
+      if (moved < 6) {                      // treat as a click, not a drag
+        const m = getMarkerAt(e.clientX, e.clientY);
+        if (m) { pinMarker(m, e.clientX, e.clientY); return; }
+        unpin();
+      }
+      autoRot = !pinned;
+    });
+    canvas.addEventListener('mouseleave',()=>{ isDragging=false; if(!pinned){ autoRot=true; hideTooltip(); } });
+
+    /* dismiss a pinned card when clicking anywhere else on the page */
+    document.addEventListener('mousedown', e => { if (!canvas.contains(e.target)) unpin(); });
 
     /* touch */
-    let lastTX=0;
-    canvas.addEventListener('touchstart',e=>{ isDragging=true; lastTX=e.touches[0].clientX; rotVel=0; autoRot=false; e.preventDefault(); },{passive:false});
-    canvas.addEventListener('touchmove', e=>{ if(!isDragging)return; const dx=e.touches[0].clientX-lastTX; rotVel=dx*0.005; rot+=rotVel; lastTX=e.touches[0].clientX; e.preventDefault(); },{passive:false});
-    canvas.addEventListener('touchend',  ()=>{ isDragging=false; autoRot=true; });
+    let lastTX=0, downTX=0, downTY=0;
+    canvas.addEventListener('touchstart',e=>{
+      isDragging=true; lastTX=e.touches[0].clientX;
+      downTX=e.touches[0].clientX; downTY=e.touches[0].clientY;
+      rotVel=0; autoRot=false; e.preventDefault();
+    },{passive:false});
+    canvas.addEventListener('touchmove', e=>{ if(!isDragging)return; const dx=e.touches[0].clientX-lastTX; rotVel=dx*0.005; rot+=rotVel; lastTX=e.touches[0].clientX; unpin(); e.preventDefault(); },{passive:false});
+    canvas.addEventListener('touchend',  e=>{
+      isDragging=false;
+      const t=e.changedTouches[0];
+      const moved=Math.hypot(t.clientX-downTX, t.clientY-downTY);
+      if (moved<8) {
+        const m=getMarkerAt(t.clientX,t.clientY);
+        if (m) { pinMarker(m, t.clientX, t.clientY); return; }
+        unpin();
+      }
+      autoRot = !pinned;
+    });
   }
 
   /* ── ANIMATION LOOP ───────────────────────────── */
