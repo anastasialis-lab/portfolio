@@ -614,17 +614,28 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
   const stageEl = canvas.closest('.globe-stage');
   const geoPills = stageEl ? [...stageEl.querySelectorAll('.geo-pill')] : [];
   function positionPills() {
+    const visible = [];
     for (const pill of geoPills) {
       const lat = parseFloat(pill.dataset.lat), lng = parseFloat(pill.dataset.lng);
       if (Number.isNaN(lat) || Number.isNaN(lng)) continue;
       const { sx, sy, z } = proj(rotY(toXYZ(lat, lng), rot));
-      // nudge slightly outward so labels lift off the dots and overlap less
       const op = Math.max(0, Math.min(1, (z + 0.12) / 0.32));   // fade out around the horizon
       pill.style.left = sx.toFixed(1) + 'px';   // sit exactly on the country's projected point
       pill.style.top  = sy.toFixed(1) + 'px';
       pill.style.opacity = op.toFixed(2);
       pill.style.pointerEvents = op < 0.4 ? 'none' : 'auto';
       pill.style.zIndex = String(3 + Math.round((z + 1) * 4));
+      if (op > 0.4) visible.push({ pill, x: sx, y: sy, z });
+    }
+    // declutter: in dense zones keep the front-most label, collapse the rest to flag-only
+    visible.sort((a, b) => b.z - a.z);
+    const placed = [];
+    const THRESH = 82;
+    for (const v of visible) {
+      if (v.pill.classList.contains('active')) { v.pill.classList.remove('collapsed'); placed.push(v); continue; }
+      const crowded = placed.some(p => Math.hypot(p.x - v.x, p.y - v.y) < THRESH);
+      v.pill.classList.toggle('collapsed', crowded);
+      if (!crowded) placed.push(v);
     }
   }
 
