@@ -379,7 +379,7 @@ section { padding: 64px 0; }
   font-weight: 500;
   letter-spacing: 0.04em;
   color: var(--muted2);
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   opacity: 0;
   animation: fadeUp 0.8s 0.2s var(--ease-out) forwards;
 }
@@ -405,11 +405,11 @@ section { padding: 64px 0; }
 
 .hero-name {
   font-family: var(--font-display);
-  font-size: clamp(56px, 11vw, 104px);
+  font-size: clamp(46px, 6.6vw, 74px);
   font-weight: 400;
-  line-height: 0.92;
+  line-height: 0.95;
   letter-spacing: -0.02em;
-  margin-bottom: 22px;
+  margin-bottom: 10px;
   opacity: 0;
   animation: fadeUp 0.8s 0.4s var(--ease-out) forwards;
 }
@@ -428,11 +428,11 @@ section { padding: 64px 0; }
 }
 
 .hero-desc {
-  font-size: clamp(15px, 2.5vw, 17px);
+  font-size: clamp(14px, 2.5vw, 16px);
   color: var(--muted3);
-  max-width: 480px;
-  line-height: 1.75;
-  margin-bottom: 36px;
+  max-width: 470px;
+  line-height: 1.65;
+  margin-bottom: 26px;
   opacity: 0;
   animation: fadeUp 0.8s 0.8s var(--ease-out) forwards;
 }
@@ -447,8 +447,8 @@ section { padding: 64px 0; }
 
 .hero-stats {
   display: flex;
-  margin-top: 48px;
-  padding-top: 30px;
+  margin-top: 26px;
+  padding-top: 22px;
   border-top: 1px solid var(--border);
   max-width: 540px;
   opacity: 0;
@@ -484,7 +484,7 @@ section { padding: 64px 0; }
 .globe-stage {
   position: relative;
   width: 100%;
-  max-width: 660px;
+  max-width: 600px;
   aspect-ratio: 1 / 1;
   margin-left: auto;
 }
@@ -839,14 +839,18 @@ section { padding: 64px 0; }
   font-weight: 600;
 }
 .tl-role {
-  font-size: 17px;
-  font-weight: 700;
-  margin-bottom: 4px;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-bottom: 5px;
 }
 .tl-company {
-  font-size: 13px;
-  color: var(--muted);
-  margin-bottom: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--fox);
+  margin-bottom: 12px;
 }
 .tl-desc {
   font-size: 14px;
@@ -1048,48 +1052,56 @@ section { padding: 64px 0; }
   gap: 16px;
 }
 .testimonial-card {
-  background: var(--bg3);
+  background: #fff;
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  transition: border-color 0.3s;
+  border-radius: 24px;
+  padding: 32px 30px 26px;
+  box-shadow: 0 1px 2px rgba(80,60,40,0.04), 0 10px 30px rgba(80,60,40,0.05);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
 }
-.testimonial-card:hover { border-color: var(--fox); }
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 44px rgba(245,106,0,0.12);
+}
 
 .t-stars {
   color: var(--fox);
-  font-size: 16px;
-  margin-bottom: 14px;
-  letter-spacing: 2px;
+  font-size: 14px;
+  margin-bottom: 18px;
+  letter-spacing: 3px;
 }
 .t-text {
-  font-size: 14px;
-  line-height: 1.75;
-  color: var(--muted2);
-  margin-bottom: 20px;
-  font-style: italic;
+  font-family: var(--font-display);
+  font-size: 19px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 24px;
+  font-style: normal;
 }
 .t-author {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 13px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
 }
 .t-avatar {
-  width: 40px; height: 40px;
+  width: 44px; height: 44px;
   border-radius: 50%;
-  background: var(--bg);
-  border: 1px solid var(--border);
+  background: var(--fox-dim);
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 13px;
+  font-weight: 600;
+  font-size: 14px;
   color: var(--fox);
   flex-shrink: 0;
 }
-.t-name { font-weight: 600; font-size: 14px; }
-.t-title { font-size: 12px; color: var(--muted); }
+.t-name { font-family: var(--font-head); font-weight: 600; font-size: 14px; color: var(--text); }
+.t-title { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.03em; color: var(--muted); margin-top: 3px; }
 
 /* ═══════════════════════════════════════════════
    CONTACT — mobile first
@@ -1244,11 +1256,9 @@ footer {
   .hero-inner {
     grid-template-columns: 2fr 3fr;
     gap: 40px;
-    padding: 96px var(--px) 64px;
-    align-items: start;
+    padding: 84px var(--px) 48px;
+    align-items: center;
   }
-  /* nudge the globe to optically align with the headline */
-  .hero-right { margin-top: 8px; }
   .hero-right {
     display: block;
     position: relative;
@@ -1713,8 +1723,7 @@ body::before {
 
 .carousel-track .testimonial-card:hover {
   transform: translateY(-5px) !important;
-  box-shadow: 0 16px 40px oklch(0.55 0.04 50 / 0.16), 0 0 24px rgba(232,118,26,0.12);
-  border-color: var(--fox);
+  box-shadow: 0 18px 44px rgba(245,106,0,0.12);
 }
 
 /* edge icon SVG styling */
