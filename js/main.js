@@ -428,7 +428,7 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
   }
 
   function drawGraticule() {
-    ctx.strokeStyle = 'rgba(120,160,230,0.055)'; ctx.lineWidth = 0.5;
+    ctx.strokeStyle = 'rgba(160,120,80,0.12)'; ctx.lineWidth = 0.5;
     for (let lng = -180; lng < 180; lng += 30) {
       ctx.beginPath(); let mv = false;
       for (let lat = -85; lat <= 85; lat += 3) {
@@ -545,9 +545,9 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
     atmo.addColorStop(1,'transparent');
     ctx.fillStyle=atmo; ctx.beginPath(); ctx.arc(cx,cy,R*1.24,0,Math.PI*2); ctx.fill();
 
-    /* sphere base */
+    /* sphere base — warm sand / cream */
     const g = ctx.createRadialGradient(cx-R*0.3,cy-R*0.3,R*0.04,cx,cy,R);
-    g.addColorStop(0,'#1a2840'); g.addColorStop(0.55,'#0a1628'); g.addColorStop(1,'#04080f');
+    g.addColorStop(0,'#f5ede0'); g.addColorStop(0.55,'#e8d9c4'); g.addColorStop(1,'#d4c3a8');
     ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
 
     ctx.save(); ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.clip();
@@ -562,8 +562,8 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
         const {sx,sy,z} = proj(xyz);
         const active = inRegion(lat,lng);
         ctx.fillStyle = active
-          ? `rgba(232,118,26,${(0.2+z*0.4).toFixed(2)})`
-          : `rgba(180,190,215,${(0.028+z*0.05).toFixed(2)})`;
+          ? `rgba(200,90,20,${(0.25+z*0.45).toFixed(2)})`
+          : `rgba(160,130,100,${(0.10+z*0.18).toFixed(2)})`;
         ctx.beginPath(); ctx.arc(sx,sy,active?0.85+z*0.9:0.55+z*0.45,0,Math.PI*2); ctx.fill();
       }
     }
@@ -620,9 +620,9 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
         ctx.beginPath(); ctx.moveTo(sx+(right?5:-5),sy); ctx.lineTo(lx+(right?-2:2),sy);
         ctx.strokeStyle=`rgba(232,118,26,${isHov?0.8:0.5})`; ctx.lineWidth=0.9; ctx.stroke();
         ctx.font=`700 ${fs}px Syne,system-ui,sans-serif`;
-        ctx.fillStyle=isHov?'#ffd080':'#f0f4ff';
+        ctx.fillStyle=isHov?'#b34a00':'#5a3a1a';
         ctx.textAlign=right?'left':'right';
-        ctx.shadowColor='rgba(0,0,0,0.8)'; ctx.shadowBlur=4;
+        ctx.shadowColor='rgba(255,240,220,0.8)'; ctx.shadowBlur=4;
         ctx.fillText(m.name,lx,sy+4); ctx.shadowBlur=0; ctx.restore();
       }
     });
