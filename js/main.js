@@ -609,13 +609,35 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
     window.addEventListener('touchend', ()=>{ isDragging=false; autoRot=true; });
   }
 
+  /* ── COUNTRY PILLS: pin to real geo points, rotate with globe ── */
+  const stageEl = canvas.closest('.globe-stage');
+  const geoPills = stageEl ? [...stageEl.querySelectorAll('.geo-pill')] : [];
+  function positionPills() {
+    for (const pill of geoPills) {
+      const lat = parseFloat(pill.dataset.lat), lng = parseFloat(pill.dataset.lng);
+      if (Number.isNaN(lat) || Number.isNaN(lng)) continue;
+      const { sx, sy, z } = proj(rotY(toXYZ(lat, lng), rot));
+      // nudge slightly outward so labels lift off the dots and overlap less
+      const dx = sx - cx, dy = sy - cy;
+      const px = cx + dx * 1.08, py = cy + dy * 1.08;
+      const op = Math.max(0, Math.min(1, (z + 0.12) / 0.32));   // fade out around the horizon
+      pill.style.left = px.toFixed(1) + 'px';
+      pill.style.top  = py.toFixed(1) + 'px';
+      pill.style.opacity = op.toFixed(2);
+      pill.style.pointerEvents = op < 0.4 ? 'none' : 'auto';
+      pill.style.zIndex = String(3 + Math.round((z + 1) * 4));
+    }
+  }
+
   /* ── ANIMATION LOOP ───────────────────────────── */
   function tick() {
-    if (!isDragging) {
+    const paused = stageEl && stageEl.classList.contains('has-card');
+    if (!isDragging && !paused) {
       if (Math.abs(rotVel)>0.0003) { rot+=rotVel; rotVel*=0.94; }
       else if (autoRot)             { rot+=0.0022; }
     }
     draw();
+    positionPills();
     animId=requestAnimationFrame(tick);
   }
 
@@ -635,17 +657,32 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
   if (!stage || !card) return;
 
   const DATA = {
+    us: { name: 'United States', projects: [
+      { title: 'SaaS & CRM Platforms', meta: 'Bubble.io · Xano · Stripe' },
+      { title: 'E-Commerce Platform',  meta: 'Marketplace · Bubble · CRM' } ] },
+    ca: { name: 'Canada', projects: [
+      { title: 'Internal CRM System',  meta: 'Bubble.io · Automation' } ] },
     uk: { name: 'United Kingdom', projects: [
-      { title: 'EdTech Platform',     meta: 'Management System · Airtable · WeWeb' },
+      { title: 'EdTech Platform',      meta: 'Management System · Airtable · WeWeb' },
       { title: 'AI Content Generator', meta: 'SaaS · Bubble.io · Stripe · restAPI' } ] },
     de: { name: 'Germany', projects: [
-      { title: 'B2B SaaS Platform',   meta: 'Web App · WeWeb · Xano' } ] },
+      { title: 'B2B SaaS Platform',    meta: 'Web App · WeWeb · Xano' } ] },
     fr: { name: 'France', projects: [
       { title: 'Marketplace Platform', meta: 'Bubble.io · Stripe · Make' } ] },
+    nl: { name: 'Netherlands', projects: [
+      { title: 'Logistics Dashboard',  meta: 'Bubble.io · REST API' } ] },
     pt: { name: 'Portugal', projects: [
       { title: 'Crypto Brand & Landing', meta: 'Webflow · CMS · 3D' } ] },
+    pl: { name: 'Poland', projects: [
+      { title: 'MVP & R&D Builds',     meta: 'Bubble · n8n · Webflow' } ] },
+    fi: { name: 'Finland', projects: [
+      { title: 'Recruitment Platform', meta: 'WeWeb · Xano' } ] },
+    ae: { name: 'United Arab Emirates', projects: [
+      { title: 'Real Estate Platform', meta: 'Bubble.io · CRM · Analytics' } ] },
     sg: { name: 'Singapore', projects: [
-      { title: 'Fintech Dashboard',   meta: 'WeWeb · Xano · REST API' } ] },
+      { title: 'Fintech Dashboard',    meta: 'WeWeb · Xano · REST API' } ] },
+    au: { name: 'Australia', projects: [
+      { title: 'Travel Marketplace',   meta: 'Bubble.io · PWA' } ] },
     za: { name: 'South Africa', projects: [
       { title: 'Learning Management System', meta: 'EdTech · WeWeb · Xano' } ] },
   };

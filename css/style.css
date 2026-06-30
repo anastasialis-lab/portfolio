@@ -541,38 +541,39 @@ section { padding: 64px 0; }
 
 .geo-pill {
   position: absolute;
+  left: 50%; top: 50%;            /* JS overrides per the country's projected point */
   z-index: 3;
+  transform: translate(-50%, -50%);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 9px 16px;
+  gap: 7px;
+  padding: 7px 13px;
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 100px;
   font-family: var(--font-body);
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text);
   white-space: nowrap;
   cursor: pointer;
-  box-shadow: 0 6px 22px rgba(60,50,40,0.08);
-  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), border-color 0.25s;
+  box-shadow: 0 5px 18px rgba(60,50,40,0.10);
+  opacity: 0;                      /* JS fades in front-facing pills */
+  transition: opacity 0.3s var(--ease-out), transform 0.2s var(--ease-out),
+              box-shadow 0.25s var(--ease-out), border-color 0.25s;
+  will-change: left, top, opacity;
 }
-.geo-pill .flag { font-size: 15px; line-height: 1; }
+.geo-pill .flag { font-size: 14px; line-height: 1; }
 .geo-pill:hover,
 .geo-pill:focus-visible,
 .geo-pill.active {
-  transform: translateY(-2px);
+  transform: translate(-50%, -50%) scale(1.06);
   border-color: var(--fox);
-  box-shadow: 0 12px 30px rgba(245,106,0,0.16);
+  box-shadow: 0 12px 30px rgba(245,106,0,0.18);
   outline: none;
+  z-index: 4;
 }
-.geo-uk { top: 15%; right: 9%; }
-.geo-de { top: 28%; right: 1%; }
-.geo-fr { top: 41%; right: 11%; }
-.geo-pt { top: 49%; right: -1%; }
-.geo-sg { top: 60%; left: 1%; }
-.geo-za { bottom: 17%; right: 17%; }
+.no-js .geo-pill { opacity: 1; }
 
 .geo-card {
   position: absolute;
