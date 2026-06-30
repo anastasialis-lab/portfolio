@@ -366,7 +366,7 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
 
   /* ── STATE ────────────────────────────────────── */
   let W, H, R, cx, cy;
-  let rot = -1.35;      // centre longitude = rot + 90° → ~12°E (Europe)
+  let rot = -0.35;      // centre longitude = -rot ≈ 20°E (Europe / Africa)
   let rotVel = 0;
   let autoRot = true;
   let isDragging = false;
@@ -392,7 +392,8 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
   }
   function toXYZ(lat, lng) {
     const φ = lat * Math.PI / 180, λ = lng * Math.PI / 180;
-    return [Math.cos(φ)*Math.cos(λ), Math.sin(φ), Math.cos(φ)*Math.sin(λ)];
+    // x = east-west (east → +x → right), y = north-south, z = depth (toward viewer)
+    return [Math.cos(φ)*Math.sin(λ), Math.sin(φ), Math.cos(φ)*Math.cos(λ)];
   }
   function rotY([x,y,z], a) {
     const c = Math.cos(a), s = Math.sin(a);
@@ -618,11 +619,9 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
       if (Number.isNaN(lat) || Number.isNaN(lng)) continue;
       const { sx, sy, z } = proj(rotY(toXYZ(lat, lng), rot));
       // nudge slightly outward so labels lift off the dots and overlap less
-      const dx = sx - cx, dy = sy - cy;
-      const px = cx + dx * 1.08, py = cy + dy * 1.08;
       const op = Math.max(0, Math.min(1, (z + 0.12) / 0.32));   // fade out around the horizon
-      pill.style.left = px.toFixed(1) + 'px';
-      pill.style.top  = py.toFixed(1) + 'px';
+      pill.style.left = sx.toFixed(1) + 'px';   // sit exactly on the country's projected point
+      pill.style.top  = sy.toFixed(1) + 'px';
       pill.style.opacity = op.toFixed(2);
       pill.style.pointerEvents = op < 0.4 ? 'none' : 'auto';
       pill.style.zIndex = String(3 + Math.round((z + 1) * 4));
