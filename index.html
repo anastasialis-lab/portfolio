@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <meta name="theme-color" content="#f7f1ea">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -75,30 +75,56 @@
 <section id="bio">
   <div class="container">
     <div class="bio-grid">
-      <div class="reveal">
+      <div class="bio-photo reveal">
+        <div class="photo-frame">
+          <img src="images/anastasia.jpg" alt="Anastasia Lisovyk" loading="lazy">
+          <div class="photo-badge">
+            <span class="num">5+</span>
+            <span class="badge-label" data-i18n="bio_badge">Years building</span>
+          </div>
+        </div>
+      </div>
+      <div class="bio-content reveal rd1">
         <p class="section-label" data-i18n="bio_label">My Story</p>
         <h2 class="section-title" data-i18n="bio_title">Finance. Sales. Code.<br><span class="accent">On purpose.</span></h2>
-      </div>
-      <div class="reveal rd1">
         <p class="bio-text" data-i18n="bio_p1">I started in finance and lead generation — which gave me something most developers don't have: a deep understanding of how businesses make money. I transitioned into no-code development, joined WeLoveNocode, and became a Senior Developer working with top agencies across Europe and the US.</p>
         <p class="bio-text" data-i18n="bio_p2">Today I combine AI tooling with no-code/low-code tools and real code to build products that perform. I'm certified in Claude API development, Cursor AI workflow, and Modern Frontend with AI — skills that put me 12 months ahead of the average no-code market.</p>
         <ul class="cert-list" role="list">
           <li class="cert-item">
-            <span class="cert-name">Claude API Development</span>
-            <span class="cert-tag" data-i18n="cert_label">Certified</span>
+            <span class="cert-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </span>
+            <span class="cert-body">
+              <span class="cert-name">Claude API Development</span>
+              <span class="cert-tag" data-i18n="cert_label">Certified</span>
+            </span>
           </li>
-  
           <li class="cert-item">
-            <span class="cert-name">Modern Frontend + AI</span>
-            <span class="cert-tag" data-i18n="cert_label">Certified</span>
+            <span class="cert-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.8L18.7 9l-3.6 3.1 1.1 4.9L12 14.8 7.8 17l1.1-4.9L5.3 9l4.8-1.2L12 3z"/></svg>
+            </span>
+            <span class="cert-body">
+              <span class="cert-name">Modern Frontend + AI</span>
+              <span class="cert-tag" data-i18n="cert_label">Certified</span>
+            </span>
           </li>
-           <li class="cert-item">
-            <span class="cert-name">WeWeb</span>
-            <span class="cert-tag" data-i18n="cert_label">Certified</span>
+          <li class="cert-item">
+            <span class="cert-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </span>
+            <span class="cert-body">
+              <span class="cert-name">WeWeb</span>
+              <span class="cert-tag" data-i18n="cert_label">Certified</span>
+            </span>
           </li>
-           <li class="cert-item">
-            <span class="cert-name">N8N Workflow</span>
-            <span class="cert-tag" data-i18n="cert_label">Certified</span>
+          <li class="cert-item">
+            <span class="cert-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="2.4"/><circle cx="19" cy="6" r="2.4"/><circle cx="19" cy="18" r="2.4"/><path d="M7.2 11l9.6-4.4M7.2 13l9.6 4.4"/></svg>
+            </span>
+            <span class="cert-body">
+              <span class="cert-name">N8N Workflow</span>
+              <span class="cert-tag" data-i18n="cert_label">Certified</span>
+            </span>
           </li>
         </ul>
       </div>

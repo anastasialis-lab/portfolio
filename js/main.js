@@ -16,6 +16,7 @@ const i18n = {
     hero_cv: 'Download CV', hero_call: "Let's Talk",
     badge_projects: 'Projects',
     cert_label: 'Certified',
+    bio_badge: 'Years building',
     bio_label: 'My Story',
     bio_title: 'Finance. Sales. Code.<br><span class="accent">On purpose.</span>',
     bio_p1: 'I started in finance and lead generation — which gave me something most developers don\'t have: a deep understanding of how businesses make money. I transitioned into no-code development, joined WeLoveNocode, and became a Senior Developer working with top agencies across Europe and the US.',
@@ -74,6 +75,7 @@ const i18n = {
     hero_cv: 'Завантажити CV', hero_call: 'Поговоримо',
     badge_projects: 'Проєктів',
     cert_label: 'Сертифіковано',
+    bio_badge: 'Років практики',
     bio_label: 'Моя історія',
     bio_title: 'Фінанси. Продажі. Код.<br><span class="accent">Свідомо.</span>',
     bio_p1: 'Я починала з фінансів та lead generation — це дало мені те, чого немає більшості розробників: глибоке розуміння того, як бізнес заробляє гроші. Я перейшла в no-code розробку, приєдналась до WeLoveNocode і стала Senior Developer, працюючи з провідними агентствами Європи та США.',
@@ -428,7 +430,7 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
   }
 
   function drawGraticule() {
-    ctx.strokeStyle = 'rgba(235,185,135,0.09)'; ctx.lineWidth = 0.5;
+    ctx.strokeStyle = 'rgba(255,255,255,0.20)'; ctx.lineWidth = 0.5;
     for (let lng = -180; lng < 180; lng += 30) {
       ctx.beginPath(); let mv = false;
       for (let lat = -85; lat <= 85; lat += 3) {
@@ -540,14 +542,14 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
 
     /* atmosphere */
     const atmo = ctx.createRadialGradient(cx,cy,R*0.88,cx,cy,R*1.24);
-    atmo.addColorStop(0,'rgba(232,118,26,0.12)');
-    atmo.addColorStop(0.5,'rgba(200,140,70,0.06)');
+    atmo.addColorStop(0,'rgba(130,195,255,0.22)');
+    atmo.addColorStop(0.5,'rgba(90,160,230,0.09)');
     atmo.addColorStop(1,'transparent');
     ctx.fillStyle=atmo; ctx.beginPath(); ctx.arc(cx,cy,R*1.24,0,Math.PI*2); ctx.fill();
 
-    /* sphere base — warm dark espresso (premium on cream bg) */
-    const g = ctx.createRadialGradient(cx-R*0.3,cy-R*0.3,R*0.04,cx,cy,R);
-    g.addColorStop(0,'#3a2d22'); g.addColorStop(0.55,'#241a12'); g.addColorStop(1,'#140d08');
+    /* sphere base — light blue ocean with a lit highlight */
+    const g = ctx.createRadialGradient(cx-R*0.32,cy-R*0.32,R*0.04,cx,cy,R);
+    g.addColorStop(0,'#eaf6ff'); g.addColorStop(0.5,'#abd6f5'); g.addColorStop(1,'#4d8fcd');
     ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
 
     ctx.save(); ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.clip();
@@ -562,24 +564,24 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
         const {sx,sy,z} = proj(xyz);
         const active = inRegion(lat,lng);
         ctx.fillStyle = active
-          ? `rgba(232,118,26,${(0.25+z*0.45).toFixed(2)})`
-          : `rgba(225,195,160,${(0.05+z*0.10).toFixed(2)})`;
+          ? `rgba(190,230,255,${(0.16+z*0.34).toFixed(2)})`
+          : `rgba(255,255,255,${(0.05+z*0.10).toFixed(2)})`;
         ctx.beginPath(); ctx.arc(sx,sy,active?0.85+z*0.9:0.55+z*0.45,0,Math.PI*2); ctx.fill();
       }
     }
 
-    /* country fills + outlines */
-    ctx.shadowColor='#e8761a'; ctx.shadowBlur=5;
+    /* land masses — soft green continents */
+    ctx.shadowColor='rgba(40,90,50,0.4)'; ctx.shadowBlur=3;
     for (const name in OUTLINES) {
-      drawOutline(OUTLINES[name],'rgba(232,118,26,0.88)','rgba(232,118,26,0.13)',1.3);
+      drawOutline(OUTLINES[name],'rgba(96,158,98,0.9)','rgba(118,176,108,0.6)',1.1);
     }
     ctx.shadowBlur=0;
 
     ctx.restore();
 
-    /* rim glow */
+    /* rim glow — soft blue atmosphere edge */
     ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2);
-    ctx.strokeStyle='rgba(232,118,26,0.2)'; ctx.lineWidth=1.3; ctx.stroke();
+    ctx.strokeStyle='rgba(150,200,245,0.45)'; ctx.lineWidth=1.3; ctx.stroke();
 
     drawArcs();
     drawPackets();
@@ -619,10 +621,10 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
         ctx.save(); ctx.globalAlpha=alpha;
         ctx.beginPath(); ctx.moveTo(sx+(right?5:-5),sy); ctx.lineTo(lx+(right?-2:2),sy);
         ctx.strokeStyle=`rgba(232,118,26,${isHov?0.8:0.5})`; ctx.lineWidth=0.9; ctx.stroke();
-        ctx.font=`700 ${fs}px Syne,system-ui,sans-serif`;
-        ctx.fillStyle=isHov?'#ffd080':'#f2e7d6';
+        ctx.font=`700 ${fs}px "Space Grotesk",system-ui,sans-serif`;
+        ctx.fillStyle=isHov?'#b85410':'#1d3a55';
         ctx.textAlign=right?'left':'right';
-        ctx.shadowColor='rgba(0,0,0,0.7)'; ctx.shadowBlur=4;
+        ctx.shadowColor='rgba(255,255,255,0.85)'; ctx.shadowBlur=4;
         ctx.fillText(m.name,lx,sy+4); ctx.shadowBlur=0; ctx.restore();
       }
     });
