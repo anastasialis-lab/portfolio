@@ -474,10 +474,13 @@ section { padding: 64px 0; }
 }
 
 .hero-desc {
-  font-size: clamp(14px, 2.5vw, 16px);
+  font-family: var(--font-display);
+  font-size: clamp(17px, 2.2vw, 20px);
+  font-weight: 400;
   color: var(--muted3);
-  max-width: 470px;
-  line-height: 1.65;
+  max-width: 500px;
+  line-height: 1.5;
+  letter-spacing: -0.005em;
   margin-bottom: 26px;
   opacity: 0;
   animation: fadeUp 0.8s 0.8s var(--ease-out) forwards;
