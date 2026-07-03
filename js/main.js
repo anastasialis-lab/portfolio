@@ -248,8 +248,7 @@ const counterObserver = new IntersectionObserver(entries => {
     if (!entry.isIntersecting) return;
     const el = entry.target;
     const n  = parseInt(el.dataset.count, 10);
-    const suffix = n === 7000 || n === 30 ? '+' : '';
-    animateCounter(el, n, suffix);
+    animateCounter(el, n, '');   // the styled .stat-plus sits outside the counter
     counterObserver.unobserve(el);
   });
 }, { threshold: 0.5 });
@@ -786,7 +785,6 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
     });
   }
 
-  applyTilt('.edge-card',     10,  1.025);
   applyTilt('.featured-card', 5,   1.010);
 })();
 
