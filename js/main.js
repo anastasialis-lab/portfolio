@@ -32,6 +32,8 @@ const i18n = {
     edge3_h: 'Full-Stack Thinking',
     edge3_p: 'Knowledge of JavaScript and TypeScript lets me go beyond standard no-code limits. Where others stop — I find a solution. I think about the whole system: backend, frontend, APIs, and data flow.',
     exp_label: 'Career', exp_title: 'Experience',
+    tlai_role: 'Freelance AI Developer — AI Agents &amp; Automation',
+    tlai_desc: 'Designing and building AI agents and multi-agent systems with the OpenAI API and LangChain — conversational workflows, chatbots and LLM-powered assistants for business clients. Integrating agents with CRMs, Supabase and third-party APIs via webhooks, and building end-to-end email automation and lead-generation pipelines in Make and n8n. Prompt engineering, agent performance optimisation, and documenting the automation architecture.',
     tl0_role: 'R&amp;D / No-Code Developer',
     tl0_desc: 'Worked on early-stage startup projects at a startup studio, focusing on feasibility validation of ideas and products from both technical and product perspectives. Built interactive prototypes, iterated based on feedback, validated assumptions through MVPs. Post-studio: developed landing pages and translated business ideas into functional no-code solutions using Bubble, Webflow and n8n.',
     tl1_role: 'Bubble.io Developer',
@@ -93,6 +95,8 @@ const i18n = {
     edge3_h: 'Full-Stack мислення',
     edge3_p: 'Знання JavaScript та TypeScript дозволяє виходити за межі no-code. Там, де інші зупиняються — я знаходжу рішення. Думаю про всю систему: backend, frontend, API та потоки даних.',
     exp_label: "Кар'єра", exp_title: 'Досвід',
+    tlai_role: 'Freelance AI Developer — AI-агенти та автоматизація',
+    tlai_desc: 'Проєктую та будую AI-агентів і мультиагентні системи на OpenAI API та LangChain — розмовні воркфлоу, чат-боти та LLM-асистенти для бізнес-клієнтів. Інтегрую агентів із CRM, Supabase і сторонніми API через вебхуки, будую наскрізні пайплайни email-автоматизації та лідогенерації в Make і n8n. Prompt-інжиніринг, оптимізація роботи агентів і документування архітектури автоматизації.',
     tl0_role: 'R&amp;D / No-Code Розробниця',
     tl0_desc: 'Робота з early-stage стартапами у студії — оцінка feasibility, інтерактивні прототипи, ітерація MVP на основі зворотного зв\'язку. Після студії: лендінги та no-code рішення на Bubble, Webflow та n8n.',
     tl1_role: 'Bubble.io Розробниця',
@@ -396,7 +400,9 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
       const xyz = vgeo(pt.lat, pt.lng);
       if (xyz[2] < 0.05) return;
       const {sx,sy,z} = proj(xyz);
-      const alpha = Math.min(1, (z-0.05)*3);
+      const active = geoPills[i] && geoPills[i].classList.contains('active');
+      let alpha = Math.min(1, (z-0.05)*3);
+      if (active) alpha = 1;
       const pulse = (Math.sin(now/1100 + i*1.7) + 1) / 2;
       // expanding ring
       ctx.beginPath(); ctx.arc(sx, sy, 4 + pulse*9, 0, Math.PI*2);
@@ -511,16 +517,20 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
     .map(p => ({ lat: parseFloat(p.dataset.lat), lng: parseFloat(p.dataset.lng) }))
     .filter(p => !Number.isNaN(p.lat) && !Number.isNaN(p.lng));
   function positionPills() {
+    const cardOpen = stageEl && stageEl.classList.contains('has-card');
     const visible = [];
     for (const pill of geoPills) {
       const lat = parseFloat(pill.dataset.lat), lng = parseFloat(pill.dataset.lng);
       if (Number.isNaN(lat) || Number.isNaN(lng)) continue;
       const { sx, sy, z } = proj(vgeo(lat, lng));
-      const op = Math.max(0, Math.min(1, (z + 0.12) / 0.32));   // fade out around the horizon
+      const isActive = pill.classList.contains('active');
+      let op = Math.max(0, Math.min(1, (z + 0.12) / 0.32));   // fade out around the horizon
+      if (cardOpen) op = isActive ? 0 : op * 0.08;   // focus mode: the card is the hero, the marker marks the spot
       pill.style.left = sx.toFixed(1) + 'px';   // sit exactly on the country's projected point
       pill.style.top  = sy.toFixed(1) + 'px';
       pill.style.opacity = op.toFixed(2);
-      pill.style.pointerEvents = op < 0.4 ? 'none' : 'auto';
+      // the active pill must stay hoverable, or a hover-opened card would self-close
+      pill.style.pointerEvents = ((cardOpen && !isActive) || op < 0.4) ? 'none' : 'auto';
       pill.style.zIndex = String(3 + Math.round((z + 1) * 4));
       if (op > 0.4) visible.push({ pill, x: sx, y: sy, z });
     }
@@ -611,7 +621,9 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
 
   function render(key) {
     const d = DATA[key]; if (!d) return;
-    elCountry.textContent = d.name;
+    const pill = pills.find(p => p.dataset.country === key);
+    const flag = pill ? (pill.querySelector('.flag')||{}).textContent || '' : '';
+    elCountry.innerHTML = flag ? `<span class="geo-card-flag">${flag}</span>${d.name}` : d.name;
     elList.innerHTML = d.projects.map(p =>
       `<div class="geo-proj">
          <div class="geo-proj-title">${p.title}</div>
