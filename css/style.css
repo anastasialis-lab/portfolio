@@ -325,11 +325,27 @@ section { padding: 64px 0; }
   transition: transform 0.2s, box-shadow 0.2s;
   white-space: nowrap;
 }
+.btn-primary { position: relative; overflow: hidden; }
+.btn-primary::after {                 /* shine sweep on hover */
+  content: '';
+  position: absolute;
+  top: 0; left: -80%;
+  width: 55%; height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.55s var(--ease-out);
+  pointer-events: none;
+}
+.btn-primary:hover::after { left: 130%; }
 .btn-primary:hover,
 .btn-primary:focus-visible {
   transform: translateY(-2px);
   box-shadow: 0 8px 32px var(--fox-glow);
 }
+.btn-primary svg { transition: transform 0.3s var(--ease-out); }
+.btn-primary:hover svg { transform: translateY(2px); }
+.btn-outline svg { transition: transform 0.3s var(--ease-out); }
+.btn-outline:hover svg { transform: translateX(4px); }
 
 .btn-outline {
   display: inline-flex;
@@ -453,11 +469,27 @@ section { padding: 64px 0; }
   font-family: var(--font-display);
   font-size: clamp(46px, 6.6vw, 74px);
   font-weight: 400;
-  line-height: 0.95;
+  line-height: 0.98;
   letter-spacing: -0.02em;
   margin-bottom: 10px;
-  opacity: 0;
-  animation: fadeUp 0.8s 0.4s var(--ease-out) forwards;
+}
+/* editorial line-mask reveal: each line slides up from behind a crop */
+.hero-name .nl {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;         /* keep descenders (y) inside the crop */
+}
+.hero-name .nl-in {
+  display: inline-block;
+  transform: translateY(112%);
+  animation: nameLineUp 0.95s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.hero-name .nl:nth-child(2) .nl-in { animation-delay: 0.14s; }
+@keyframes nameLineUp {
+  to { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-name .nl-in { transform: none; animation: none; }
 }
 
 .hero-title {
@@ -539,11 +571,25 @@ section { padding: 64px 0; }
 }
 #globe-canvas { width: 100%; height: 100%; display: block; }
 
+/* soft contact shadow grounding the sphere */
+.globe-stage::after {
+  content: '';
+  position: absolute;
+  left: 50%; bottom: 5.5%;
+  width: 52%; height: 26px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(90,75,60,0.12) 0%, transparent 68%);
+  filter: blur(4px);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .geo-pill {
   position: absolute;
   left: 50%; top: 50%;            /* JS overrides per the country's projected point */
   z-index: 3;
-  transform: translate(-50%, -50%);
+  /* float above the glowing canvas marker, like a map label */
+  transform: translate(-50%, calc(-100% - 9px));
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -567,7 +613,7 @@ section { padding: 64px 0; }
 .geo-pill:hover,
 .geo-pill:focus-visible,
 .geo-pill.active {
-  transform: translate(-50%, -50%) scale(1.06);
+  transform: translate(-50%, calc(-100% - 9px)) scale(1.06);
   border-color: var(--fox);
   box-shadow: 0 12px 30px rgba(245,106,0,0.18);
   outline: none;
@@ -742,6 +788,10 @@ section { padding: 64px 0; }
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+@keyframes globeIn {
+  from { opacity: 0; transform: scale(0.92) translateY(14px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 /* ═══════════════════════════════════════════════
@@ -1333,7 +1383,7 @@ footer {
     display: block;
     position: relative;
     opacity: 0;
-    animation: fadeIn 1.2s 0.5s var(--ease-out) forwards;
+    animation: globeIn 1.4s 0.45s cubic-bezier(0.16,1,0.3,1) forwards;
   }
 
   .bio-grid { gap: 80px; }

@@ -272,97 +272,8 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  /* ── PROJECT DATA ─────────────────────────────── */
-  const MARKERS = [
-    { name: 'USA',       lat: 39.5,  lng:  -98.4,
-      projects: [{ name: 'SaaS & CRM Platforms',  type: 'Web Apps',    stack: 'Bubble · Xano'    },
-                 { name: 'Marketplace App',         type: 'Web App',     stack: 'Bubble · Stripe'  },
-                 { name: 'E-Commerce Platform',     type: 'Marketplace', stack: 'Bubble · CRM' },
-                 { name: 'Digital Products',        type: 'Web Apps',    stack: 'Bubble · Webflow · WeWeb' }] },
-    { name: 'UK',        lat: 54.0,  lng:   -2.5,
-      projects: [ { name: 'EdTech Platform',          type: 'Management System', stack: 'Airtable · Weweb' },
-                 { name: 'AI Content Generator',     type: 'SaaS',              stack: 'Bubble.io · Stripe · restAPI' }] },
-    { name: 'Germany',   lat: 51.2,  lng:   10.5,
-      projects: [{ name: 'B2B Platform',            type: 'Web App',     stack: 'WeWeb · Xano'    }] },
-    { name: 'France',    lat: 46.2,  lng:    2.2,
-      projects: [{ name: 'SaaS Application',        type: 'Web App',     stack: 'Bubble · API'    }] },
-    { name: 'Poland',    lat: 51.9,  lng:   19.1,
-      projects: [{ name: 'MVP & R&D Builds',        type: 'Prototypes',  stack: 'Bubble · n8n'    }] },
-    { name: 'Finland',   lat: 61.9,  lng:   25.7,
-       projects: [{ name: 'Asumma Homes',            type: 'PropTech',    stack: 'Bubble.io'        }]},
-    { name: 'Singapore', lat:  1.35, lng:  103.8,
-      projects: [{ name: 'Fitness App',     type: 'Mobile App', stack: 'Bubble · Stripe' }] },
-    { name: 'Portugal',  lat: 39.4,  lng:   -8.2,
-      projects: [{ name: 'Landing Pages + Flows',   type: 'Web + Auto',  stack: 'Webflow · Make'  }] },
-    { name: 'Australia', lat: -25.3, lng:  133.8,
-      projects: [{ name: 'Web Portal',              type: 'Web App',     stack: 'Bubble · Xano'   }] },
-    { name: 'Africa',    lat:   7.0, lng:   12.0,
-      projects: [{ name: 'Learning Management System', type: 'EdTech',   stack: 'WeWeb · Xano'   }]
-    },
-  ];
-
-  /* ── COUNTRY OUTLINES ─────────────────────────── */
-  const OUTLINES = {
-    USA: [
-      [49,-124],[49,-95],[48,-89],[46,-84],[45,-82],[42,-82],[43,-79],[45,-74],
-      [46,-69],[45,-67],[41,-70],[38,-75],[35,-76],[32,-81],[26,-80],[25,-82],
-      [29,-90],[29,-94],[26,-97],[29,-103],[32,-106],[32,-114],[33,-118],
-      [36,-122],[40,-124],[46,-124],[49,-125],[49,-124]
-    ],
-    UK: [
-      [58,-3],[58,-5],[57,-5.5],[55,-6],[54,-5],[53,-4.5],[51.5,-5.2],
-      [50.2,-5.3],[50,-1.5],[51,1.4],[52.8,1.7],[55,-1.5],[57.5,-2],[58,-3]
-    ],
-    Germany: [
-      [54.5,8.5],[54.5,11],[54,14],[52.5,14.8],[50.5,15],[49,13],[47.5,12.7],
-      [47.5,10.5],[47.7,7.6],[49,6],[50,6],[51.5,6],[52.5,7],[53.5,7.2],[54.5,8.5]
-    ],
-    France: [
-      [51,2.5],[50,4],[49,7.5],[47,7.5],[46,6.8],[44,7.5],[43.5,6],[43,3],
-      [42.4,3],[42.5,1],[43.2,-1.8],[46,-1.5],[48,-5],[48.7,-4.5],[49,-1],
-      [49.5,1.3],[51,1.5],[51,2.5]
-    ],
-    Poland: [
-      [54.7,14.5],[54.8,18.5],[54.5,23],[52.2,23.6],[50.5,23.5],[49.2,22.5],
-      [49.1,19],[49.5,18.6],[50,15],[51,14.8],[53,14.2],[54.7,14.5]
-    ],
-    Finland: [
-      [70,21],[70,28.5],[69,28],[68.5,30],[66,30],[63,31],[60.5,27.5],[60,23.5],
-      [60.5,22],[62,21.5],[64,22.5],[67,22.5],[69,21],[70,21]
-    ],
-    Singapore: [
-      [1.46,103.62],[1.46,104.02],[1.22,104.02],[1.22,103.62],[1.46,103.62]
-    ],
-    Portugal: [
-      [42,-9],[42,-7],[41,-7],[40.5,-7.2],[39.5,-7.5],[38.5,-7],[37.5,-7.5],
-      [37,-9],[38,-9.5],[39,-9.5],[40,-9],[41,-8.6],[42,-9]
-    ],
-    Australia: [
-      [-14,129],[-12,136],[-12,141],[-17,146],[-20,148],[-24,152],[-28,153],
-      [-33,152],[-36,150],[-38,147],[-38,144],[-35,138],[-32,133],[-34,115],
-      [-22,113],[-17,122],[-14,129]
-    ],
-    Africa: [
-      [35.8,-5.9],[37.2,10],[32.5,24],[30.5,32],[22,37],[12,44],[11.5,51],
-      [2,42],[-1,42],[-10,40],[-18,36],[-26,33],[-34.5,26],[-34.8,20],
-      [-33,18],[-28,16],[-17,12],[-5,12],[4,9],[4,2],[4,-4],[5,-8],
-      [10,-15],[14,-17],[20,-17],[27.5,-13],[35.8,-5.9]
-    ],
-  };
-
-  /* Active region bounding boxes — for dot highlights */
-  const REGIONS = [
-    { latMin: 25,  latMax: 49,  lngMin:-125, lngMax: -67 }, // USA
-    { latMin: 50,  latMax: 59,  lngMin:  -8, lngMax:   2 }, // UK
-    { latMin: 47,  latMax: 55,  lngMin:   6, lngMax:  15 }, // Germany
-    { latMin: 42,  latMax: 51,  lngMin:  -5, lngMax:   8 }, // France
-    { latMin: 49,  latMax: 55,  lngMin:  14, lngMax:  24 }, // Poland
-    { latMin: 60,  latMax: 70,  lngMin:  20, lngMax:  32 }, // Finland
-    { latMin:  1,  latMax:  2,  lngMin: 103, lngMax: 106 }, // Singapore
-    { latMin: 37,  latMax: 42,  lngMin: -10, lngMax:  -6 }, // Portugal
-    { latMin:-38,  latMax:-14,  lngMin: 113, lngMax: 154 }, // Australia
-    { latMin:-35,  latMax: 37,  lngMin: -18, lngMax:  52 }, // Africa
-  ];
+  /* ── HOME BASE (arcs origin) ──────────────────── */
+  const HOME = { lat: 50.06, lng: 19.94 };   // Kraków
 
   /* ── STATE ────────────────────────────────────── */
   let W, H, R, cx, cy;
@@ -370,18 +281,12 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
   let rotVel = 0;
   let autoRot = true;
   let isDragging = false;
-  let pinned = false;       // a marker tooltip is locked open by a click/tap
-  let downX = 0, downY = 0; // pointer-down position, to tell click from drag
   let lastDragX = 0;
   let animId;
+  const TILT_X = 0.42;  // axial pitch — leans the pole for a 3D feel
+  const TILT_Z = -0.12; // slight roll — leaning-axis look
+  let parX = 0, parY = 0, parTX = 0, parTY = 0;   // mouse parallax (lerped)
   const packets = [];
-  let hovered = null;
-
-  /* ── TOOLTIP ──────────────────────────────────── */
-  const wrap = canvas.parentElement;
-  const tooltip = document.createElement('div');
-  tooltip.className = 'globe-tooltip';
-  wrap.appendChild(tooltip);
 
   /* ── MATH ─────────────────────────────────────── */
   function resize() {
@@ -399,6 +304,19 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
     const c = Math.cos(a), s = Math.sin(a);
     return [x*c+z*s, y, -x*s+z*c];
   }
+  function rotX([x,y,z], a) {
+    const c = Math.cos(a), s = Math.sin(a);
+    return [x, y*c-z*s, y*s+z*c];
+  }
+  function rotZ([x,y,z], a) {
+    const c = Math.cos(a), s = Math.sin(a);
+    return [x*c-y*s, x*s+y*c, z];
+  }
+  /* full view transform: spin + axial tilt + mouse parallax */
+  function view(v) {
+    return rotZ(rotX(rotY(v, rot + parY), TILT_X + parX), TILT_Z);
+  }
+  function vgeo(lat, lng) { return view(toXYZ(lat, lng)); }
   function proj([x,y,z]) { return { sx: cx+x*R, sy: cy-y*R, z }; }
   function slerp(a, b, t) {
     const dot = Math.min(1, Math.max(-1, a[0]*b[0]+a[1]*b[1]+a[2]*b[2]));
@@ -407,41 +325,13 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
     const sa = Math.sin((1-t)*ang)/Math.sin(ang), sb = Math.sin(t*ang)/Math.sin(ang);
     return [sa*a[0]+sb*b[0], sa*a[1]+sb*b[1], sa*a[2]+sb*b[2]];
   }
-  function inRegion(lat, lng) {
-    return REGIONS.some(r => lat>=r.latMin&&lat<=r.latMax&&lng>=r.lngMin&&lng<=r.lngMax);
-  }
-
   /* ── DRAW HELPERS ─────────────────────────────── */
-  function drawOutline(pts, stroke, fill, lw) {
-    if (fill) {
-      ctx.beginPath(); let mv = false;
-      pts.forEach(p => {
-        const xyz = rotY(toXYZ(p[0],p[1]), rot);
-        if (xyz[2]<0) { mv=false; return; }
-        const {sx,sy} = proj(xyz);
-        mv ? ctx.lineTo(sx,sy) : (ctx.moveTo(sx,sy), mv=true);
-      });
-      ctx.closePath(); ctx.fillStyle = fill; ctx.fill();
-    }
-    ctx.beginPath(); let mv = false;
-    for (let i = 0; i < pts.length-1; i++) {
-      const a = toXYZ(pts[i][0],pts[i][1]), b = toXYZ(pts[i+1][0],pts[i+1][1]);
-      for (let t = 0; t <= 1; t += 0.125) {
-        const xyz = rotY(slerp(a,b,t), rot);
-        if (xyz[2]<0.02) { mv=false; continue; }
-        const {sx,sy} = proj(xyz);
-        mv ? ctx.lineTo(sx,sy) : (ctx.moveTo(sx,sy), mv=true);
-      }
-    }
-    ctx.strokeStyle = stroke; ctx.lineWidth = lw||1; ctx.stroke();
-  }
-
   function drawGraticule() {
     ctx.strokeStyle = 'rgba(140,140,140,0.07)'; ctx.lineWidth = 0.5;
     for (let lng = -180; lng < 180; lng += 30) {
       ctx.beginPath(); let mv = false;
       for (let lat = -85; lat <= 85; lat += 3) {
-        const xyz = rotY(toXYZ(lat,lng), rot);
+        const xyz = vgeo(lat,lng);
         if (xyz[2]<0.02) { mv=false; continue; }
         const {sx,sy} = proj(xyz);
         mv ? ctx.lineTo(sx,sy) : (ctx.moveTo(sx,sy), mv=true);
@@ -451,7 +341,7 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
     for (const lat of [-60,-30,0,30,60]) {
       ctx.beginPath(); let mv = false;
       for (let lng = -180; lng <= 180; lng += 3) {
-        const xyz = rotY(toXYZ(lat,lng), rot);
+        const xyz = vgeo(lat,lng);
         if (xyz[2]<0.02) { mv=false; continue; }
         const {sx,sy} = proj(xyz);
         mv ? ctx.lineTo(sx,sy) : (ctx.moveTo(sx,sy), mv=true);
@@ -460,87 +350,64 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
     }
   }
 
-  function drawArcs() {
-    for (let i = 0; i < MARKERS.length; i++) {
-      for (let j = i+1; j < MARKERS.length; j++) {
-        const va = toXYZ(MARKERS[i].lat,MARKERS[i].lng);
-        const vb = toXYZ(MARKERS[j].lat,MARKERS[j].lng);
-        ctx.beginPath(); let mv = false;
-        for (let k = 0; k <= 28; k++) {
-          const t = k/28, s = slerp(va,vb,t);
-          const lift = 1+0.18*Math.sin(Math.PI*t);
-          const p = rotY([s[0]*lift,s[1]*lift,s[2]*lift], rot);
-          if (p[2]<0) { mv=false; continue; }
-          const {sx,sy} = proj(p);
-          mv ? ctx.lineTo(sx,sy) : (ctx.moveTo(sx,sy), mv=true);
-        }
-        ctx.strokeStyle='rgba(232,118,26,0.09)'; ctx.lineWidth=0.6; ctx.stroke();
+  /* arcs: home base → every project country, subtle brand orange */
+  function drawArcs(points) {
+    const va = toXYZ(HOME.lat, HOME.lng);
+    for (const pt of points) {
+      const vb = toXYZ(pt.lat, pt.lng);
+      ctx.beginPath(); let mv = false;
+      for (let k = 0; k <= 30; k++) {
+        const t = k/30, s = slerp(va, vb, t);
+        const lift = 1 + 0.16*Math.sin(Math.PI*t);
+        const p = view([s[0]*lift, s[1]*lift, s[2]*lift]);
+        if (p[2] < 0) { mv = false; continue; }
+        const {sx,sy} = proj(p);
+        mv ? ctx.lineTo(sx,sy) : (ctx.moveTo(sx,sy), mv=true);
       }
+      ctx.strokeStyle = 'rgba(245,106,0,0.12)'; ctx.lineWidth = 1; ctx.stroke();
     }
   }
 
-  function spawnPacket() {
-    const i = Math.floor(Math.random()*MARKERS.length);
-    const j = (i+1+Math.floor(Math.random()*(MARKERS.length-1)))%MARKERS.length;
-    packets.push({ a:MARKERS[i], b:MARKERS[j], t:0, spd:0.004+Math.random()*0.005 });
+  /* light packets travelling along the arcs */
+  function spawnPacket(points) {
+    const pt = points[Math.floor(Math.random()*points.length)];
+    packets.push({ to: pt, t: 0, spd: 0.006 + Math.random()*0.005 });
   }
-
   function drawPackets() {
+    const va = toXYZ(HOME.lat, HOME.lng);
     for (let i = packets.length-1; i >= 0; i--) {
       const p = packets[i]; p.t += p.spd;
       if (p.t >= 1) { packets.splice(i,1); continue; }
-      const va = toXYZ(p.a.lat,p.a.lng), vb = toXYZ(p.b.lat,p.b.lng);
-      const s = slerp(va,vb,p.t), lift = 1+0.18*Math.sin(Math.PI*p.t);
-      const xyz = rotY([s[0]*lift,s[1]*lift,s[2]*lift], rot);
-      if (xyz[2]<0) continue;
+      const vb = toXYZ(p.to.lat, p.to.lng);
+      const s = slerp(va, vb, p.t), lift = 1 + 0.16*Math.sin(Math.PI*p.t);
+      const xyz = view([s[0]*lift, s[1]*lift, s[2]*lift]);
+      if (xyz[2] < 0) continue;
       const {sx,sy} = proj(xyz);
-      ctx.shadowColor='#e8761a'; ctx.shadowBlur=12;
-      ctx.beginPath(); ctx.arc(sx,sy,2.2,0,Math.PI*2);
-      ctx.fillStyle='rgba(255,200,120,0.95)'; ctx.fill(); ctx.shadowBlur=0;
-      const tailT = Math.max(0,p.t-0.06), st = slerp(va,vb,tailT);
-      const liftT = 1+0.18*Math.sin(Math.PI*tailT);
-      const xyzT = rotY([st[0]*liftT,st[1]*liftT,st[2]*liftT], rot);
-      if (xyzT[2]>=0) {
-        const {sx:tx,sy:ty} = proj(xyzT);
-        const gr = ctx.createLinearGradient(sx,sy,tx,ty);
-        gr.addColorStop(0,'rgba(232,118,26,0.85)'); gr.addColorStop(1,'transparent');
-        ctx.beginPath(); ctx.moveTo(sx,sy); ctx.lineTo(tx,ty);
-        ctx.strokeStyle=gr; ctx.lineWidth=1.6; ctx.stroke();
-      }
+      ctx.shadowColor = '#F56A00'; ctx.shadowBlur = 10;
+      ctx.beginPath(); ctx.arc(sx, sy, 1.9, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(245,140,60,0.9)'; ctx.fill();
+      ctx.shadowBlur = 0;
     }
   }
 
-  /* ── TOOLTIP HELPERS ──────────────────────────── */
-  function showTooltip(m, ex, ey) {
-    const rect = wrap.getBoundingClientRect();
-    tooltip.innerHTML = `
-      <div class="gt-country">${m.name}</div>
-      <div class="gt-divider"></div>
-      ${(m.projects||[]).map(p=>`
-        <div class="gt-project">
-          <div class="gt-proj-name">${p.name}</div>
-          <div class="gt-proj-meta">${p.type} &middot; ${p.stack}</div>
-        </div>`).join('')}`;
-    let tx = ex-rect.left+16, ty = ey-rect.top-10;
-    if (tx+220 > wrap.offsetWidth)  tx = ex-rect.left-230;
-    if (ty+100 > wrap.offsetHeight) ty = ey-rect.top-110;
-    tooltip.style.left = tx+'px'; tooltip.style.top = ty+'px';
-    tooltip.classList.add('visible');
-  }
-  function hideTooltip() { tooltip.classList.remove('visible'); hovered=null; }
-
-  function getMarkerAt(ex, ey) {
-    const rect = canvas.getBoundingClientRect();
-    const mx = (ex-rect.left)*(W/rect.width), my = (ey-rect.top)*(H/rect.height);
-    let nearest=null, nd=30;
-    MARKERS.forEach(m => {
-      const xyz = rotY(toXYZ(m.lat,m.lng), rot);
-      if (xyz[2]<0.05) return;
-      const {sx,sy} = proj(xyz);
-      const d = Math.hypot(sx-mx,sy-my);
-      if (d<nd) { nd=d; nearest=m; }
+  /* glowing pulse markers on project countries */
+  function drawMarkers(points, now) {
+    points.forEach((pt, i) => {
+      const xyz = vgeo(pt.lat, pt.lng);
+      if (xyz[2] < 0.05) return;
+      const {sx,sy,z} = proj(xyz);
+      const alpha = Math.min(1, (z-0.05)*3);
+      const pulse = (Math.sin(now/1100 + i*1.7) + 1) / 2;
+      // expanding ring
+      ctx.beginPath(); ctx.arc(sx, sy, 4 + pulse*9, 0, Math.PI*2);
+      ctx.strokeStyle = `rgba(245,106,0,${(0.35*alpha*(1-pulse)).toFixed(2)})`;
+      ctx.lineWidth = 1.2; ctx.stroke();
+      // core dot
+      ctx.shadowColor = '#F56A00'; ctx.shadowBlur = 8;
+      ctx.beginPath(); ctx.arc(sx, sy, 2.4, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(245,106,0,${(0.85*alpha).toFixed(2)})`; ctx.fill();
+      ctx.shadowBlur = 0;
     });
-    return nearest;
   }
 
   /* ── LAND MASK (hand-built equirect continents, 360x180) ── */
@@ -558,22 +425,30 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
     return (_landBits[idx>>3] >> (7-(idx&7))) & 1;
   }
 
-  /* ── MAIN DRAW — dotted globe with continents ─── */
-  function draw() {
+  /* ── MAIN DRAW — tilted dotted globe with depth ── */
+  function draw(now) {
     ctx.clearRect(0,0,W,H);
 
     drawGraticule();
 
-    // dots: continents read as denser/darker land dots, oceans stay faint
+    // dotted sphere: faint see-through back hemisphere + twinkling land on the front
     for (let lat = -82; lat <= 82; lat += 3) {
       const r = Math.cos(lat*Math.PI/180);
       const step = Math.max(3, 3 / Math.max(r, 0.18));
       for (let lng = -180; lng < 180; lng += step) {
-        const xyz = rotY(toXYZ(lat,lng), rot);
-        if (xyz[2] < 0.02) continue;
+        const land = isLand(lat,lng);
+        const xyz = vgeo(lat,lng);
         const {sx,sy,z} = proj(xyz);
-        if (isLand(lat,lng)) {
-          ctx.fillStyle = `rgba(90,90,90,${(0.18 + z*0.45).toFixed(2)})`;
+        if (z < 0.02) {
+          if (land) {           // ghost of the far side — gives the sphere depth
+            ctx.fillStyle = 'rgba(130,130,130,0.05)';
+            ctx.beginPath(); ctx.arc(sx, sy, 0.6, 0, Math.PI*2); ctx.fill();
+          }
+          continue;
+        }
+        if (land) {
+          const tw = 0.05 * Math.sin(now*0.0012 + lat*0.7 + lng*0.35);
+          ctx.fillStyle = `rgba(90,90,90,${(0.18 + z*0.45 + tw).toFixed(2)})`;
           ctx.beginPath(); ctx.arc(sx, sy, 0.95 + z*0.85, 0, Math.PI*2); ctx.fill();
         } else {
           ctx.fillStyle = `rgba(150,150,150,${(0.035 + z*0.06).toFixed(2)})`;
@@ -582,9 +457,20 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
       }
     }
 
+    // volume: soft inner vignette toward the rim
+    const vg = ctx.createRadialGradient(cx, cy, R*0.55, cx, cy, R);
+    vg.addColorStop(0, 'rgba(120,110,100,0)');
+    vg.addColorStop(1, 'rgba(120,110,100,0.05)');
+    ctx.fillStyle = vg;
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.fill();
+
     // soft outer ring
     ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2);
     ctx.strokeStyle = 'rgba(150,150,150,0.10)'; ctx.lineWidth = 1; ctx.stroke();
+
+    drawArcs(GEO);
+    drawPackets();
+    drawMarkers(GEO, now);
   }
 
   /* ── INTERACTION — drag to spin, auto-resume ──── */
@@ -605,6 +491,14 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
       isDragging=false; autoRot=true; canvas.style.cursor='grab';
     });
 
+    /* mouse parallax — tiny extra tilt following the cursor */
+    if (window.matchMedia('(pointer: fine)').matches) {
+      window.addEventListener('mousemove', e => {
+        parTX = (e.clientY / window.innerHeight - 0.5) * 0.10;
+        parTY = (e.clientX / window.innerWidth  - 0.5) * 0.12;
+      }, { passive: true });
+    }
+
     canvas.addEventListener('touchstart',e=>{ isDragging=true; lastTX=e.touches[0].clientX; rotVel=0; autoRot=false; e.preventDefault(); },{passive:false});
     canvas.addEventListener('touchmove', e=>{ if(!isDragging)return; const dx=e.touches[0].clientX-lastTX; rotVel=dx*0.005; rot+=rotVel; lastTX=e.touches[0].clientX; e.preventDefault(); },{passive:false});
     window.addEventListener('touchend', ()=>{ isDragging=false; autoRot=true; });
@@ -613,12 +507,15 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
   /* ── COUNTRY PILLS: pin to real geo points, rotate with globe ── */
   const stageEl = canvas.closest('.globe-stage');
   const geoPills = stageEl ? [...stageEl.querySelectorAll('.geo-pill')] : [];
+  const GEO = geoPills
+    .map(p => ({ lat: parseFloat(p.dataset.lat), lng: parseFloat(p.dataset.lng) }))
+    .filter(p => !Number.isNaN(p.lat) && !Number.isNaN(p.lng));
   function positionPills() {
     const visible = [];
     for (const pill of geoPills) {
       const lat = parseFloat(pill.dataset.lat), lng = parseFloat(pill.dataset.lng);
       if (Number.isNaN(lat) || Number.isNaN(lng)) continue;
-      const { sx, sy, z } = proj(rotY(toXYZ(lat, lng), rot));
+      const { sx, sy, z } = proj(vgeo(lat, lng));
       const op = Math.max(0, Math.min(1, (z + 0.12) / 0.32));   // fade out around the horizon
       pill.style.left = sx.toFixed(1) + 'px';   // sit exactly on the country's projected point
       pill.style.top  = sy.toFixed(1) + 'px';
@@ -640,13 +537,22 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
   }
 
   /* ── ANIMATION LOOP ───────────────────────────── */
-  function tick() {
+  let packetTimer = 0;
+  function tick(now) {
+    now = now || 0;
     const paused = stageEl && stageEl.classList.contains('has-card');
     if (!isDragging && !paused) {
       if (Math.abs(rotVel)>0.0003) { rot+=rotVel; rotVel*=0.94; }
       else if (autoRot)             { rot+=0.0022; }
     }
-    draw();
+    // ease the parallax toward its target
+    parX += (parTX - parX) * 0.06;
+    parY += (parTY - parY) * 0.06;
+    if (--packetTimer <= 0 && GEO.length) {
+      if (packets.length < 4) spawnPacket(GEO);
+      packetTimer = 40 + Math.floor(Math.random()*60);
+    }
+    draw(now);
     positionPills();
     animId=requestAnimationFrame(tick);
   }
