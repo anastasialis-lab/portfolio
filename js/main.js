@@ -19,6 +19,8 @@ const i18n = {
     badge_projects: 'Projects',
     cert_label: 'Certified',
     bio_badge: 'Years building',
+    bio_caption: 'Kraków, Poland — building since 2020',
+    certs_label: 'Certifications',
     bio_label: 'My Story',
     bio_title: 'Products with<br><span class="accent">business sense.</span>',
     bio_p1: 'I started in finance and lead generation — which gave me something most developers don\'t have: a deep understanding of how businesses make money. I transitioned into no-code development, joined WeLoveNocode, and became a Senior Developer working with top agencies across Europe and the US.',
@@ -82,6 +84,8 @@ const i18n = {
     badge_projects: 'Проєктів',
     cert_label: 'Сертифіковано',
     bio_badge: 'Років практики',
+    bio_caption: 'Краків, Польща — будую з 2020',
+    certs_label: 'Сертифікації',
     bio_label: 'Моя історія',
     bio_title: 'Продукти з<br><span class="accent">бізнес-мисленням.</span>',
     bio_p1: 'Я починала з фінансів та lead generation — це дало мені те, чого немає більшості розробників: глибоке розуміння того, як бізнес заробляє гроші. Я перейшла в no-code розробку, приєдналась до WeLoveNocode і стала Senior Developer, працюючи з провідними агентствами Європи та США.',
@@ -677,9 +681,18 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
 (function createScrollIndicator() {
   const hero = document.getElementById('hero');
   if (!hero) return;
-  const el = document.createElement('div');
+  const el = document.createElement('button');
+  el.type = 'button';
   el.className = 'scroll-indicator';
-  el.innerHTML = '<span>scroll</span><div class="scroll-line"></div>';
+  el.setAttribute('aria-label', 'Scroll to the next section');
+  el.innerHTML = '<span>scroll</span>' +
+    '<span class="scroll-orb" aria-hidden="true">' +
+    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>' +
+    '</span>';
+  el.addEventListener('click', () => {
+    const next = document.getElementById('bio');
+    if (next) next.scrollIntoView({ behavior: 'smooth' });
+  });
   hero.appendChild(el);
   // Hide after first scroll
   window.addEventListener('scroll', function hide() {
