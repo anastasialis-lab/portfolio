@@ -466,12 +466,12 @@ section { padding: 64px 0; }
 }
 
 .hero-name {
-  font-family: var(--font-display);
-  font-size: clamp(46px, 6.6vw, 74px);
-  font-weight: 400;
-  line-height: 0.98;
-  letter-spacing: -0.02em;
-  margin-bottom: 10px;
+  font-family: var(--font-head);       /* Space Grotesk — modern, matches logo & numerals */
+  font-size: clamp(44px, 6.2vw, 72px);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  margin-bottom: 12px;
 }
 /* editorial line-mask reveal: each line slides up from behind a crop */
 .hero-name .nl {
@@ -506,14 +506,14 @@ section { padding: 64px 0; }
 }
 
 .hero-desc {
-  font-family: var(--font-display);
-  font-size: clamp(17px, 2.2vw, 20px);
+  font-family: var(--font-body);
+  font-size: clamp(15px, 1.8vw, 16.5px);
   font-weight: 400;
-  color: var(--muted3);
-  max-width: 500px;
-  line-height: 1.5;
-  letter-spacing: -0.005em;
-  margin-bottom: 26px;
+  color: var(--muted2);
+  max-width: 480px;
+  line-height: 1.75;
+  letter-spacing: 0.005em;
+  margin-bottom: 30px;
   opacity: 0;
   animation: fadeUp 0.8s 0.8s var(--ease-out) forwards;
 }
@@ -524,41 +524,6 @@ section { padding: 64px 0; }
   flex-wrap: wrap;
   opacity: 0;
   animation: fadeUp 0.8s 1s var(--ease-out) forwards;
-}
-
-.hero-stats {
-  display: flex;
-  margin-top: 26px;
-  padding-top: 22px;
-  border-top: 1px solid var(--border);
-  max-width: 540px;
-  opacity: 0;
-  animation: fadeUp 0.8s 1.15s var(--ease-out) forwards;
-}
-.hero-stat {
-  flex: 1;
-  padding-left: 26px;
-  border-left: 1px solid var(--border);
-}
-.hero-stat:first-child {
-  padding-left: 0;
-  border-left: none;
-}
-.hero-stat-num {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(28px, 4vw, 38px);
-  font-weight: 600;
-  line-height: 1;
-  color: var(--text);
-}
-.hero-stat-label {
-  margin-top: 10px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  line-height: 1.5;
-  color: var(--muted);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
 }
 
 /* ── Globe stage: dotted globe + country pills + glass card ── */
@@ -712,12 +677,14 @@ section { padding: 64px 0; }
 
 .globe-cta-hint {
   position: absolute;
-  left: 6%;
-  bottom: 4%;
+  left: 50%;
+  bottom: 2.5%;
+  transform: translateX(-50%);
+  width: max-content;
   z-index: 2;
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: 14px;
   transition: opacity 0.25s;
 }
 .globe-stage.has-card .globe-cta-hint { opacity: 0; }
@@ -731,9 +698,9 @@ section { padding: 64px 0; }
   background: var(--fox-dim);
   color: var(--fox);
 }
-.ch-text { display: flex; flex-direction: column; gap: 3px; }
-.ch-text strong { font-family: var(--font-body); font-weight: 600; font-size: 14px; color: var(--text); }
-.ch-text span { font-size: 12.5px; color: var(--muted); }
+.ch-text { display: flex; flex-direction: column; gap: 2px; text-align: left; }
+.ch-text strong { font-family: var(--font-body); font-weight: 600; font-size: 14px; line-height: 1.4; color: var(--text); }
+.ch-text span { font-size: 12.5px; line-height: 1.4; color: var(--muted); }
 
 /* Hero globe (hidden on mobile, shown on desktop) */
 .hero-right { display: none; }
