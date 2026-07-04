@@ -795,10 +795,9 @@ section { padding: 64px 0; }
 }
 .photo-frame img { position: relative; z-index: 1; filter: none; }
 .photo-caption {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  letter-spacing: 0.01em;
   color: var(--muted);
   padding-right: 4px;
 }
@@ -904,11 +903,11 @@ section { padding: 64px 0; }
   align-items: start;
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--border);
-  border-radius: 0;
-  padding: 34px 56px 34px 4px;
-  overflow: hidden;
-  transition: background 0.4s var(--ease-out), padding-left 0.4s var(--ease-out);
+  border-radius: 18px;
+  margin: 0 -20px;
+  padding: 34px 56px 34px 20px;
+  background-color: transparent;
+  transition: background-color 0.45s var(--ease-out);
 }
 .edge-card::before {
   content: "0" counter(edge);
@@ -920,22 +919,26 @@ section { padding: 64px 0; }
   color: var(--muted);
   transition: color 0.3s;
 }
-.edge-card::after {                 /* arrow slides in on hover */
+.edge-card::after {                 /* hairline aligned with the content column */
+  content: '';
+  position: absolute;
+  left: 20px; right: 20px; bottom: 0;
+  height: 1px;
+  background: var(--border);
+}
+.edge-card h3::after {              /* arrow slides in on hover */
   content: '\2192';
   position: absolute;
-  right: 18px; top: 50%;
+  right: 24px; top: 50%;
   transform: translate(-10px, -50%);
   font-size: 24px;
   color: var(--fox);
   opacity: 0;
   transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out);
 }
-.edge-card:hover {
-  background: linear-gradient(90deg, var(--fox-dim), transparent 72%);
-  padding-left: 20px;
-}
+.edge-card:hover { background-color: rgba(245,106,0,0.05); }
 .edge-card:hover::before { color: var(--fox); }
-.edge-card:hover::after  { opacity: 1; transform: translate(0, -50%); }
+.edge-card:hover h3::after { opacity: 1; transform: translate(0, -50%); }
 
 .edge-icon { display: none; }
 
@@ -967,19 +970,27 @@ section { padding: 64px 0; }
 
 .tl-item {
   position: relative;
-  margin-bottom: 0;
-  padding: 38px 4px;
-  border-bottom: 1px solid var(--border);
+  margin: 0 -20px;
+  padding: 38px 20px;
+  border-radius: 18px;
   display: grid;
   grid-template-columns: 1fr;
   gap: 4px 56px;
   opacity: 0;
   transform: translateY(18px);
+  background-color: transparent;
   transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out),
-              background 0.4s var(--ease-out);
+              background-color 0.45s var(--ease-out);
+}
+.tl-item::after {                    /* hairline stays aligned with the content column */
+  content: '';
+  position: absolute;
+  left: 20px; right: 20px; bottom: 0;
+  height: 1px;
+  background: var(--border);
 }
 .tl-item.visible { opacity: 1; transform: translateY(0); }
-.tl-item:hover { background: linear-gradient(90deg, var(--fox-dim), transparent 72%); }
+.tl-item:hover { background-color: rgba(245,106,0,0.05); }
 
 .tl-dot { display: none; }
 
@@ -1279,7 +1290,7 @@ section { padding: 64px 0; }
   flex-shrink: 0;
 }
 .t-name { font-family: var(--font-head); font-weight: 600; font-size: 14px; color: var(--text); }
-.t-title { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.03em; color: var(--muted); margin-top: 3px; }
+.t-title { font-family: var(--font-body); font-size: 12.5px; letter-spacing: 0.01em; color: var(--muted); margin-top: 3px; }
 
 /* ── Bento review wall ── */
 .t-wall {
@@ -1510,8 +1521,11 @@ footer {
   /* editorial rows on desktop: index | title | description */
   .edge-card {
     grid-template-columns: 72px minmax(260px, 340px) 1fr;
-    padding: 42px 64px 42px 4px;
+    margin: 0 -28px;
+    padding: 44px 96px 44px 28px;
   }
+  .edge-card::after { left: 28px; right: 28px; }
+  .edge-card h3::after { right: 36px; }
   .edge-card::before { grid-row: auto; }
   .edge-card h3 { grid-column: 2; }
   .edge-card p  { grid-column: 3; margin-top: 6px; }
@@ -1519,8 +1533,10 @@ footer {
   /* experience rows: meta column | content */
   .tl-item {
     grid-template-columns: 220px 1fr;
-    padding: 46px 4px;
+    margin: 0 -28px;
+    padding: 46px 28px;
   }
+  .tl-item::after { left: 28px; right: 28px; }
   .tl-period  { grid-column: 1; margin-bottom: 6px; }
   .tl-company { grid-column: 1; }
   .tl-role    { grid-column: 2; grid-row: 1; }
