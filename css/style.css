@@ -1212,13 +1212,8 @@ section { padding: 64px 0; }
 /* ═══════════════════════════════════════════════
    TESTIMONIALS — mobile first
 ════════════════════════════════════════════════ */
-#testimonials { background: var(--bg2); }
+#testimonials { background: var(--bg); }
 
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
 .testimonial-card {
   position: relative;
   background: #fff;
@@ -1285,6 +1280,71 @@ section { padding: 64px 0; }
 }
 .t-name { font-family: var(--font-head); font-weight: 600; font-size: 14px; color: var(--text); }
 .t-title { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.03em; color: var(--muted); margin-top: 3px; }
+
+/* ── Bento review wall ── */
+.t-wall {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+@media (min-width: 760px) {
+  .t-wall { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .t-span2 { grid-column: span 2; }
+}
+@media (min-width: 1100px) {
+  .t-wall { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* featured quote — warm dark tile */
+.t-dark {
+  background: #1B1610;
+  border-color: #1B1610;
+}
+.t-dark .t-text {
+  color: #F5EFE6;
+  font-size: clamp(20px, 2.1vw, 25px);
+  line-height: 1.5;
+}
+.t-dark .t-author { border-top-color: rgba(245,239,230,0.16); }
+.t-dark .t-name { color: #F5EFE6; }
+.t-dark .t-title { color: rgba(245,239,230,0.55); }
+.t-dark .t-avatar { background: rgba(245,106,0,0.22); }
+.t-dark:hover { border-color: var(--fox); box-shadow: 0 16px 40px rgba(0,0,0,0.18); }
+
+/* stat tiles */
+.t-stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  transition: transform 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+}
+.t-stat:hover { transform: translateY(-4px); border-color: rgba(245,106,0,0.45); }
+.t-stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 5vw, 76px);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  color: var(--text);
+}
+.t-stat-stars { color: var(--fox); font-size: 13px; letter-spacing: 4px; }
+.t-stat-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.t-stat-accent { background: var(--fox); border-color: var(--fox); }
+.t-stat-accent .t-stat-num { color: #fff; }
+.t-stat-accent .t-stat-label { color: rgba(255,255,255,0.85); }
+.t-stat-accent:hover { border-color: #1B1610; }
 
 /* ═══════════════════════════════════════════════
    CONTACT — mobile first
@@ -1411,7 +1471,6 @@ footer {
 
   #stats { padding: 96px 0; }
 
-  .testimonials-grid { grid-template-columns: 1fr 1fr; }
 
   .projects-mini { grid-template-columns: repeat(4, 1fr); }
 
@@ -1475,7 +1534,6 @@ footer {
     padding-left: 36px;
   }
 
-  .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
 
   .featured-card.wide .card-thumb { min-height: 320px; }
   .card-body { padding: 28px; }
@@ -1860,63 +1918,6 @@ body::before {
   .cert-list {
     grid-template-columns: 1fr;
   }
-}
-
-/* ═══════════════════════════════════════════════
-   TESTIMONIALS — cap width on large screens
-════════════════════════════════════════════════ */
-.testimonials-carousel {
-  max-width: 1440px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* ═══════════════════════════════════════════════
-   TESTIMONIALS CAROUSEL
-════════════════════════════════════════════════ */
-#testimonials { overflow: hidden; }
-#testimonials .container { margin-bottom: 2.5rem; }
-
-.testimonials-carousel {
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
-  padding: 1rem 0 2rem;
-}
-
-.carousel-track {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 1.5rem;
-  width: max-content;
-  will-change: transform;
-  animation: carousel-scroll 30s linear infinite;
-}
-
-.carousel-track:hover {
-  animation-play-state: paused;
-}
-
-@keyframes carousel-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.carousel-track .testimonial-card {
-  flex: 0 0 340px;
-  width: 340px;
-  min-width: 340px;
-  opacity: 1 !important;
-  transform: none;
-  animation: none !important;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  cursor: default;
-}
-
-.carousel-track .testimonial-card:hover {
-  transform: translateY(-5px) !important;
-  box-shadow: 0 18px 44px rgba(245,106,0,0.12);
 }
 
 /* edge icon SVG styling */

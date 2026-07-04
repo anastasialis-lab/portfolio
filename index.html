@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#f7f1ea">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Sacramento&family=Dancing+Script:wght@500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20260701-10">
+  <link rel="stylesheet" href="css/style.css?v=20260701-11">
 </head>
 <body>
 
@@ -469,11 +469,9 @@
       <p class="section-label reveal" data-i18n="test_label">Social Proof</p>
       <h2 class="section-title reveal rd1" data-i18n="test_title">Client Reviews</h2>
     </header>
-  </div>
-  <div class="testimonials-carousel" aria-label="Client reviews carousel">
-    <div class="carousel-track">
-      <!-- 5 cards -->
-      <article class="testimonial-card">
+
+    <div class="t-wall">
+      <article class="testimonial-card t-dark t-span2 reveal">
         <div class="t-stars" aria-label="5 stars">★★★★★</div>
         <p class="t-text" data-i18n="t1_text">Anastasia delivered exceptional work on our Bubble.io project. Her attention to detail, deep understanding of no-code architecture, and proactive communication made the entire process smooth.</p>
         <div class="t-author">
@@ -484,7 +482,14 @@
           </div>
         </div>
       </article>
-      <article class="testimonial-card">
+
+      <div class="t-stat reveal rd1">
+        <p class="t-stat-num">5.0</p>
+        <p class="t-stat-stars" aria-hidden="true">★★★★★</p>
+        <p class="t-stat-label" data-i18n="rev_stat1">Average client rating · Upwork</p>
+      </div>
+
+      <article class="testimonial-card reveal">
         <div class="t-stars" aria-label="5 stars">★★★★★</div>
         <p class="t-text" data-i18n="t2_text">One of the best no-code developers I've worked with. She understood our complex requirements from day one and built a scalable, maintainable system. Highly recommend!</p>
         <div class="t-author">
@@ -495,7 +500,8 @@
           </div>
         </div>
       </article>
-      <article class="testimonial-card">
+
+      <article class="testimonial-card reveal rd1">
         <div class="t-stars" aria-label="5 stars">★★★★★</div>
         <p class="t-text" data-i18n="t3_text">Anastasia brought both technical expertise and business thinking to our project. Her finance background made a real difference — she asked the right questions and built exactly what we needed.</p>
         <div class="t-author">
@@ -506,7 +512,13 @@
           </div>
         </div>
       </article>
-      <article class="testimonial-card">
+
+      <div class="t-stat t-stat-accent reveal rd2">
+        <p class="t-stat-num">100%</p>
+        <p class="t-stat-label" data-i18n="rev_stat2">Job Success Score on Upwork</p>
+      </div>
+
+      <article class="testimonial-card reveal">
         <div class="t-stars" aria-label="5 stars">★★★★★</div>
         <p class="t-text" data-i18n="t4_text">Working with Anastasia was a pleasure from start to finish. She translated our complex automation needs into a clean Make + Airtable system and cut our manual work by over 80%. Outstanding delivery.</p>
         <div class="t-author">
@@ -517,63 +529,8 @@
           </div>
         </div>
       </article>
-      <article class="testimonial-card">
-        <div class="t-stars" aria-label="5 stars">★★★★★</div>
-        <p class="t-text" data-i18n="t5_text">Rare combination of product thinking and technical skill. Anastasia rebuilt our WeWeb + Xano platform from scratch — on time, on budget, and with zero bugs at launch. Would hire again immediately.</p>
-        <div class="t-author">
-          <div class="t-avatar" aria-hidden="true">TN</div>
-          <div>
-            <p class="t-name">Tom N.</p>
-            <p class="t-title">Co-founder, EdTech Startup · Direct</p>
-          </div>
-        </div>
-      </article>
-      <!-- duplicate set for seamless loop -->
-      <article class="testimonial-card" aria-hidden="true">
-        <div class="t-stars" aria-label="5 stars">★★★★★</div>
-        <p class="t-text" data-i18n="t1_text">Anastasia delivered exceptional work on our Bubble.io project. Her attention to detail, deep understanding of no-code architecture, and proactive communication made the entire process smooth.</p>
-        <div class="t-author">
-          <div class="t-avatar" aria-hidden="true">JM</div>
-          <div>
-            <p class="t-name">James M.</p>
-            <p class="t-title">Founder, SaaS Startup · Upwork</p>
-          </div>
-        </div>
-      </article>
-      <article class="testimonial-card" aria-hidden="true">
-        <div class="t-stars" aria-label="5 stars">★★★★★</div>
-        <p class="t-text" data-i18n="t2_text">One of the best no-code developers I've worked with. She understood our complex requirements from day one and built a scalable, maintainable system. Highly recommend!</p>
-        <div class="t-author">
-          <div class="t-avatar" aria-hidden="true">SR</div>
-          <div>
-            <p class="t-name">Sarah R.</p>
-            <p class="t-title">CTO, EdTech Platform · Upwork</p>
-          </div>
-        </div>
-      </article>
-      <article class="testimonial-card" aria-hidden="true">
-        <div class="t-stars" aria-label="5 stars">★★★★★</div>
-        <p class="t-text" data-i18n="t3_text">Anastasia brought both technical expertise and business thinking to our project. Her finance background made a real difference — she asked the right questions and built exactly what we needed.</p>
-        <div class="t-author">
-          <div class="t-avatar" aria-hidden="true">MK</div>
-          <div>
-            <p class="t-name">Michael K.</p>
-            <p class="t-title">CEO, PropTech · Direct</p>
-          </div>
-        </div>
-      </article>
-      <article class="testimonial-card" aria-hidden="true">
-        <div class="t-stars" aria-label="5 stars">★★★★★</div>
-        <p class="t-text" data-i18n="t4_text">Working with Anastasia was a pleasure from start to finish. She translated our complex automation needs into a clean Make + Airtable system and cut our manual work by over 80%. Outstanding delivery.</p>
-        <div class="t-author">
-          <div class="t-avatar" aria-hidden="true">LP</div>
-          <div>
-            <p class="t-name">Laura P.</p>
-            <p class="t-title">Operations Lead, B2B SaaS · Upwork</p>
-          </div>
-        </div>
-      </article>
-      <article class="testimonial-card" aria-hidden="true">
+
+      <article class="testimonial-card t-span2 reveal rd1">
         <div class="t-stars" aria-label="5 stars">★★★★★</div>
         <p class="t-text" data-i18n="t5_text">Rare combination of product thinking and technical skill. Anastasia rebuilt our WeWeb + Xano platform from scratch — on time, on budget, and with zero bugs at launch. Would hire again immediately.</p>
         <div class="t-author">
@@ -617,6 +574,6 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=20260701-10"></script>
+<script src="js/main.js?v=20260701-11"></script>
 </body>
 </html>
