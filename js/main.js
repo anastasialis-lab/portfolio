@@ -4,12 +4,99 @@
 document.documentElement.classList.remove('no-js');
 
 /* ════════════════════════════════════════════
+   LOADING SCREEN
+   The counter tracks real asset progress but is floored by a
+   timer, so it always moves and never stalls on a slow image.
+   The hero starts animating while the panel is still wiping up.
+════════════════════════════════════════════ */
+(function initLoader() {
+  const loader = document.getElementById('loader');
+  if (!loader) return;
+
+  const numEl  = document.getElementById('loader-num');
+  const fillEl = document.getElementById('loader-fill');
+  const body   = document.body;
+
+  function finish() {
+    if (body.classList.contains('is-ready')) return;
+    body.classList.remove('is-loading');
+    loader.classList.add('is-done');
+    setTimeout(() => body.classList.add('is-ready'), 180);
+    setTimeout(() => {
+      loader.classList.add('is-gone');
+      loader.setAttribute('aria-hidden', 'true');
+    }, 1400);
+    try { sessionStorage.setItem('al-visited', '1'); } catch (e) { /* private mode */ }
+  }
+
+  /* motion-sensitive visitors get the content immediately */
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    finish();
+    return;
+  }
+
+  let repeat = false;
+  try { repeat = !!sessionStorage.getItem('al-visited'); } catch (e) { /* ignore */ }
+
+  const minMs = repeat ? 600 : 1300;   // shorter run on a second load this session
+  const maxMs = 4200;                  // hard ceiling — content never waits longer
+  const t0    = performance.now();
+
+  /* real progress: hero-critical images + the load event */
+  const pending = Array.prototype.filter.call(document.images, img => !img.complete).slice(0, 12);
+  const total   = pending.length + 1;
+  let done      = 0;
+
+  pending.forEach(img => {
+    const tick = () => { done++; };
+    img.addEventListener('load',  tick, { once: true });
+    img.addEventListener('error', tick, { once: true });
+  });
+
+  if (document.readyState === 'complete') {
+    done++;
+  } else {
+    window.addEventListener('load', () => { done++; }, { once: true });
+  }
+
+  let shown = 0;
+  function frame(now) {
+    const elapsed = now - t0;
+    const real    = done / total;
+
+    /* real progress, gated by the minimum runtime … */
+    let target = Math.min(real, elapsed / minMs) * 100;
+    /* … and never allowed to look frozen while assets are slow */
+    target = Math.max(target, Math.min(92, (elapsed / maxMs) * 100));
+    if (elapsed >= maxMs) target = 100;
+
+    shown += (target - shown) * 0.12;
+    if (target >= 99.5 && shown > 98.5) shown = 100;
+
+    const v = Math.min(100, Math.round(shown));
+    if (numEl)  numEl.textContent = v;
+    if (fillEl) fillEl.style.transform = 'scaleX(' + (shown / 100).toFixed(4) + ')';
+
+    if (v >= 100 && elapsed >= minMs) {
+      setTimeout(finish, 260);   // let the full bar register before it lifts
+      return;
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  /* rAF is throttled in background tabs — this guarantees a handover */
+  setTimeout(finish, maxMs + 900);
+})();
+
+/* ════════════════════════════════════════════
    TRANSLATIONS
 ════════════════════════════════════════════ */
 const i18n = {
   en: {
     meta_title: 'Anastasia Lisovyk — AI Automation & Product Engineer (Kraków · Remote EU)',
     meta_desc: 'AI agent & automation engineer in Kraków, Poland. I build AI agents and workflow automation with Claude API, OpenAI API, LangChain and n8n. Open to remote EU/US.',
+    loader_status: 'Kraków · Building',
     nav_edge: 'Expertise', nav_exp: 'Experience', nav_products: 'Products',
     nav_port: 'Work', nav_stack: 'Stack', nav_contact: 'Contact',
     hero_badge: 'Open to new roles · Kraków &amp; remote',
@@ -107,6 +194,7 @@ const i18n = {
   uk: {
     meta_title: 'Анастасія Лісовик — AI Automation & Product Engineer (Краків · Remote EU)',
     meta_desc: 'AI agent developer і automation engineer у Кракові. Будую AI-агентів і workflow-автоматизацію на Claude API, OpenAI API, LangChain та n8n. Відкрита до remote EU/US.',
+    loader_status: 'Краків · Розробка',
     nav_edge: 'Експертиза', nav_exp: 'Досвід', nav_products: 'Продукти',
     nav_port: 'Проєкти', nav_stack: 'Стек', nav_contact: 'Контакт',
     hero_badge: 'Відкрита до нових ролей · Краків &amp; remote',
@@ -281,11 +369,25 @@ document.addEventListener('click', e => {
 /* ════════════════════════════════════════════
    NAV SCROLL EFFECT
 ════════════════════════════════════════════ */
-const navbar = document.getElementById('navbar');
+const navbar   = document.getElementById('navbar');
+const progress = document.getElementById('scroll-progress');
+let scrollRaf  = 0;
+
 function onScroll() {
-  navbar.classList.toggle('scrolled', window.scrollY > 60);
+  if (scrollRaf) return;
+  scrollRaf = requestAnimationFrame(() => {
+    scrollRaf = 0;
+    const y = window.scrollY;
+    navbar.classList.toggle('scrolled', y > 60);
+
+    if (progress) {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.setProperty('--p', max > 0 ? Math.min(y / max, 1).toFixed(4) : '0');
+    }
+  });
 }
 window.addEventListener('scroll', onScroll, { passive: true });
+window.addEventListener('resize', onScroll, { passive: true });
 onScroll(); // run once on load
 
 /* ════════════════════════════════════════════
@@ -867,25 +969,78 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
 /* ════════════════════════════════════════════
    MAGNETIC BUTTONS
 ════════════════════════════════════════════ */
+/* Buttons lean toward the cursor and remember where it entered, so the
+   ink bloom starts under the pointer. Everything travels through CSS
+   custom properties — no inline transform to fight the hover/press states. */
 (function initMagnetic() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const PULL = 0.22;
 
   document.querySelectorAll('.btn-primary, .btn-outline, .contact-link').forEach(el => {
+    let raf = 0;
+
     el.addEventListener('mouseenter', () => {
-      el.style.transition = 'transform 0.12s, border-color 0.2s, color 0.2s, box-shadow 0.2s';
+      el.style.setProperty('--mag-t', '0.14s');
     });
+
     el.addEventListener('mousemove', e => {
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left - r.width  / 2) * 0.3;
-      const y = (e.clientY - r.top  - r.height / 2) * 0.3;
-      el.style.transform = `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px)`;
-    });
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const r  = el.getBoundingClientRect();
+        const dx = e.clientX - r.left;
+        const dy = e.clientY - r.top;
+        el.style.setProperty('--tx', ((dx - r.width  / 2) * PULL).toFixed(2) + 'px');
+        el.style.setProperty('--ty', ((dy - r.height / 2) * PULL).toFixed(2) + 'px');
+        el.style.setProperty('--mx', ((dx / r.width)  * 100).toFixed(1) + '%');
+        el.style.setProperty('--my', ((dy / r.height) * 100).toFixed(1) + '%');
+      });
+    }, { passive: true });
+
     el.addEventListener('mouseleave', () => {
-      el.style.transition =
-        'transform 0.6s cubic-bezier(0.22,1,0.36,1), border-color 0.2s, color 0.2s, box-shadow 0.2s';
-      el.style.transform = '';
+      el.style.setProperty('--mag-t', '0.6s');
+      el.style.setProperty('--tx', '0px');
+      el.style.setProperty('--ty', '0px');
     });
   });
+})();
+
+/* ════════════════════════════════════════════
+   REVEAL STAGGER
+   Siblings in a grid cascade instead of landing together.
+   Items that already carry an rd* class keep their own timing.
+════════════════════════════════════════════ */
+(function initRevealStagger() {
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.classList.contains('rd1') || el.classList.contains('rd2') ||
+        el.classList.contains('rd3') || !el.parentElement) return;
+
+    const sibs = Array.prototype.filter.call(
+      el.parentElement.children, n => n.classList.contains('reveal')
+    );
+    if (sibs.length < 3) return;                       // pairs read better in sync
+    el.style.setProperty('--i', String(Math.min(sibs.indexOf(el), 4)));
+  });
+})();
+
+/* ════════════════════════════════════════════
+   SECTION TRANSITIONS — top hairline draws on arrival
+════════════════════════════════════════════ */
+(function initSectionRules() {
+  const sections = document.querySelectorAll('section[id]:not(#hero)');
+  if (!sections.length) return;
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('sec-in');
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0, rootMargin: '0px 0px -12% 0px' });
+
+  sections.forEach(s => obs.observe(s));
 })();
 
 /* TEXT SCRAMBLE removed — replaced with smooth word-reveal below */
