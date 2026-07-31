@@ -12,6 +12,7 @@ const i18n = {
     meta_desc: 'AI agent & automation engineer in Kraków, Poland. I build AI agents and workflow automation with Claude API, OpenAI API, LangChain and n8n. Open to remote EU/US.',
     nav_edge: 'Expertise', nav_exp: 'Experience', nav_products: 'Products',
     nav_port: 'Work', nav_stack: 'Stack', nav_contact: 'Contact',
+    hero_badge: 'Open to new roles · Kraków &amp; remote',
     hero_title: 'AI Automation &amp; Product Engineer',
     hero_desc: 'I design and build AI agents and automation systems — Claude API, OpenAI API, LangChain, n8n, Make — and take them to working products, not demos. 6+ years across venture-studio R&amp;D, client MVPs, and three mobile apps I researched, built and released on my own.',
     hero_avail: 'Open to remote roles across the EU and US · Kraków, Poland · relocation considered',
@@ -50,12 +51,13 @@ const i18n = {
     tl0_role: 'R&amp;D / Product Engineer',
     tl0_desc: "Assessed early-stage startup ideas inside an internal venture studio before any development began: market and competitor research, teardown of competitors' stacks and architecture, required APIs and paid services, and estimates of build cost, timeline and MVP feasibility on no-code/low-code. Built the prototypes and Proofs of Concept the studio used to validate or kill ideas before committing a full budget, working alongside Product Managers, Business Analysts, Researchers and Solution Architects. Built AI-powered internal automation on the OpenAI API and shipped production landing pages and MVPs (Bubble, Webflow, n8n) across the portfolio, including the fintech product Linity after the studio wound down.",
     tl1_role: 'Software Developer',
-    tl1_desc: 'Built the core internal platform for a Finnish sustainable timber-home construction company, connecting three user roles in one workflow: company admins, supplier and partner organisations, and end clients. Designed the tender system — admins raise material and work requests, invite suppliers filtered by specialisation, and suppliers submit competing bids inside the platform. Also delivered house-model management, cost-estimate documentation, role administration and in-project messaging; designed the database schemas and integrated third-party APIs, payment flows and webhooks.',
+    tl1_desc: 'Built the core internal platform for a Finnish sustainable timber-home construction company, connecting three user roles in one workflow: company admins, supplier and partner organisations, and end clients. Designed the tender system — admins raise material and work requests, invite suppliers filtered by specialisation, and suppliers submit competing bids inside the platform. Also delivered house-model management, cost-estimate documentation, role administration and in-project messaging; designed the database schemas, built analytics dashboards and integrated third-party APIs, payment flows and webhooks.',
     tl2_role: 'Freelance Product Developer',
     tl2_desc: "Delivered no-code products end to end for international clients on Bubble.io, WeWeb, Webflow, Xano and Airtable — among them a visa-application workflow platform for the DACH market and a peer-to-peer vehicle rental marketplace with three user roles and Stripe payments. Owned the full lifecycle: requirements, build, deploy, post-launch optimisation, direct client contact throughout. Passed WeWeb's official certification in 2022 and moved most freelance work onto that stack.",
     tl3_role: 'Senior No-Code Developer',
-    tl3_desc: 'Delivered MVPs and production applications for international startups: a fintech marketplace with automated price negotiation, renewals and co-termination (team of 5, delivered in 8 weeks); an Uber-style marketplace for plumbing services matching customers to trades by location and issue type (team of 7, 3 months) that helped the client reach their next investment round; plus social and dating products. Shipped a volunteer-coordination platform for Ukraine in 3 days at the start of the full-scale invasion (Bubble.io + Twilio). Worked cross-functionally with designers and engineers on architecture and performance.',
-    tl4_role: 'Lead Generator — Regional Representative, Poland',
+    tl3_desc: 'Delivered MVPs and production applications for international startups: NXGN, a fintech marketplace with automated price negotiation, renewals and co-termination (team of 5, delivered in 8 weeks); GCPlus, an Uber-style marketplace for plumbing services matching customers to trades by location and issue type (team of 7, 3 months) that helped the client reach their next investment round; plus social and dating products. Shipped a volunteer-coordination platform for Ukraine in 3 days at the start of the full-scale invasion (Bubble.io + Twilio). Worked cross-functionally with designers and engineers on architecture and performance.',
+    tl4_role: 'Lead Generator',
+    tl4_role2: 'Regional Representative, Poland',
     tl4_desc: 'Ran the full B2B funnel for the Polish market: qualified and validated marketing-qualified leads through direct outreach and first meetings, presented the delivery team to prospects, and carried deals through to signed contract and handoff. Collected initial client requirements and prepared documentation for business analysts — the first place I practised turning a business need into technical scope.',
     own_label: 'Own Products',
     own_title: 'Three apps,<br><span class="accent">shipped solo.</span>',
@@ -67,7 +69,7 @@ const i18n = {
     own3_title: 'Sobeer — days-clean &amp; habit-recovery tracker',
     own3_desc: 'Tracks time off alcohol, nicotine or screens with streaks, money- and time-recovered calculations, a craving and mood journal, and community groups. Built local-first with Supabase-ready auth and community sync, localized into 35 languages, with Face ID gating and RevenueCat premium tiers.',
     port_label: 'Client Work', port_title: 'Selected Projects',
-    port_desc: 'AI and automation work first, then the no-code platforms and marketplaces behind it. Clients under NDA are described by sector, not by name.',
+    port_desc: 'AI and automation work first, then the no-code platforms and marketplaces behind it.',
     p1_title: 'Upwork Cover Letter Generator — NDA-aware portfolio matching',
     p1_desc: 'A Notion portfolio of 28+ cases carries NDA and showcase rules that decide how much can be said about each project — full client name, functionality only, or nothing at all. The generator (web app + Telegram bot) reads a job posting, scores and matches the 2–3 most relevant cases by keywords and tech stack, and prompts Claude for a short letter with inline case links and a closing call to action. Prep time per application dropped from 15–20 minutes to 10–15 seconds; which clients to apply to is still decided by hand.',
     p2_title: 'PM AI Assistant — voice-to-task via Telegram',
@@ -76,24 +78,27 @@ const i18n = {
     p3_desc: 'A distributor trading since 1996 was running a 2018 OpenCart storefront with a cart and user accounts, while the real business is manager-led wholesale. I rebuilt the site from scratch — strategy, design, code and database: navigation cut to four sections, a categorized catalogue with parameter filters (DN, connection type) on Supabase, a short enquiry form instead of a cart, and a full admin panel for categories, products, brands, reviews and the hero slider. ~30KB transfer, and the client now runs the whole catalogue without a developer.',
     p4_title: 'AXB — corporate site for a digital-assets and FX trading firm',
     p4_desc: 'A market-making firm working across digital assets and foreign exchange needed a site that reads as institutional rather than crypto-native. Built in Webflow with Spline 3D scenes, custom lead-capture forms, a CMS-driven blog, a clean SEO structure and CookieYes consent handling. Live at axb.co.',
-    p5_title: 'On-demand services marketplace (under NDA)',
-    p5_desc: 'An Uber-style platform for plumbing services: customers describe the issue, the system matches them to available trades by location and problem type, and the job is tracked through to completion. Built on Bubble.io + Airtable with a team of 7 and delivered in 3 months — the working product was part of what let the client move on to their next investment round.',
-    p6_title: 'Fintech procurement marketplace (under NDA)',
+    p5_title: 'GCPlus — Uber-style marketplace for plumbing services',
+    p5_desc: 'Customers describe the issue, the platform matches them to available trades by location and problem type, and the job is tracked through to completion. Built on Bubble.io + Airtable with a team of 7 and delivered in 3 months — the working product was part of what let the client move on to their next investment round.',
+    p6_title: 'NXGN — fintech procurement marketplace',
     p6_desc: 'Companies pick the software products they need and the platform negotiates price on their behalf, then manages renewals, add-ons and co-termination across vendors such as Asana and ClickUp. Built on Bubble.io with a HubSpot integration by a team of 5 and delivered inside an 8-week window.',
     p7_title: 'Darsel — teacher platform for a non-profit',
     p7_desc: 'An education platform for teachers, built by a non-profit on research from Harvard and Stanford. I built the frontend in WeWeb against a Python backend with Auth0 authentication and Twilio messaging, delivered over three review iterations. Live at data.darsel.tech.',
     p8_title: 'HeartWiredClub — creative agency website',
     p8_desc: 'A multi-page Webflow site for a creative agency, with a CMS-driven portfolio and blog so the team publishes without a developer. Custom JavaScript handles the animations and interactions while keeping the pages fast on mobile, with SEO structure and CookieYes consent in place. Live at heartwiredclub.com.',
-    all_proj: 'More from 28+ delivered projects', more_proj: 'more on request',
+    all_proj: 'More from 40+ delivered projects', more_proj: 'more on request',
     stack_label: 'Tools', stack_title: 'Stack &amp; Toolset',
     stat1: 'Projects Delivered', stat2: 'Years in Industry',
     stat3: 'Own Apps Shipped', stat4: 'Countries Served',
     test_label: 'Social Proof', test_title: 'Recommendations',
-    test_desc: "Named recommendations from managers and clients I've worked with — full text on my LinkedIn profile.",
+    test_desc: 'Five named recommendations on LinkedIn — from the people who managed me, hired me, and shipped alongside me. Quoted in the original English.',
+    rel_managed: 'Managed Anastasia directly',
+    rel_senior: 'Was senior to Anastasia',
+    rel_team: 'Worked on the same team',
     rev_stat1: 'Average client rating · Upwork',
     rev_stat2: 'Job Success Score on Upwork',
     rev_stat3: 'Named recommendations on LinkedIn',
-    rev_cta: 'Read the recommendations',
+    rev_cta: 'Read them on LinkedIn',
     contact_label: "Let's talk",
     contact_title: 'Ready to build<br><span class="accent">something great?</span>',
     contact_desc: "Hiring for an AI agent, automation or product engineering role — or need one built? I'm based in Kraków and work remotely across the EU and US; relocation is on the table.",
@@ -104,6 +109,7 @@ const i18n = {
     meta_desc: 'AI agent developer і automation engineer у Кракові. Будую AI-агентів і workflow-автоматизацію на Claude API, OpenAI API, LangChain та n8n. Відкрита до remote EU/US.',
     nav_edge: 'Експертиза', nav_exp: 'Досвід', nav_products: 'Продукти',
     nav_port: 'Проєкти', nav_stack: 'Стек', nav_contact: 'Контакт',
+    hero_badge: 'Відкрита до нових ролей · Краків &amp; remote',
     hero_title: 'AI Automation &amp; Product Engineer',
     hero_desc: 'Проєктую і будую AI-агентів та системи автоматизації — Claude API, OpenAI API, LangChain, n8n, Make — і доводжу їх до робочих продуктів, а не демо. 6+ років: R&amp;D у venture studio, клієнтські MVP і три мобільні застосунки, які дослідила, зібрала й випустила сама.',
     hero_avail: 'Відкрита до remote-ролей у ЄС і США · Краків, Польща · релокація розглядається',
@@ -142,12 +148,13 @@ const i18n = {
     tl0_role: 'R&amp;D / Product Engineer',
     tl0_desc: 'Оцінювала early-stage стартап-ідеї у внутрішній venture studio ще до старту розробки: дослідження ринку і конкурентів, розбір їхнього стека й архітектури, перелік потрібних API і платних сервісів, оцінка вартості, строків і реалізовності MVP на no-code/low-code. Будувала прототипи і Proof of Concept, на яких студія вирішувала — валідувати ідею чи закрити її, не витрачаючи повний бюджет розробки; працювала поруч з Product Manager, Business Analyst, Researcher і Solution Architect. Зробила внутрішню AI-автоматизацію на OpenAI API і випустила продакшн-лендінги та MVP (Bubble, Webflow, n8n) по портфелю студії, включно з фінтех-продуктом Linity після її закриття.',
     tl1_role: 'Software Developer',
-    tl1_desc: 'Побудувала внутрішню платформу для фінської компанії, що проєктує і будує екологічні дерев\'яні будинки, — три ролі користувачів в одному процесі: адміністратори компанії, партнерські організації та постачальники, кінцеві клієнти. Спроєктувала тендерну систему: адміністратори створюють запити на матеріали й роботи, запрошують постачальників за напрямом діяльності, а ті подають конкурентні пропозиції всередині платформи. Також — управління моделями будинків, кошторисна документація, адміністрування ролей і внутрішнє листування; спроєктувала схеми БД та інтегрувала сторонні API, платіжні флоу і вебхуки.',
+    tl1_desc: 'Побудувала внутрішню платформу для фінської компанії, що проєктує і будує екологічні дерев\'яні будинки, — три ролі користувачів в одному процесі: адміністратори компанії, партнерські організації та постачальники, кінцеві клієнти. Спроєктувала тендерну систему: адміністратори створюють запити на матеріали й роботи, запрошують постачальників за напрямом діяльності, а ті подають конкурентні пропозиції всередині платформи. Також — управління моделями будинків, кошторисна документація, адміністрування ролей і внутрішнє листування; спроєктувала схеми БД, зробила аналітичні дашборди та інтегрувала сторонні API, платіжні флоу і вебхуки.',
     tl2_role: 'Freelance Product Developer',
     tl2_desc: 'Робила no-code продукти під ключ для міжнародних клієнтів на Bubble.io, WeWeb, Webflow, Xano та Airtable — серед них платформа оформлення віз для ринку DACH і P2P-маркетплейс оренди транспорту з трьома ролями користувачів і оплатою через Stripe. Вела повний цикл: вимоги, розробка, деплой, оптимізація після запуску, прямий контакт із клієнтом. У 2022 році пройшла офіційну сертифікацію WeWeb і перевела більшість фриланс-проєктів на цей стек.',
     tl3_role: 'Senior No-Code Developer',
-    tl3_desc: 'Здавала MVP і продакшн-застосунки для міжнародних стартапів: фінтех-маркетплейс з автоматизованими ціновими переговорами, поновленнями і ко-термінацією (команда 5, 8 тижнів); Uber-подібний маркетплейс сантехнічних послуг, що підбирає майстра за локацією і типом проблеми (команда 7, 3 місяці) — клієнт вийшов на наступний раунд інвестицій; а також соціальні та dating-продукти. За 3 дні на початку повномасштабного вторгнення випустила платформу координації волонтерів (Bubble.io + Twilio). Працювала крос-функціонально з дизайнерами й розробниками над архітектурою і продуктивністю.',
-    tl4_role: 'Lead Generator — регіональна представниця, Польща',
+    tl3_desc: 'Здавала MVP і продакшн-застосунки для міжнародних стартапів: NXGN — фінтех-маркетплейс з автоматизованими ціновими переговорами, поновленнями і ко-термінацією (команда 5, 8 тижнів); GCPlus — Uber-подібний маркетплейс сантехнічних послуг, що підбирає майстра за локацією і типом проблеми (команда 7, 3 місяці), клієнт вийшов на наступний раунд інвестицій; а також соціальні та dating-продукти. За 3 дні на початку повномасштабного вторгнення випустила платформу координації волонтерів (Bubble.io + Twilio). Працювала крос-функціонально з дизайнерами й розробниками над архітектурою і продуктивністю.',
+    tl4_role: 'Lead Generator',
+    tl4_role2: 'Регіональна представниця, Польща',
     tl4_desc: 'Вела повну B2B-воронку на польському ринку: кваліфікувала і валідувала Marketing Qualified Leads через пряму комунікацію та перші зустрічі, презентувала команду розробки потенційним клієнтам і доводила угоди до підписання контракту й передачі в делівері. Збирала первинні вимоги клієнтів і готувала документацію для бізнес-аналітиків — саме тут я вперше вчилася перекладати бізнес-потребу в технічний скоуп.',
     own_label: 'Власні продукти',
     own_title: 'Три застосунки,<br><span class="accent">випущені соло.</span>',
@@ -159,7 +166,7 @@ const i18n = {
     own3_title: 'Sobeer — трекер днів без залежності та відновлення звичок',
     own3_desc: 'Рахує час без алкоголю, нікотину чи екранів: серії, збережені гроші й час, щоденник тяги і настрою, спільноти. Побудований local-first із готовою до Supabase авторизацією і синхронізацією спільнот, локалізований на 35 мов, з Face ID та преміум-тарифами на RevenueCat.',
     port_label: 'Клієнтські проєкти', port_title: 'Вибрані роботи',
-    port_desc: 'Спершу AI та автоматизація, далі — no-code платформи і маркетплейси. Клієнтів під NDA описую за галуззю, без назв.',
+    port_desc: 'Спершу AI та автоматизація, далі — no-code платформи і маркетплейси.',
     p1_title: 'Upwork Cover Letter Generator — підбір кейсів з NDA-логікою',
     p1_desc: 'Notion-портфоліо з 28+ кейсів має правила NDA і видимості, які визначають, скільки можна сказати про кожен проєкт: повна назва клієнта, тільки функціональність або нічого. Генератор (веб-застосунок + Telegram-бот) читає опис вакансії, оцінює і підбирає 2–3 найрелевантніші кейси за ключовими словами і стеком, і промптить Claude написати короткий лист з inline-посиланнями на кейси й фінальним call to action. Підготовка однієї заявки — з 15–20 хвилин до 10–15 секунд; рішення, кому подаватись, і далі приймається вручну.',
     p2_title: 'PM AI Assistant — voice-to-task через Telegram',
@@ -168,24 +175,27 @@ const i18n = {
     p3_desc: 'Дистриб\'ютор на ринку з 1996 року працював на сайті OpenCart 2018 року з кошиком і обліковими записами, хоча реальні продажі — оптові B2B через менеджерів. Я перебудувала сайт з нуля — стратегія, дизайн, код і база даних: навігація скорочена до чотирьох розділів, каталог з категоріями і фільтрами за параметрами (DN, тип з\'єднання) на Supabase, коротка форма заявки замість кошика і повна адмін-панель для категорій, товарів, брендів, відгуків і hero-слайдера. ~30KB трафіку — і клієнт веде весь каталог сам, без розробника.',
     p4_title: 'AXB — корпоративний сайт трейдингової компанії (digital assets і FX)',
     p4_desc: 'Маркет-мейкер на перетині цифрових активів і валютного ринку потребував сайту, який читається як інституційний, а не крипто-нативний. Зроблено у Webflow: 3D-сцени Spline, кастомні форми збору лідів, блог на CMS, чиста SEO-структура і CookieYes. Живе на axb.co.',
-    p5_title: 'Маркетплейс послуг on-demand (під NDA)',
-    p5_desc: 'Uber-подібна платформа сантехнічних послуг: клієнт описує проблему, система підбирає доступного майстра за локацією і типом задачі, а роботу видно до завершення. Bubble.io + Airtable, команда 7, 3 місяці — робочий продукт став частиною того, що дозволило клієнту вийти на наступний раунд інвестицій.',
-    p6_title: 'Фінтех-маркетплейс закупівель ПЗ (під NDA)',
+    p5_title: 'GCPlus — Uber-подібний маркетплейс сантехнічних послуг',
+    p5_desc: 'Клієнт описує проблему, платформа підбирає доступного майстра за локацією і типом задачі, а роботу видно до завершення. Bubble.io + Airtable, команда 7, 3 місяці — робочий продукт став частиною того, що дозволило клієнту вийти на наступний раунд інвестицій.',
+    p6_title: 'NXGN — фінтех-маркетплейс закупівель ПЗ',
     p6_desc: 'Компанії обирають потрібні софтверні продукти, а платформа веде цінові переговори від їхнього імені та керує поновленнями, розширеннями і ко-термінацією по вендорах на кшталт Asana і ClickUp. Bubble.io з інтеграцією HubSpot, команда 5, здано в 8-тижневий строк.',
     p7_title: 'Darsel — платформа для вчителів від некомерційної організації',
     p7_desc: 'Освітня платформа для вчителів, побудована некомерційною організацією на дослідженнях Гарварду і Стенфорду. Я зробила фронтенд на WeWeb поверх Python-бекенду з авторизацією Auth0 і повідомленнями через Twilio, за три ітерації рев\'ю. Живе на data.darsel.tech.',
     p8_title: 'HeartWiredClub — сайт креативної агенції',
     p8_desc: 'Багатосторінковий сайт агенції на Webflow: портфоліо і блог на CMS, щоб команда публікувала матеріали без розробника. Кастомний JavaScript відповідає за анімації і взаємодії, не втрачаючи швидкості на мобільних; SEO-структура і CookieYes на місці. Живе на heartwiredclub.com.',
-    all_proj: 'Ще з 28+ реалізованих проєктів', more_proj: 'більше за запитом',
+    all_proj: 'Ще з 40+ реалізованих проєктів', more_proj: 'більше за запитом',
     stack_label: 'Інструменти', stack_title: 'Стек та інструментарій',
     stat1: 'Реалізованих проєктів', stat2: 'Років у сфері',
     stat3: 'Власних застосунків', stat4: 'Країн клієнтів',
     test_label: 'Рекомендації', test_title: 'Рекомендації',
-    test_desc: 'Іменні рекомендації від керівників і клієнтів, з якими я працювала — повний текст у профілі LinkedIn.',
+    test_desc: 'П\'ять іменних рекомендацій у LinkedIn — від людей, які мною керували, наймали мене і працювали поруч. Цитати в оригіналі, англійською.',
+    rel_managed: 'Керувала Анастасією напряму',
+    rel_senior: 'Був старшим за Анастасію',
+    rel_team: 'Працювали в одній команді',
     rev_stat1: 'Середня оцінка клієнтів · Upwork',
     rev_stat2: 'Job Success Score на Upwork',
     rev_stat3: 'Іменних рекомендацій у LinkedIn',
-    rev_cta: 'Прочитати рекомендації',
+    rev_cta: 'Прочитати в LinkedIn',
     contact_label: "Зв'яжіться",
     contact_title: 'Готові будувати<br><span class="accent">щось велике?</span>',
     contact_desc: 'Шукаєте людину на роль AI agent / automation / product engineer — або потрібно щось таке побудувати? Я в Кракові, працюю remote по ЄС і США, релокація розглядається.',
@@ -406,7 +416,7 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
   }
   /* ── DRAW HELPERS ─────────────────────────────── */
   function drawGraticule() {
-    ctx.strokeStyle = 'rgba(140,140,140,0.07)'; ctx.lineWidth = 0.5;
+    ctx.strokeStyle = 'rgba(255,255,255,0.055)'; ctx.lineWidth = 0.5;
     for (let lng = -180; lng < 180; lng += 30) {
       ctx.beginPath(); let mv = false;
       for (let lat = -85; lat <= 85; lat += 3) {
@@ -443,7 +453,7 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
         const {sx,sy} = proj(p);
         mv ? ctx.lineTo(sx,sy) : (ctx.moveTo(sx,sy), mv=true);
       }
-      ctx.strokeStyle = 'rgba(245,106,0,0.12)'; ctx.lineWidth = 1; ctx.stroke();
+      ctx.strokeStyle = 'rgba(249,115,22,0.20)'; ctx.lineWidth = 1; ctx.stroke();
     }
   }
 
@@ -462,9 +472,9 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
       const xyz = view([s[0]*lift, s[1]*lift, s[2]*lift]);
       if (xyz[2] < 0) continue;
       const {sx,sy} = proj(xyz);
-      ctx.shadowColor = '#F56A00'; ctx.shadowBlur = 10;
+      ctx.shadowColor = '#F97316'; ctx.shadowBlur = 12;
       ctx.beginPath(); ctx.arc(sx, sy, 1.9, 0, Math.PI*2);
-      ctx.fillStyle = 'rgba(245,140,60,0.9)'; ctx.fill();
+      ctx.fillStyle = 'rgba(255,178,110,0.95)'; ctx.fill();
       ctx.shadowBlur = 0;
     }
   }
@@ -481,12 +491,12 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
       const pulse = (Math.sin(now/1100 + i*1.7) + 1) / 2;
       // expanding ring
       ctx.beginPath(); ctx.arc(sx, sy, 4 + pulse*9, 0, Math.PI*2);
-      ctx.strokeStyle = `rgba(245,106,0,${(0.35*alpha*(1-pulse)).toFixed(2)})`;
+      ctx.strokeStyle = `rgba(249,115,22,${(0.45*alpha*(1-pulse)).toFixed(2)})`;
       ctx.lineWidth = 1.2; ctx.stroke();
       // core dot
-      ctx.shadowColor = '#F56A00'; ctx.shadowBlur = 8;
+      ctx.shadowColor = '#F97316'; ctx.shadowBlur = 10;
       ctx.beginPath(); ctx.arc(sx, sy, 2.4, 0, Math.PI*2);
-      ctx.fillStyle = `rgba(245,106,0,${(0.85*alpha).toFixed(2)})`; ctx.fill();
+      ctx.fillStyle = `rgba(249,115,22,${(0.95*alpha).toFixed(2)})`; ctx.fill();
       ctx.shadowBlur = 0;
     });
   }
@@ -522,17 +532,17 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
         const {sx,sy,z} = proj(xyz);
         if (z < 0.02) {
           if (land) {           // ghost of the far side — gives the sphere depth
-            ctx.fillStyle = 'rgba(130,130,130,0.05)';
+            ctx.fillStyle = 'rgba(255,255,255,0.05)';
             ctx.beginPath(); ctx.arc(sx, sy, 0.6, 0, Math.PI*2); ctx.fill();
           }
           continue;
         }
         if (land) {
           const tw = 0.05 * Math.sin(now*0.0012 + lat*0.7 + lng*0.35);
-          ctx.fillStyle = `rgba(90,90,90,${(0.18 + z*0.45 + tw).toFixed(2)})`;
+          ctx.fillStyle = `rgba(236,232,226,${(0.14 + z*0.42 + tw).toFixed(2)})`;
           ctx.beginPath(); ctx.arc(sx, sy, 0.95 + z*0.85, 0, Math.PI*2); ctx.fill();
         } else {
-          ctx.fillStyle = `rgba(150,150,150,${(0.035 + z*0.06).toFixed(2)})`;
+          ctx.fillStyle = `rgba(255,255,255,${(0.028 + z*0.05).toFixed(2)})`;
           ctx.beginPath(); ctx.arc(sx, sy, 0.5 + z*0.4, 0, Math.PI*2); ctx.fill();
         }
       }
@@ -540,14 +550,14 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
 
     // volume: soft inner vignette toward the rim
     const vg = ctx.createRadialGradient(cx, cy, R*0.55, cx, cy, R);
-    vg.addColorStop(0, 'rgba(120,110,100,0)');
-    vg.addColorStop(1, 'rgba(120,110,100,0.05)');
+    vg.addColorStop(0, 'rgba(249,115,22,0)');
+    vg.addColorStop(1, 'rgba(249,115,22,0.07)');
     ctx.fillStyle = vg;
     ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.fill();
 
     // soft outer ring
     ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2);
-    ctx.strokeStyle = 'rgba(150,150,150,0.10)'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,0.10)'; ctx.lineWidth = 1; ctx.stroke();
 
     drawArcs(GEO);
     drawPackets();
@@ -832,47 +842,26 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
 })();
 
 /* ════════════════════════════════════════════
-   3D TILT CARDS with shine
+   SPOTLIGHT CARDS — cursor-tracked radial glow
 ════════════════════════════════════════════ */
-(function initTilt() {
+(function initSpotlight() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
 
-  function applyTilt(selector, maxAngle, scaleFactor) {
-    document.querySelectorAll(selector).forEach(card => {
-      const shine = document.createElement('div');
-      shine.className = 'tilt-shine';
-      card.appendChild(shine);
+  const cards = document.querySelectorAll('.spot');
+  if (!cards.length) return;
 
-      let raf;
-
-      card.addEventListener('mouseenter', () => {
-        card.style.transition = 'border-color 0.3s, box-shadow 0.3s';
+  cards.forEach(card => {
+    let raf = 0;
+    card.addEventListener('mousemove', e => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${(((e.clientX - r.left) / r.width) * 100).toFixed(1)}%`);
+        card.style.setProperty('--my', `${(((e.clientY - r.top) / r.height) * 100).toFixed(1)}%`);
       });
-
-      card.addEventListener('mousemove', e => {
-        cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(() => {
-          const r = card.getBoundingClientRect();
-          const x = (e.clientX - r.left) / r.width  - 0.5;
-          const y = (e.clientY - r.top)  / r.height - 0.5;
-          card.style.transform =
-            `perspective(900px) rotateX(${(-y * maxAngle).toFixed(2)}deg) rotateY(${(x * maxAngle).toFixed(2)}deg) scale3d(${scaleFactor},${scaleFactor},${scaleFactor})`;
-          shine.style.background =
-            `radial-gradient(circle at ${((x + 0.5) * 100).toFixed(1)}% ${((y + 0.5) * 100).toFixed(1)}%, rgba(255,255,255,0.07) 0%, transparent 62%)`;
-        });
-      });
-
-      card.addEventListener('mouseleave', () => {
-        cancelAnimationFrame(raf);
-        card.style.transition =
-          'border-color 0.3s, box-shadow 0.3s, transform 0.55s cubic-bezier(0.22,1,0.36,1)';
-        card.style.transform = '';
-        shine.style.background = '';
-      });
-    });
-  }
-
-  applyTilt('.featured-card', 5,   1.010);
+    }, { passive: true });
+  });
 })();
 
 /* ════════════════════════════════════════════
