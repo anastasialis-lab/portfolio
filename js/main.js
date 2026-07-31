@@ -1055,16 +1055,67 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
 /* ════════════════════════════════════════════
    TIMELINE LINE DRAW
 ════════════════════════════════════════════ */
-(function initTimelineLine() {
+/* The rail fills in step with how far you have scrolled through the
+   section, and each dot ignites when the head reaches it. Reading
+   position is measured once per frame and only while the timeline is
+   actually on screen. */
+(function initTimelineScroll() {
   const tl = document.querySelector('.timeline');
   if (!tl) return;
-  const obs = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      tl.classList.add('line-active');
-      obs.disconnect();
-    }
-  }, { threshold: 0.04 });
-  obs.observe(tl);
+
+  const items = [...tl.querySelectorAll('.tl-item')];
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduced) {
+    tl.style.setProperty('--tl-p', '1');
+    items.forEach(i => i.classList.add('tl-on'));
+    return;
+  }
+
+  const head = document.createElement('span');
+  head.className = 'tl-head';
+  head.setAttribute('aria-hidden', 'true');
+  tl.appendChild(head);
+
+  let onScreen = false, raf = 0;
+
+  function update() {
+    raf = 0;
+    const r = tl.getBoundingClientRect();
+    const vh = window.innerHeight;
+
+    /* 0 when the top of the rail reaches 78% of the viewport,
+       1 once the bottom has passed 55% — a band that keeps the head
+       moving through the whole section rather than snapping. */
+    const start = vh * 0.78;
+    const end   = vh * 0.55;
+    const p = Math.min(1, Math.max(0, (start - r.top) / Math.max(1, r.height - (start - end))));
+
+    tl.style.setProperty('--tl-p', p.toFixed(4));
+    tl.classList.toggle('tl-running', p > 0.001 && p < 0.999);
+
+    const railTop = 6;
+    const railH   = r.height - 12;
+    head.style.transform = `translateY(${(railH * p).toFixed(1)}px)`;
+
+    items.forEach(item => {
+      const dot = item.querySelector('.tl-dot');
+      if (!dot) return;
+      const dotY = dot.getBoundingClientRect().top - r.top - railTop;
+      item.classList.toggle('tl-on', railH * p >= dotY - 4);
+    });
+  }
+
+  const onScroll = () => { if (!onScreen || raf) return; raf = requestAnimationFrame(update); };
+
+  new IntersectionObserver(entries => {
+    onScreen = entries[0].isIntersecting;
+    if (onScreen) update();
+  }, { rootMargin: '120px 0px 120px 0px' }).observe(tl);
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  update();
 })();
 
 /* ════════════════════════════════════════════
