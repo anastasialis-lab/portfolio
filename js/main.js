@@ -932,12 +932,13 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
     const isBtn  = !!e.target.closest(BTN_SEL);
     const isLink = !isBtn && !!e.target.closest(LINK_SEL);
     dot.classList.toggle('cursor-link',  isLink || isBtn);
+    dot.classList.toggle('cursor-btn',   isBtn);
     ring.classList.toggle('cursor-btn',  isBtn);
     ring.classList.toggle('cursor-link', isLink);
   });
   document.addEventListener('mouseout', e => {
     if (!e.relatedTarget || !e.relatedTarget.closest(LINK_SEL)) {
-      dot.classList.remove('cursor-link');
+      dot.classList.remove('cursor-link', 'cursor-btn');
       ring.classList.remove('cursor-link', 'cursor-btn');
     }
   });

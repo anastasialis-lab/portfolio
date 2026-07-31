@@ -24,13 +24,20 @@
   --fox-soft:  #FFB45C;
   --coral:     #FF4D3D;
   --violet:    #A855F7;
+  /* second accent — reserved for interactive affordances (arrow badges,
+     live dots). Orange stays the brand atmosphere; lime means "click me". */
+  --lime:      #D4F35C;
+  --lime-ink:  #12140A;
   --grad:      linear-gradient(96deg, #FFC178 0%, #F97316 32%, #FF4D3D 62%, #A855F7 100%);
   /* buttons stay in the warm half of the ramp — dark ink has to stay legible
      wherever the hover slide lands */
   --grad-btn:  linear-gradient(100deg, #FFC486 0%, #FB8B2E 34%, #F9631E 62%, #FF4D3D 100%);
 
-  /* type */
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  /* type
+     Syne carries no Cyrillic, so Geist is named next in the stack: the UK
+     version falls through per-glyph to a grotesk that actually has the
+     letters instead of whatever the OS picks. */
+  --font-display: 'Syne', 'Geist', system-ui, sans-serif;
   --font-body:    'Geist', system-ui, -apple-system, sans-serif;
   --font-mono:    'Geist Mono', ui-monospace, monospace;
 
@@ -349,6 +356,7 @@ section { position: relative; z-index: 2; }
   isolation: isolate;
   overflow: hidden;
   -webkit-tap-highlight-color: transparent;
+  font-family: var(--font-body);
   transform: translate3d(var(--tx), calc(var(--ty) + var(--lift)), 0) scale(var(--press));
   transition: transform var(--mag-t) var(--ease-soft),
               box-shadow var(--t-mid) var(--ease),
@@ -372,7 +380,7 @@ section { position: relative; z-index: 2; }
   position: relative;
   display: block;
   flex-shrink: 0;
-  width: 16px; height: 16px;
+  width: 18px; height: 18px;
   overflow: hidden;
 }
 .btn-ico svg {
@@ -418,42 +426,78 @@ section { position: relative; z-index: 2; }
   transition: transform var(--t-mid) var(--ease-soft);
 }
 
-/* ── PRIMARY — warm gradient, specular sheen on hover ──────── */
-.btn-primary {
-  color: #150A05;
-  background: var(--grad-btn);
-  background-size: 168% 100%;
-  background-position: 0% 50%;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.42),
-              inset 0 -1px 0 rgba(120,40,0,0.28),
-              0 6px 20px -10px rgba(249,115,22,0.85),
-              0 2px 6px -3px rgba(0,0,0,0.6);
-  transition: transform var(--mag-t) var(--ease-soft),
-              box-shadow var(--t-mid) var(--ease),
-              background-position 0.85s var(--ease-soft);
+/* ── ARROW BADGE — the lime disc that carries the action ───── */
+/* A button with a badge is padded asymmetrically so the disc sits
+   just inside the right edge, the way the reference lays it out. */
+.btn-primary:has(.btn-badge),
+.btn-outline:has(.btn-badge) {
+  --btn-px: 28px;
+  padding: 0 8px 0 var(--btn-px);
+  gap: 16px;
 }
-/* sheen band that sweeps across on hover */
+.btn-badge {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: calc(var(--btn-h) - 14px);
+  height: calc(var(--btn-h) - 14px);
+  border-radius: 50%;
+  background: var(--lime);
+  color: var(--lime-ink);
+  transition: transform 0.5s var(--ease-spring),
+              box-shadow var(--t-mid) var(--ease),
+              background-color var(--t-mid) var(--ease);
+}
+.btn-primary:hover .btn-badge {
+  transform: scale(1.09);
+  box-shadow: 0 0 26px -4px rgba(212,243,92,0.75);
+}
+.btn-primary:active .btn-badge { transform: scale(0.98); }
+/* secondary keeps the disc as a hairline until you reach for it */
+.btn-outline .btn-badge {
+  background: transparent;
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--line-2);
+}
+.btn-outline:hover .btn-badge {
+  background: var(--lime);
+  color: var(--lime-ink);
+  transform: scale(1.09);
+  box-shadow: inset 0 0 0 1px transparent, 0 0 24px -6px rgba(212,243,92,0.6);
+}
+.btn-outline:active .btn-badge { transform: scale(0.98); }
+
+/* ── PRIMARY — dark glass, colour bloom under the cursor ───── */
+.btn-primary {
+  color: var(--text);
+  background: rgba(255,255,255,0.055);
+  border: 1px solid var(--line-2);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08),
+              0 4px 18px -10px rgba(0,0,0,0.9);
+}
+/* the bloom tracks --mx/--my, which the magnetic handler already writes */
 .btn-primary::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(100deg,
-              transparent 30%,
-              rgba(255,255,255,0.42) 48%,
-              transparent 66%);
-  transform: translateX(-120%);
-  transition: transform 0.85s var(--ease-soft);
+  background:
+    radial-gradient(170px circle at var(--mx) var(--my),
+      rgba(249,115,22,0.75) 0%, rgba(255,77,61,0.5) 32%,
+      rgba(168,85,247,0.34) 58%, rgba(34,211,238,0) 82%);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
   pointer-events: none;
 }
 .btn-primary:hover {
-  background-position: 100% 50%;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.55),
-              inset 0 -1px 0 rgba(120,40,0,0.28),
-              0 16px 38px -14px rgba(249,115,22,0.95),
-              0 3px 10px -4px rgba(0,0,0,0.6);
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.22);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.14),
+              0 18px 40px -20px rgba(249,115,22,0.65);
 }
-.btn-primary:hover::after { transform: translateX(120%); }
+.btn-primary:hover::after { opacity: 1; }
 
 /* ── OUTLINE — glass pill, gradient hairline + cursor ink ──── */
 .btn-outline {
@@ -571,7 +615,6 @@ section { position: relative; z-index: 2; }
   color: var(--text);
   animation: btn-spin 0.7s linear infinite;
 }
-.btn-primary.is-loading::before { color: #150A05; }
 @keyframes btn-spin { to { transform: rotate(360deg); } }
 
 /* ── NAV ────────────────────────────────────────────────────── */
@@ -1928,8 +1971,12 @@ html:not(.no-js) body.is-ready .scroll-indicator { opacity: 1; }
 .cursor-dot { width: 5px; height: 5px; background: var(--fox); }
 .cursor-ring { width: 32px; height: 32px; border: 1px solid rgba(255,255,255,0.22); }
 .cursor-ring.cursor-link { width: 46px; height: 46px; border-color: rgba(249,115,22,0.6); }
-.cursor-ring.cursor-btn  { width: 58px; height: 58px; border-color: var(--fox); background: rgba(249,115,22,0.08); }
+/* Over a button the ring gets out of the way — the lime badge and the
+   bloom are already saying "this is clickable", and the old orange ring
+   sat right on top of them. */
+.cursor-ring.cursor-btn  { width: 0; height: 0; border-color: transparent; background: transparent; }
 .cursor-dot.cursor-link  { width: 7px; height: 7px; }
+.cursor-dot.cursor-btn   { width: 9px; height: 9px; background: var(--lime); }
 @media (pointer: coarse) { .cursor-dot, .cursor-ring { display: none; } }
 
 /* ═══════════════════════════════════════════════════════════════
