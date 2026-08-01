@@ -2134,16 +2134,23 @@ footer {
   font-size: clamp(52px, 16vw, 178px);
   line-height: 0.85;
   letter-spacing: -0.06em;
+  /* Outline wordmark. At 0.09 alpha over a 1px hairline it disappeared into
+     the background on anything but a bright screen — the letterforms now
+     carry enough weight to be legible while staying an outline, and the
+     stroke thickens with the type so it does not thin out at large sizes. */
   color: transparent;
-  -webkit-text-stroke: 1px rgba(255,255,255,0.09);
+  -webkit-text-stroke: 1.2px rgba(242,240,237,0.22);
   user-select: none;
   margin-bottom: 26px;
   white-space: nowrap;
 }
+@media (min-width: 900px) {
+  .footer-wordmark { -webkit-text-stroke-width: 1.6px; }
+}
 .footer-wordmark span {
   color: var(--fox);
   -webkit-text-stroke: 0;
-  opacity: 0.55;
+  opacity: 0.9;
 }
 .footer-inner {
   display: flex;
