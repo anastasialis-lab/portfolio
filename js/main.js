@@ -21,11 +21,19 @@ document.documentElement.classList.remove('no-js');
     if (body.classList.contains('is-ready')) return;
     body.classList.remove('is-loading');
     loader.classList.add('is-done');
-    setTimeout(() => body.classList.add('is-ready'), 180);
+    setTimeout(() => {
+      body.classList.add('is-ready');
+      /* the hero entrance is gated on this event, not on a timer */
+      document.dispatchEvent(new CustomEvent('al:ready'));
+    }, 180);
     setTimeout(() => {
       loader.classList.add('is-gone');
       loader.setAttribute('aria-hidden', 'true');
     }, 1400);
+    /* Once the entrance keyframes have played out they are switched off:
+       a finished `animation-fill-mode: both` keeps owning opacity/transform,
+       which would block the language-swap cross-fade on the same elements. */
+    setTimeout(() => body.classList.add('hero-settled'), 2600);
     try { sessionStorage.setItem('al-visited', '1'); } catch (e) { /* private mode */ }
   }
 
@@ -38,20 +46,30 @@ document.documentElement.classList.remove('no-js');
   let repeat = false;
   try { repeat = !!sessionStorage.getItem('al-visited'); } catch (e) { /* ignore */ }
 
-  const minMs = repeat ? 600 : 1300;   // shorter run on a second load this session
-  const maxMs = 4200;                  // hard ceiling — content never waits longer
+  const minMs = repeat ? 700 : 1400;   // shorter run on a second load this session
+  const maxMs = 3200;                  // hard ceiling — content never waits longer
   const t0    = performance.now();
 
-  /* real progress: hero-critical images + the load event */
-  const pending = Array.prototype.filter.call(document.images, img => !img.complete).slice(0, 12);
-  const total   = pending.length + 1;
-  let done      = 0;
+  /* Real progress = the things the first screen actually needs: eager images,
+     the webfonts and the load event. Lazy images further down the page are
+     deliberately excluded — they only resolve once the reader scrolls to them,
+     so counting them pinned the bar at its 92% floor until the ceiling fired. */
+  const pending = Array.prototype
+    .filter.call(document.images, img => !img.complete && img.loading !== 'lazy')
+    .slice(0, 8);
+  let total = pending.length + 1;
+  let done  = 0;
 
   pending.forEach(img => {
     const tick = () => { done++; };
     img.addEventListener('load',  tick, { once: true });
     img.addEventListener('error', tick, { once: true });
   });
+
+  if (document.fonts && document.fonts.ready) {
+    total += 1;
+    document.fonts.ready.then(() => { done++; }).catch(() => { done++; });
+  }
 
   if (document.readyState === 'complete') {
     done++;
@@ -70,8 +88,8 @@ document.documentElement.classList.remove('no-js');
     target = Math.max(target, Math.min(92, (elapsed / maxMs) * 100));
     if (elapsed >= maxMs) target = 100;
 
-    shown += (target - shown) * 0.12;
-    if (target >= 99.5 && shown > 98.5) shown = 100;
+    shown += (target - shown) * 0.17;
+    if (target >= 99.5 && shown > 97.5) shown = 100;
 
     const v = Math.min(100, Math.round(shown));
     if (numEl)  numEl.textContent = v;
@@ -132,7 +150,7 @@ const i18n = {
     proc4_p: 'Short iterations, user flows and data model agreed before code, continuous contact with stakeholders, priorities adjusted as new information arrives.',
     proc5_h: 'Measure',
     proc5_p: 'Business logic, flows, integrations and edge cases tested before release. After release, read real behaviour and iterate.',
-    exp_label: 'Career', exp_title: 'Experience',
+    exp_label: 'Career', exp_title: 'Experience', exp_rail: 'Timeline',
     tlai_role: 'Independent AI Automation &amp; Product Engineer',
     tlai_desc: 'Built an NDA-aware outreach generator on n8n + Claude API + Notion over a 28-case portfolio: it matches the 2–3 most relevant cases to a job posting and drafts the letter, cutting prep from 15–20 minutes to 10–15 seconds per application. Built a Telegram voice-to-task assistant for project managers (n8n + Groq/Whisper + Claude) that classifies intent and routes items into Jira/Notion and Google Calendar with a daily digest. Rebuilt a distributor\'s 2018 OpenCart site into a ~30KB filterable B2B catalogue with a self-service admin panel (Vanilla JS, htmx, Supabase, Netlify) — the client now runs the catalogue without a developer. Researched, built, localized and released three commercial mobile apps end to end; one took its first paying customers within weeks of launch, with no marketing team.',
     tl0_role: 'R&amp;D / Product Engineer',
@@ -230,7 +248,7 @@ const i18n = {
     proc4_p: 'Короткі ітерації, user flow і модель даних узгоджені до коду, постійний контакт зі стейкхолдерами, пріоритети змінюються, коли з\'являється нова інформація.',
     proc5_h: 'Вимірювання',
     proc5_p: 'Бізнес-логіка, флоу, інтеграції та edge cases тестуються до релізу. Після релізу — дивлюсь на реальну поведінку і йду наступною ітерацією.',
-    exp_label: "Кар'єра", exp_title: 'Досвід',
+    exp_label: "Кар'єра", exp_title: 'Досвід', exp_rail: 'Хронологія',
     tlai_role: 'Independent AI Automation &amp; Product Engineer',
     tlai_desc: 'Побудувала генератор заявок з NDA-логікою на n8n + Claude API + Notion поверх портфоліо з 28 кейсів: він підбирає 2–3 найрелевантніші кейси під вакансію і пише лист — підготовка однієї заявки скоротилась з 15–20 хвилин до 10–15 секунд. Зробила Telegram-асистента voice-to-task для проєктних менеджерів (n8n + Groq/Whisper + Claude): він розпізнає намір і маршрутизує задачі в Jira/Notion і Google Calendar, плюс щоденний дайджест. Перебудувала сайт дистриб\'ютора з OpenCart 2018 року у ~30KB B2B-каталог з фільтрами і власною адмін-панеллю (Vanilla JS, htmx, Supabase, Netlify) — клієнт веде каталог без розробника. Самостійно дослідила, зібрала, локалізувала і випустила три комерційні мобільні застосунки; один отримав перших платних користувачів за кілька тижнів після запуску без маркетингової команди.',
     tl0_role: 'R&amp;D / Product Engineer',
@@ -324,6 +342,17 @@ function applyLang(lang) {
   }
   setMeta('meta[property="og:locale"]', lang === 'uk' ? 'uk_UA' : 'en_US');
   setMeta('meta[property="og:locale:alternate"]', lang === 'uk' ? 'en_US' : 'uk_UA');
+  markLangButtons(lang);
+  moveLangIndicator();
+  /* Re-split the hero title only if it was already split: on first paint the
+     animated split is owned by initHeroWords, and pre-splitting here would
+     make the words appear once at rest before rising. */
+  const title = document.querySelector('.hero-title');
+  if (title && title.classList.contains('is-split')) splitWords(title, false);
+}
+
+/* ── active-language pill ───────────────────────────────────── */
+function markLangButtons(lang) {
   document.querySelectorAll('.lang-btn').forEach(btn => {
     const active = btn.dataset.lang === lang;
     btn.classList.toggle('active', active);
@@ -331,10 +360,99 @@ function applyLang(lang) {
   });
 }
 
+/* One element slides between the two labels instead of two backgrounds
+   swapping — the movement is what reads as "the language changed". */
+function moveLangIndicator() {
+  const ind    = document.querySelector('.lang-ind');
+  const active = document.querySelector('.lang-btn.active');
+  if (!ind || !active) return;
+  ind.style.width = active.offsetWidth + 'px';
+  ind.style.setProperty('--x', active.offsetLeft + 'px');
+  ind.classList.add('ready');
+}
+
+/* ── word splitter — masked per-word rise ───────────────────── */
+function splitWords(el, animate) {
+  if (!el) return;
+  const text = (el.textContent || '').replace(/\s+/g, ' ').trim();
+  if (!text) return;
+
+  const words = text.split(' ');
+  const frag  = document.createDocumentFragment();
+  words.forEach((word, i) => {
+    const outer = document.createElement('span');
+    outer.className = 'split-w';
+    outer.style.setProperty('--wi', String(i));
+    const inner = document.createElement('i');
+    inner.textContent = word;
+    outer.appendChild(inner);
+    frag.appendChild(outer);
+    if (i < words.length - 1) frag.appendChild(document.createTextNode(' '));
+  });
+
+  el.textContent = '';
+  el.appendChild(frag);
+  el.classList.add('is-split');
+
+  if (!animate) {
+    /* same task as the insert → no style resolution in between, so the
+       words land at rest without a transition of their own */
+    el.classList.add('words-in');
+    return;
+  }
+  el.classList.remove('words-in');
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('words-in')));
+}
+
+/* ── swap with a cross-fade instead of a hard re-render ─────── */
+function swapLang(lang) {
+  if (!i18n[lang] || lang === currentLang) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* the pill moves first — the copy follows it */
+  markLangButtons(lang);
+  moveLangIndicator();
+
+  if (reduce) { applyLang(lang); return; }
+
+  const body = document.body;
+  body.classList.add('lang-swap');
+  setTimeout(() => {
+    applyLang(lang);
+    body.classList.add('lang-in');
+    requestAnimationFrame(() => body.classList.remove('lang-swap'));
+    setTimeout(() => body.classList.remove('lang-in'), 480);
+  }, 200);
+}
+
 document.querySelectorAll('.lang-btn').forEach(btn => {
-  btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+  btn.addEventListener('click', () => swapLang(btn.dataset.lang));
 });
 applyLang(currentLang);
+window.addEventListener('resize', moveLangIndicator, { passive: true });
+/* fonts land after first paint and change the label widths */
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(moveLangIndicator).catch(() => {});
+}
+
+/* ── hero title: animated word reveal, gated on the loader ──── */
+(function initHeroWords() {
+  const title = document.querySelector('.hero-title');
+  if (!title) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let started = false;
+  const run = () => {
+    if (started) return;
+    started = true;
+    splitWords(title, true);
+  };
+  if (document.body.classList.contains('is-ready')) run();
+  else {
+    document.addEventListener('al:ready', run, { once: true });
+    setTimeout(run, 5200);   // loader failed to hand over — never leave it hidden
+  }
+})();
 
 /* ════════════════════════════════════════════
    MOBILE HAMBURGER MENU
@@ -419,13 +537,15 @@ document.querySelectorAll('.tl-item').forEach(el => tlObserver.observe(el));
 /* ════════════════════════════════════════════
    ANIMATED COUNTERS
 ════════════════════════════════════════════ */
-function animateCounter(el, target, suffix) {
-  const duration = 2000;
-  const start = performance.now();
+function animateCounter(el, target, decimals) {
+  const duration = 1700;
+  const start    = performance.now();
+  const fmt      = v => v.toFixed(decimals);
   function update(now) {
     const p    = Math.min((now - start) / duration, 1);
-    const ease = 1 - Math.pow(1 - p, 3); // ease-out cubic
-    el.textContent = Math.round(ease * target).toLocaleString() + suffix;
+    /* ease-out expo — fast off the line, long settle on the last digits */
+    const ease = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
+    el.textContent = fmt(ease * target);
     if (p < 1) requestAnimationFrame(update);
   }
   requestAnimationFrame(update);
@@ -434,10 +554,16 @@ function animateCounter(el, target, suffix) {
 const counterObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
-    const el = entry.target;
-    const n  = parseInt(el.dataset.count, 10);
-    animateCounter(el, n, '');   // the styled .stat-plus sits outside the counter
+    const el       = entry.target;
+    const decimals = parseInt(el.dataset.decimals || '0', 10);
+    const n        = parseFloat(el.dataset.count);
     counterObserver.unobserve(el);
+    if (Number.isNaN(n)) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.textContent = n.toFixed(decimals);
+      return;
+    }
+    animateCounter(el, n, decimals);   // the styled .stat-plus sits outside the counter
   });
 }, { threshold: 0.5 });
 
@@ -735,7 +861,23 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
 
   /* ── ANIMATION LOOP ───────────────────────────── */
   let packetTimer = 0;
+  let running = false;
+  let inView  = true;
+
+  function start() {
+    if (running || !inView || document.hidden) return;
+    running = true;
+    animId = requestAnimationFrame(tick);
+  }
+  function stop() {
+    running = false;
+    cancelAnimationFrame(animId);
+  }
+
   function tick(now) {
+    /* off-screen or backgrounded: drop the loop entirely rather than
+       burning a canvas repaint per frame on something nobody can see */
+    if (!inView || document.hidden) { running = false; return; }
     now = now || 0;
     const paused = stageEl && stageEl.classList.contains('has-card');
     if (!isDragging && !paused) {
@@ -756,9 +898,20 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
 
   resize();
   window.addEventListener('resize', resize, { passive:true });
-  document.addEventListener('visibilitychange', ()=>{ if(document.hidden) cancelAnimationFrame(animId); else tick(); });
+  document.addEventListener('visibilitychange', () => { document.hidden ? stop() : start(); });
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(entries => {
+      inView = entries[0].isIntersecting;
+      inView ? start() : stop();
+    }, { rootMargin: '120px' }).observe(canvas);
+  }
+
+  /* entrance: one decaying spin as the hero hands over, then the idle drift */
+  document.addEventListener('al:ready', () => { rotVel = 0.052; autoRot = true; }, { once: true });
+
   setupInteraction();
-  tick();
+  start();
 })();
 
 /* ════════════════════════════════════════════
@@ -1090,6 +1243,260 @@ if (heroGlow && window.matchMedia('(pointer: fine)').matches) {
    (labels with .reveal get .visible from revealObserver)
 ════════════════════════════════════════════ */
 /* handled purely via CSS .section-label.visible::after */
+
+/* ════════════════════════════════════════════
+   SCROLL DRIVER
+   One rAF-throttled scroll listener feeds every scroll-linked module
+   below. Each module registers a read/write callback; nothing else
+   binds its own scroll handler, so we never stack listeners that all
+   read layout on the same frame.
+════════════════════════════════════════════ */
+const scrollDriver = (() => {
+  const jobs = [];
+  let raf = 0;
+  function run() {
+    raf = 0;
+    for (let i = 0; i < jobs.length; i++) jobs[i]();
+  }
+  function request() {
+    if (!raf) raf = requestAnimationFrame(run);
+  }
+  window.addEventListener('scroll', request, { passive: true });
+  window.addEventListener('resize', request, { passive: true });
+  return {
+    add(fn) { jobs.push(fn); request(); },
+    kick: request
+  };
+})();
+
+/* the point on screen a step has to cross to count as "being read" */
+function readingLine() { return window.innerHeight * 0.56; }
+
+/* ════════════════════════════════════════════
+   HOW I WORK — scroll-driven process timeline
+   The rail fills as the reading line travels the list; the step under
+   it is active, everything above it stays marked done.
+════════════════════════════════════════════ */
+(function initProcess() {
+  const wrap = document.querySelector('.proc-wrap');
+  if (!wrap) return;
+  const rail  = wrap.querySelector('.proc-rail');
+  const steps = Array.prototype.slice.call(wrap.querySelectorAll('.proc-step'));
+  if (!rail || !steps.length) return;
+
+  /* entrance — each step rises once, independently of the active state */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  steps.forEach(s => io.observe(s));
+
+  let lastActive = -1;
+  scrollDriver.add(function updateProcess() {
+    const line  = readingLine();
+    const first = steps[0].getBoundingClientRect();
+    const last  = steps[steps.length - 1].getBoundingClientRect();
+
+    const start = first.top + 12;
+    const end   = last.top + Math.min(last.height, 150);
+    const span  = Math.max(1, end - start);
+    const p     = Math.min(1, Math.max(0, (line - start) / span));
+
+    rail.style.setProperty('--p', p.toFixed(4));
+    rail.classList.toggle('is-live', p > 0.002);
+
+    let active = -1;
+    for (let i = 0; i < steps.length; i++) {
+      if (steps[i].getBoundingClientRect().top <= line) active = i;
+    }
+    if (active === lastActive) return;
+    lastActive = active;
+    steps.forEach((s, i) => {
+      s.classList.toggle('active', i === active);
+      s.classList.toggle('done',   i <  active);
+    });
+  });
+})();
+
+/* ════════════════════════════════════════════
+   EXPERIENCE — sticky rail
+   The rail is built from the periods already in the markup, so it stays
+   correct in both languages and there is no second copy to maintain.
+════════════════════════════════════════════ */
+(function initExperienceRail() {
+  const layout = document.querySelector('.exp-layout');
+  if (!layout) return;
+  const items = Array.prototype.slice.call(layout.querySelectorAll('.tl-item'));
+  const years = layout.querySelector('.exp-years');
+  const fill  = layout.querySelector('.exp-track-fill');
+  if (!items.length) return;
+
+  const marks = [];
+  if (years) {
+    items.forEach(item => {
+      const period = item.querySelector('.tl-period');
+      const li  = document.createElement('li');
+      const btn = document.createElement('button');
+      btn.type      = 'button';
+      btn.className = 'exp-year';
+      btn.textContent = period ? period.textContent.trim() : '';
+      btn.addEventListener('click', () => {
+        const top = item.getBoundingClientRect().top + window.scrollY - 130;
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
+      li.appendChild(btn);
+      years.appendChild(li);
+      marks.push(btn);
+    });
+  }
+
+  let lastCurrent = -1;
+  scrollDriver.add(function updateExperience() {
+    const line  = readingLine();
+    const first = items[0].getBoundingClientRect();
+    const last  = items[items.length - 1].getBoundingClientRect();
+    const start = first.top;
+    const end   = last.top + last.height * 0.6;
+    const span  = Math.max(1, end - start);
+    const p     = Math.min(1, Math.max(0, (line - start) / span));
+
+    if (fill) fill.style.setProperty('--p', p.toFixed(4));
+
+    let current = -1;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].getBoundingClientRect().top <= line) current = i;
+    }
+    if (current === -1 && first.top < window.innerHeight) current = 0;
+    if (current === lastCurrent) return;
+    lastCurrent = current;
+
+    items.forEach((it, i) => it.classList.toggle('current', i === current));
+    marks.forEach((m, i) => {
+      m.classList.toggle('current', i === current);
+      m.classList.toggle('passed',  i <  current);
+    });
+  });
+})();
+
+/* ════════════════════════════════════════════
+   CARD TILT — pointer-driven 3D on project cards
+   Writes --rx/--ry only; the transform itself lives in CSS so the
+   reveal, the hover lift and the tilt can share one property.
+════════════════════════════════════════════ */
+(function initTilt() {
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const MAX = 3.2;   // degrees — past ~4 it stops reading as premium
+  document.querySelectorAll('.featured-card').forEach(card => {
+    let raf = 0;
+
+    card.addEventListener('mouseenter', () => card.classList.add('is-tilting'));
+    card.addEventListener('mousemove', e => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const r  = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width  - 0.5;
+        const py = (e.clientY - r.top)  / r.height - 0.5;
+        card.style.setProperty('--ry', ( px * MAX).toFixed(2) + 'deg');
+        card.style.setProperty('--rx', (-py * MAX).toFixed(2) + 'deg');
+      });
+    }, { passive: true });
+
+    card.addEventListener('mouseleave', () => {
+      card.classList.remove('is-tilting');
+      card.style.setProperty('--rx', '0deg');
+      card.style.setProperty('--ry', '0deg');
+    });
+  });
+})();
+
+/* ════════════════════════════════════════════
+   BUTTONS — shimmer layer + press ripple
+════════════════════════════════════════════ */
+(function initButtonFx() {
+  const buttons = document.querySelectorAll('.btn-primary, .btn-outline');
+  if (!buttons.length) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  buttons.forEach(btn => {
+    if (!btn.querySelector('.btn-shine')) {
+      const shine = document.createElement('span');
+      shine.className = 'btn-shine';
+      shine.setAttribute('aria-hidden', 'true');
+      btn.appendChild(shine);
+    }
+    if (reduce) return;
+
+    btn.addEventListener('pointerdown', e => {
+      const r  = btn.getBoundingClientRect();
+      const el = document.createElement('span');
+      el.className = 'btn-ripple';
+      el.setAttribute('aria-hidden', 'true');
+      el.style.left = (e.clientX - r.left) + 'px';
+      el.style.top  = (e.clientY - r.top)  + 'px';
+      btn.appendChild(el);
+      setTimeout(() => el.remove(), 660);
+    });
+  });
+})();
+
+/* ════════════════════════════════════════════
+   PARALLAX — transform-only, one shared frame
+════════════════════════════════════════════ */
+(function initParallax() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const layers = [
+    { el: document.querySelector('.hero-bg-grid'), f:  0.09, max: 60 },
+    { el: document.querySelector('.hero-right'),   f: -0.05, max: 34 },
+    { el: document.querySelector('.contact-glow'), f: -0.08, max: 70 }
+  ].filter(l => l.el);
+  if (!layers.length) return;
+
+  /* Each layer's resting centre is measured once (and on resize) in document
+     space. Reading getBoundingClientRect() every frame would feed the offset
+     we just wrote back into the next calculation and drift. */
+  function measure() {
+    layers.forEach(l => {
+      const prev = l.el.style.getPropertyValue('--par');
+      l.el.style.setProperty('--par', '0px');
+      const r = l.el.getBoundingClientRect();
+      l.mid = r.top + window.scrollY + r.height / 2;
+      if (prev) l.el.style.setProperty('--par', prev);
+    });
+  }
+  measure();
+  window.addEventListener('resize', () => { measure(); scrollDriver.kick(); }, { passive: true });
+  document.addEventListener('al:ready', measure, { once: true });
+
+  scrollDriver.add(function updateParallax() {
+    const mid = window.scrollY + window.innerHeight / 2;
+    for (const l of layers) {
+      const r = l.el.getBoundingClientRect();
+      if (r.bottom < -300 || r.top > window.innerHeight + 300) continue;
+      const raw = (mid - l.mid) * l.f;
+      const par = Math.max(-l.max, Math.min(l.max, raw));
+      l.el.style.setProperty('--par', par.toFixed(1) + 'px');
+    }
+  });
+})();
+
+/* ════════════════════════════════════════════
+   STACK — item counts and staggered item entrance
+════════════════════════════════════════════ */
+(function initStack() {
+  document.querySelectorAll('.stack-group').forEach(group => {
+    const items = group.querySelectorAll('.stack-item');
+    const count = group.querySelector('.stack-count');
+    if (count) count.textContent = String(items.length).padStart(2, '0');
+    items.forEach((item, i) => item.style.setProperty('--si', String(i)));
+  });
+})();
 
 /* ════════════════════════════════════════════
    ACTIVE NAV LINK — highlight current section
