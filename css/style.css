@@ -20,8 +20,8 @@
      value, so the heading↔body contrast step is now deliberate, not accidental. */
   --text:      #F2F0ED;
   --muted:     rgba(242,240,237,0.68);
-  --faint:     rgba(242,240,237,0.46);
-  --whisper:   rgba(242,240,237,0.30);
+  --faint:     rgba(242,240,237,0.56);
+  --whisper:   rgba(242,240,237,0.38);
 
   /* accent */
   --fox:       #F97316;
@@ -43,7 +43,12 @@
      letters instead of whatever the OS picks. */
   --font-display: 'Syne', 'Geist', system-ui, sans-serif;
   --font-body:    'Geist', system-ui, -apple-system, sans-serif;
-  --font-mono:    'Geist Mono', ui-monospace, monospace;
+  /* Micro type — labels, captions, meta lines, tags.
+     Geist rather than a monospace: the grotesk reads as considered instead of
+     technical, and it shares its shapes with the body copy, so the small text
+     now belongs to the same voice. Its label character comes from weight,
+     tracking and case, not from a second typeface. */
+  --font-micro:   'Geist', system-ui, -apple-system, sans-serif;
 
   /* geometry */
   --px: 20px;
@@ -195,7 +200,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   to   { transform: translateY(0); }
 }
 .loader-sub {
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 10.5px;
   letter-spacing: 0.34em;
   text-transform: uppercase;
@@ -217,7 +222,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 14px;
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 10.5px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -291,7 +296,7 @@ section { position: relative; z-index: 2; }
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.18em;
@@ -737,7 +742,7 @@ section { position: relative; z-index: 2; }
 .lang-btn {
   padding: 5px 11px;
   border-radius: 999px;
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.06em;
@@ -841,43 +846,6 @@ section { position: relative; z-index: 2; }
   align-items: center;
 }
 
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 7px 16px 7px 13px;
-  margin-bottom: 26px;
-  border-radius: 999px;
-  border: 1px solid var(--line-2);
-  background: rgba(255,255,255,0.035);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  letter-spacing: 0.03em;
-  color: var(--muted);
-  animation: fadeUp 0.8s var(--ease) both;
-}
-.pulse-dot {
-  position: relative;
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: #34D399;
-  flex-shrink: 0;
-}
-.pulse-dot::after {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(52,211,153,0.55);
-  animation: ping 2.2s var(--ease-io) infinite;
-}
-@keyframes ping {
-  0%        { transform: scale(0.55); opacity: 1; }
-  80%, 100% { transform: scale(1.5);  opacity: 0; }
-}
-
 .hero-name {
   font-family: var(--font-display);
   font-weight: 700;
@@ -898,52 +866,36 @@ section { position: relative; z-index: 2; }
   to   { transform: translateY(0);    opacity: 1; }
 }
 
+/* With the availability badge and line gone, the left column is four
+   elements: name, role, paragraph, actions. Each step gets more air so the
+   block still fills its half of the hero instead of collapsing upward. */
 .hero-title {
-  margin-top: 14px;
+  margin-top: 18px;
   font-family: var(--font-display);
   font-weight: 600;
   font-size: clamp(19px, 2.9vw, 30px);
-  line-height: 1.2;
+  line-height: 1.22;
   letter-spacing: -0.028em;
+  text-wrap: balance;      /* if the role does wrap, both lines carry weight */
   animation: fadeUp 0.9s var(--ease) 0.22s both;
 }
 
 .hero-desc {
-  margin-top: 22px;
-  max-width: 560px;
+  margin-top: 26px;
+  max-width: 58ch;
   color: var(--muted);
-  font-size: clamp(15px, 1.5vw, 16.5px);
-  line-height: 1.68;
+  font-size: clamp(15.5px, 1.55vw, 17px);
+  line-height: 1.72;
+  text-wrap: pretty;
   animation: fadeUp 0.9s var(--ease) 0.32s both;
-}
-
-.hero-avail {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin-top: 20px;
-  max-width: 480px;
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  letter-spacing: 0.02em;
-  line-height: 1.65;
-  color: var(--faint);
-  animation: fadeUp 0.9s var(--ease) 0.4s both;
-}
-.hero-avail::before {
-  content: '';
-  flex-shrink: 0;
-  margin-top: 8px;
-  width: 18px; height: 1px;
-  background: var(--fox);
 }
 
 .hero-ctas {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 34px;
-  animation: fadeUp 0.9s var(--ease) 0.48s both;
+  margin-top: 40px;
+  animation: fadeUp 0.9s var(--ease) 0.42s both;
 }
 
 /* ── GLOBE ──────────────────────────────────────────────────── */
@@ -1031,7 +983,7 @@ section { position: relative; z-index: 2; }
 .geo-proj + .geo-proj { margin-top: 10px; }
 .geo-proj-title { font-size: 13px; font-weight: 600; line-height: 1.35; }
 .geo-proj-meta {
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 10.5px;
   letter-spacing: 0.03em;
   color: var(--faint);
@@ -1040,7 +992,7 @@ section { position: relative; z-index: 2; }
 .geo-card-cta {
   display: inline-block;
   margin-top: 14px;
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 10.5px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1069,7 +1021,7 @@ section { position: relative; z-index: 2; }
 .ch-icon { color: var(--fox); display: flex; }
 .ch-text { display: flex; flex-direction: column; line-height: 1.35; }
 .ch-text strong { font-size: 12px; font-weight: 600; }
-.ch-text span { font-family: var(--font-mono); font-size: 10px; color: var(--faint); letter-spacing: 0.02em; }
+.ch-text span { font-family: var(--font-micro); font-size: 10px; color: var(--faint); letter-spacing: 0.02em; }
 
 /* ── MARQUEE ────────────────────────────────────────────────── */
 .marquee {
@@ -1098,7 +1050,7 @@ section { position: relative; z-index: 2; }
   font-size: clamp(15px, 2vw, 20px);
   font-weight: 500;
   letter-spacing: -0.02em;
-  color: rgba(242,240,237,0.4);
+  color: rgba(242,240,237,0.48);
   transition: color 0.4s;
 }
 .mq-set i { color: var(--fox); font-size: 8px; font-style: normal; opacity: 0.55; }
@@ -1155,7 +1107,7 @@ section { position: relative; z-index: 2; }
   position: relative;
   z-index: 1;
   margin-top: 12px;
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 10.5px;
   letter-spacing: 0.13em;
   text-transform: uppercase;
@@ -1211,7 +1163,7 @@ section { position: relative; z-index: 2; }
 .bio-photo:hover .photo-frame img { filter: grayscale(0) contrast(1); transform: scale(1.03); }
 .photo-caption {
   margin-top: 14px;
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 11px;
   letter-spacing: 0.05em;
   color: var(--faint);
@@ -1228,7 +1180,7 @@ section { position: relative; z-index: 2; }
   align-items: center;
   gap: 9px;
   margin-top: 38px;
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -1270,7 +1222,7 @@ section { position: relative; z-index: 2; }
 .cert-name { font-size: 13.5px; font-weight: 500; line-height: 1.35; min-width: 0; }
 .cert-tag {
   flex-shrink: 0;
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1382,7 +1334,7 @@ section { position: relative; z-index: 2; }
 }
 .bento-body h3::before {
   content: "0" counter(bento);
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.14em;
@@ -1508,7 +1460,7 @@ section { position: relative; z-index: 2; }
 }
 .proc-num {
   display: block;
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.16em;
@@ -1569,7 +1521,7 @@ section { position: relative; z-index: 2; }
     grid-column: 1;
     grid-row: 1;
     padding-top: 5px;
-    font-family: var(--font-mono);
+    font-family: var(--font-micro);
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.16em;
@@ -1595,7 +1547,7 @@ section { position: relative; z-index: 2; }
 .exp-rail { display: none; }
 .exp-rail-inner { position: sticky; top: 116px; }
 .exp-rail-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 10.5px;
   font-weight: 500;
   letter-spacing: 0.2em;
@@ -1628,7 +1580,7 @@ section { position: relative; z-index: 2; }
   width: 100%;
   padding: 9px 0;
   text-align: left;
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 11px;
   letter-spacing: 0.08em;
   color: var(--whisper);
@@ -1701,7 +1653,7 @@ section { position: relative; z-index: 2; }
 }
 .tl-period {
   display: block;
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1725,7 +1677,7 @@ section { position: relative; z-index: 2; }
 }
 .tl-company {
   margin-top: 7px;
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 11.5px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1748,7 +1700,7 @@ section { position: relative; z-index: 2; }
   border-radius: 999px;
   border: 1px solid var(--line);
   background: rgba(255,255,255,0.028);
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 10.5px;
   letter-spacing: 0.04em;
   color: var(--muted);
@@ -1913,14 +1865,14 @@ section { position: relative; z-index: 2; }
   box-shadow: 0 14px 28px -20px rgba(0,0,0,0.9);
 }
 .chip-num {
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 10px;
   letter-spacing: 0.1em;
   color: var(--fox);
 }
 .chip-name { font-size: 13px; font-weight: 500; line-height: 1.35; }
 .chip-tags {
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 10px;
   letter-spacing: 0.02em;
   color: var(--faint);
@@ -1956,7 +1908,7 @@ section { position: relative; z-index: 2; }
 .stack-group h4 {
   position: relative;
   z-index: 1;
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 10.5px;
   font-weight: 500;
   letter-spacing: 0.16em;
@@ -1988,7 +1940,7 @@ section { position: relative; z-index: 2; }
 .level {
   margin-left: auto;
   flex-shrink: 0;
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 9.5px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -2025,7 +1977,7 @@ section { position: relative; z-index: 2; }
 .t-stat-stars { color: var(--fox); font-size: 12px; letter-spacing: 4px; margin-top: 8px; }
 .t-stat-label {
   margin-top: 12px;
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 10.5px;
   letter-spacing: 0.13em;
   text-transform: uppercase;
@@ -2123,7 +2075,7 @@ section { position: relative; z-index: 2; }
 .t-name { font-family: var(--font-display); font-size: 14.5px; font-weight: 600; letter-spacing: -0.02em; }
 .t-title { font-size: 12.5px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
 .t-rel {
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 10px;
   letter-spacing: 0.04em;
   color: var(--faint);
@@ -2201,7 +2153,7 @@ footer {
   gap: 10px;
   padding-top: 22px;
   border-top: 1px solid var(--line);
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 11px;
   letter-spacing: 0.03em;
   color: var(--faint);
@@ -2217,7 +2169,7 @@ footer {
   flex-direction: column;
   align-items: center;
   gap: 9px;
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 9.5px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
@@ -2310,11 +2262,9 @@ section[id]:not(#hero).sec-in::before { transform: scaleX(1); opacity: 1; }
 
 /* ── HERO ENTRANCE GATE ─────────────────────────────────────── */
 /* hero animations hold at frame 0 until the loader hands over */
-html:not(.no-js) body:not(.is-ready) .hero-badge,
 html:not(.no-js) body:not(.is-ready) .hero-name .nl-in,
 html:not(.no-js) body:not(.is-ready) .hero-title,
 html:not(.no-js) body:not(.is-ready) .hero-desc,
-html:not(.no-js) body:not(.is-ready) .hero-avail,
 html:not(.no-js) body:not(.is-ready) .hero-ctas,
 html:not(.no-js) body:not(.is-ready) .globe-stage {
   animation-play-state: paused;
@@ -2492,7 +2442,7 @@ body.is-loading .cursor-dot, body.is-loading .cursor-ring { opacity: 0 !importan
   box-shadow: 0 0 24px -8px rgba(249,115,22,0.75);
 }
 .stack-count {
-  font-family: var(--font-mono);
+  font-family: var(--font-micro);
   font-size: 10px;
   letter-spacing: 0.1em;
   color: var(--whisper);
@@ -2733,10 +2683,8 @@ html:not(.no-js) .globe-stage {
 
 /* the hero's entrance keyframes are switched off once they have played, so
    the language swap can own opacity/transform on the same elements */
-body.hero-settled .hero-badge,
 body.hero-settled .hero-title,
 body.hero-settled .hero-desc,
-body.hero-settled .hero-avail,
 body.hero-settled .hero-ctas { animation: none; }
 
 /* ── LOADER — letter-level entrance, softer exit ────────────── */
@@ -2760,6 +2708,99 @@ body.hero-settled .hero-ctas { animation: none; }
   .proc-content p { opacity: 1; filter: none; transform: none; }
   .tl-item { opacity: 1; transform: none; filter: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   MICRO TYPE
+   Every label, caption, tag and meta line in one place, so the small
+   text is a system rather than twenty separate decisions.
+
+   Three rules hold it together:
+   · nothing below 11px, and nothing at weight 400 — at these sizes
+     Geist's regular goes thin and silvery on a near-black background;
+   · tracking is what makes a label read as a label, so uppercase runs
+     keep 0.1–0.16em and sentence-case runs stay near 0.02em;
+   · colour steps are muted → faint → whisper, in that order of
+     importance. Nothing informational sits on whisper.
+═══════════════════════════════════════════════════════════════ */
+.section-label,
+.cert-label,
+.stack-group h4,
+.exp-rail-label,
+.loader-sub,
+.loader-meta,
+.stat-label,
+.t-stat-label,
+.tl-period,
+.tl-company,
+.scroll-indicator {
+  font-weight: 600;
+}
+.tag, .level, .chip-num, .chip-tags, .cert-tag, .t-rel, .t-title,
+.photo-caption, .geo-proj-meta, .geo-card-cta, .ch-text span,
+.stack-count, .exp-year, .proc-num, .proc-step::before,
+.footer-inner, .lang-btn, .mini-label, .loader-count {
+  font-weight: 500;
+}
+
+/* eyebrow labels — the loudest of the small text */
+.section-label   { font-size: 11.5px; letter-spacing: 0.16em; }
+.cert-label      { font-size: 11.5px; letter-spacing: 0.16em; }
+.stack-group h4  { font-size: 11.5px; letter-spacing: 0.14em; }
+.exp-rail-label  { font-size: 11px;   letter-spacing: 0.16em; color: var(--faint); }
+.mini-label      { font-size: 11.5px; letter-spacing: 0.16em; }
+
+/* meta lines under or beside content */
+.stat-label      { font-size: 11.5px; letter-spacing: 0.11em; color: var(--muted); }
+.t-stat-label    { font-size: 11.5px; letter-spacing: 0.11em; color: var(--muted); }
+.t-stat-accent .t-stat-label { color: rgba(242,240,237,0.78); }
+.tl-period       { font-size: 12px;   letter-spacing: 0.09em; color: var(--muted); }
+.tl-company      { font-size: 12px;   letter-spacing: 0.07em; }
+.photo-caption   { font-size: 12.5px; letter-spacing: 0.01em; color: var(--faint); }
+.cert-tag        { font-size: 11px;   letter-spacing: 0.05em; color: var(--faint); }
+.t-rel           { font-size: 11.5px; letter-spacing: 0.01em; color: var(--faint); }
+.t-title         { font-size: 13px;   color: var(--muted); }
+.exp-year        { font-size: 11.5px; letter-spacing: 0.04em; }
+.proc-num,
+.proc-step::before { font-size: 12px; letter-spacing: 0.14em; }
+.stack-count     { font-size: 11px;   letter-spacing: 0.08em; color: var(--faint); }
+
+/* tags and chips */
+.tag        { font-size: 11.5px; letter-spacing: 0.02em; }
+.level      { font-size: 10.5px; letter-spacing: 0.07em; font-weight: 600; }
+.chip-num   { font-size: 11px;   letter-spacing: 0.09em; }
+.chip-name  { font-size: 13.5px; font-weight: 500; }
+.chip-tags  { font-size: 11.5px; letter-spacing: 0.01em; color: var(--faint); }
+
+/* hero furniture and overlays */
+.loader-sub     { font-size: 11px;   letter-spacing: 0.26em; color: var(--muted); }
+.loader-meta    { font-size: 11px;   letter-spacing: 0.16em; color: var(--faint); }
+.loader-count   { color: var(--text); font-variant-numeric: tabular-nums; }
+.loader-count .pct { color: var(--faint); }
+.scroll-indicator { font-size: 10.5px; letter-spacing: 0.2em; color: var(--faint); }
+.geo-proj-meta  { font-size: 11px; letter-spacing: 0.01em; }
+.geo-card-cta   { font-size: 11px; letter-spacing: 0.09em; }
+.ch-text span   { font-size: 11px; letter-spacing: 0.01em; color: var(--faint); }
+.lang-btn       { font-size: 11.5px; letter-spacing: 0.04em; }
+
+/* numerals that change on screen must not reflow their own row */
+.stat-num, .t-stat-num, .loader-count { font-variant-numeric: tabular-nums; }
+
+/* ── body copy — a hair larger where it was set tight ───────── */
+.card-body p  { font-size: 15px; line-height: 1.72; }
+.t-text       { font-size: 15px; line-height: 1.78; }
+.stack-item   { font-size: 14.5px; }
+.cert-name    { font-size: 14px; }
+.geo-proj-title { font-size: 13.5px; }
+
+/* ── FOOTER — was barely visible at 11px/0.46 ───────────────── */
+.footer-inner {
+  padding-top: 24px;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.footer-location { color: var(--faint); }
 
 /* ── PRINT ──────────────────────────────────────────────────── */
 @media print {
